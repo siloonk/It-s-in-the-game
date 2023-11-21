@@ -12,7 +12,7 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void init() {
-        // rolf eokjjoaiulefuidsgjfadsjsadfhkfkdssdfkhadhadsfkadsfhjhuadskljfdjlfadsjklljkadsf
+        // rolf eokjjoaiulefuidsgjfadsjsadfhkfkdskljfdjlfadsjklljkadsf
     }
 
     @Override
