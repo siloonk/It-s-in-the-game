@@ -19,29 +19,30 @@ public class BaseScene extends Scene {
     }
     int x = SaxionApp.getWidth()/2;
     int y = SaxionApp.getHeight()/2;
-    int radiusBall = 20;
+    int radiusBall = 50;
+    int speed = 5;
     @Override
     public void update(boolean[] keysPressed) {
         SaxionApp.drawCircle(x, y, radiusBall);
         if (keysPressed[KeyEvent.VK_W]) {
-            y -= 4;
+            y -= speed;
         } else if (keysPressed[KeyEvent.VK_S]) {
-            y += 4;
+            y += speed;
         }
         if (keysPressed[KeyEvent.VK_A]) {
-            x -= 4;
+            x -= speed;
         } else if (keysPressed[KeyEvent.VK_D]) {
-            x += 4;
+            x += speed;
         }
         if (x + radiusBall> SaxionApp.getWidth()) {
-            x -= 4;
+            x -= speed;
         } else if (x < +radiusBall) {
-            x += 4;
+            x += speed;
         }
         if (y + radiusBall > SaxionApp.getHeight()) {
-            y -= 4;
+            y -= speed;
         } else if (y < +radiusBall) {
-            y += 4;
+            y += speed;
         }
     }
 
