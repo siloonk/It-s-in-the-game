@@ -1,4 +1,4 @@
-package rolfie;
+package datajungle;
 
 import nl.saxion.app.SaxionApp;
 
@@ -6,10 +6,8 @@ import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import rolfie.scenes.BaseScene;
-import rolfie.scenes.Scene;
-
-import java.awt.event.KeyEvent;
+import datajungle.scenes.BaseScene;
+import datajungle.scenes.Scene;
 
 public class BasicGame implements GameLoop {
 

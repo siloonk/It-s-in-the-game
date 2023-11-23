@@ -1,4 +1,4 @@
-package rolfie;
+package datajungle;
 
 import nl.saxion.app.SaxionApp;
 

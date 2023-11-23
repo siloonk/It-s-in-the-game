@@ -1,4 +1,4 @@
-package rolfie.scenes;
+package datajungle.scenes;
 
 public abstract class Scene {
 

@@ -1,7 +1,7 @@
-package rolfie.scenes;
+package datajungle.scenes;
 
 import nl.saxion.app.SaxionApp;
-import rolfie.GameObject;
+import datajungle.GameObject;
 
 import java.awt.event.KeyEvent;
 
@@ -23,6 +23,7 @@ public class BaseScene extends Scene {
     int speed = 5;
     @Override
     public void update(boolean[] keysPressed) {
+        go.update();
         SaxionApp.drawCircle(x, y, radiusBall);
         if (keysPressed[KeyEvent.VK_W]) {
             y -= speed;
