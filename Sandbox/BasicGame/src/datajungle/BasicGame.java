@@ -11,8 +11,10 @@ import datajungle.scenes.Scene;
 
 public class BasicGame implements GameLoop {
 
-
+    // Een lijst van alle keys die op dit moment ingedrukt zijn
     boolean[] keysPressed = new boolean[300];
+
+    // De huidige scene die geselecteerd is.
     Scene currentScene;
 
 
@@ -23,21 +25,26 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void init() {
+        // Zet de huidige scene naar een instance van BaseScene
         currentScene = new BaseScene();
+        // Initialiseer de scene
         currentScene.init();
     }
 
     @Override
     public void loop() {
+        // Clear de screen
         SaxionApp.clear();
+        // Update de huidige scene
         currentScene.update(keysPressed);
     }
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.isKeyPressed()) {
+        // Check for keyboard input
+        if (keyboardEvent.isKeyPressed()) { // Key wordt ingedrukt, dus voeg toe aan de lijst
             keysPressed[keyboardEvent.getKeyCode()] = true;
-        } else {
+        } else { // Key is los gelaten dus zet keysPressed[keyboardEvent.getKeyCode()] naar false
             keysPressed[keyboardEvent.getKeyCode()] = false;
         }
     }
