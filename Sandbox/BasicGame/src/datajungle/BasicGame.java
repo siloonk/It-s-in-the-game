@@ -12,7 +12,7 @@ import datajungle.scenes.Scene;
 public class BasicGame implements GameLoop {
 
     // Een lijst van alle keys die op dit moment ingedrukt zijn
-    boolean[] keysPressed = new boolean[300];
+    public static boolean[] keysPressed = new boolean[300];
 
     // De huidige scene die geselecteerd is.
     Scene currentScene;
