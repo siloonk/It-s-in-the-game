@@ -3,7 +3,6 @@ package datajungle;
 import nl.saxion.app.SaxionApp;
 
 
-import nl.saxion.app.SaxionAppSettings;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
@@ -11,8 +10,6 @@ import datajungle.scenes.BaseScene;
 import datajungle.scenes.Scene;
 
 public class BasicGame implements GameLoop {
-
-
     // Een lijst van alle keys die op dit moment ingedrukt zijn
     public static boolean[] keysPressed = new boolean[300];
 

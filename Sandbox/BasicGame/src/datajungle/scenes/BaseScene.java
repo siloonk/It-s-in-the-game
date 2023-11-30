@@ -22,10 +22,10 @@ public class BaseScene extends Scene {
         player = new Player();
     }
 
-
     @Override
     public void update(boolean[] keysPressed) {
         SaxionApp.drawImage("./assets/images/gameBackground.png", 0, 0);
+
         player.update();
 
     }
