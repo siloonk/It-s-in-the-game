@@ -1,5 +1,6 @@
 package datajungle;
 
+import datajungle.scenes.MainMenuScene;
 import nl.saxion.app.SaxionApp;
 
 
@@ -35,6 +36,7 @@ public class BasicGame implements GameLoop {
         // Clear de screen
         SaxionApp.clear();
         // Update de huidige scene
+
         currentScene.update(keysPressed);
     }
 

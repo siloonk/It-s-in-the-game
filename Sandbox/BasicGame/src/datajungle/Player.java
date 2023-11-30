@@ -15,6 +15,7 @@ public class Player {
     CollisionBox collisionBox = new CollisionBox(x, y,44, 96);
     int speed = 2;
     int jumpHeight = 70;
+    int currentJumped = 70;
     Animation walkAnimation;
     boolean isGrounded = true;
     boolean isJumping = false;
@@ -25,7 +26,8 @@ public class Player {
 
 
         Animation.Builder animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSwitchDelay(100);
+        animBuilder.setAnimationSwitchDelay(10);
+        animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(1), sheet.getImage(2));
         walkAnimation = animBuilder.build();
     }
 
@@ -45,9 +47,14 @@ public class Player {
         if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded) {
             isJumping = true;
             isGrounded = false;
+        }
 
-
-
+        if (isJumping && currentJumped > 0) {
+            this.y -= 4;
+            currentJumped -= 4;
+        } else {
+            currentJumped = jumpHeight;
+            isJumping = false;
         }
 
 
@@ -60,7 +67,8 @@ public class Player {
     }
 
     private void draw() {
-        Image img = sheet.getImage(0);
+        walkAnimation.update();
+        Image img = walkAnimation.currentFrame;
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);
@@ -69,6 +77,5 @@ public class Player {
     public void update() {
         draw();
         move();
-        //animate();
     }
 }

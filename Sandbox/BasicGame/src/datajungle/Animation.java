@@ -1,22 +1,34 @@
 package datajungle;
 
-import java.awt.image.BufferedImage;
+import nl.saxion.app.canvas.drawable.Image;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Animation {
 
-    ArrayList<BufferedImage> animationSprites;
+    ArrayList<Image> animationSprites = new ArrayList<>();
 
     float animationSwitchDelay;
-    BufferedImage currentFrame;
-    long lastTime = System.nanoTime();
+    Image currentFrame;
+    long lastTime = System.currentTimeMillis();
 
 
 
     public void update() {
-        if (lastTime + animationSwitchDelay > System.nanoTime()) {
-            currentFrame = animationSprites.get(animationSprites.indexOf(currentFrame) + 1);
+        if (currentFrame == null) {
+            currentFrame = animationSprites.get(0);
+        }
+        System.out.println(System.currentTimeMillis());
+        System.out.println(lastTime + animationSwitchDelay);
+        if (lastTime + animationSwitchDelay < System.currentTimeMillis()) {
+            if (animationSprites.indexOf(currentFrame) == animationSprites.size() - 1) {
+                currentFrame = animationSprites.get(0);
+            } else {
+                currentFrame = animationSprites.get(animationSprites.indexOf(currentFrame) + 1);
+            }
+
+            lastTime = System.currentTimeMillis();
         }
     }
 
@@ -29,8 +41,8 @@ public class Animation {
             animation.animationSwitchDelay = animationSwitchDelay;
         }
 
-        public void setAnimationSprites(BufferedImage ...images) {
-            animation.animationSprites = (ArrayList<BufferedImage>) Arrays.stream(images).toList();
+        public void setAnimationSprites(Image ...images) {
+            animation.animationSprites.addAll(Arrays.asList(images));
         }
 
         public Animation build() {

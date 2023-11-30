@@ -28,8 +28,9 @@ public class Spritesheet {
         int w = spritesheet.getWidth();
         int h = spritesheet.getHeight();
 
-        for (x = 0; x + width + 2 < w; x += (width + 2)) {;
-            sprites.add(spritesheet.createSubImage("character", x + "", x, y, x + width, height));
+        for (x = 0; x < 176; x += width) {
+            sprites.add(spritesheet.createSubImage("character", x + "Character", x, y, width - 2, height));
+            System.out.println("X: " + x + " Width: " + x + width);
         }
 
 
