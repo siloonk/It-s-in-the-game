@@ -9,9 +9,9 @@ public class Animation {
 
     ArrayList<Image> animationSprites = new ArrayList<>();
 
-    float animationSwitchDelay;
+    long animationSwitchDelay;
     Image currentFrame;
-    long lastTime = System.currentTimeMillis();
+    long lastTime = 0;
 
 
 
@@ -19,8 +19,7 @@ public class Animation {
         if (currentFrame == null) {
             currentFrame = animationSprites.get(0);
         }
-        System.out.println(System.currentTimeMillis());
-        System.out.println(lastTime + animationSwitchDelay);
+
         if (lastTime + animationSwitchDelay < System.currentTimeMillis()) {
             if (animationSprites.indexOf(currentFrame) == animationSprites.size() - 1) {
                 currentFrame = animationSprites.get(0);

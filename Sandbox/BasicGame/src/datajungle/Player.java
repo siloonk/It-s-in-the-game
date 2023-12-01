@@ -26,7 +26,7 @@ public class Player {
 
 
         Animation.Builder animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSwitchDelay(10);
+        animBuilder.setAnimationSwitchDelay(300);
         animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(1), sheet.getImage(2));
         walkAnimation = animBuilder.build();
     }
@@ -69,6 +69,8 @@ public class Player {
     private void draw() {
         walkAnimation.update();
         Image img = walkAnimation.currentFrame;
+
+
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);
