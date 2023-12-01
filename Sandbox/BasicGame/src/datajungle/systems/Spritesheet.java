@@ -29,7 +29,7 @@ public class Spritesheet {
         int h = spritesheet.getHeight();
 
         for (x = 0; x < 256; x += width) {
-            sprites.add(spritesheet.createSubImage("character", x + "Character", Math.max(x - whiteSpace, 0), y, width - 1, height));
+            sprites.add(spritesheet.createSubImage("character", x + "Character", Math.max(x - whiteSpace, 0), y, width, height));
         }
 
 

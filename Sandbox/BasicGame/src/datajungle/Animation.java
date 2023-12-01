@@ -10,7 +10,7 @@ public class Animation {
     ArrayList<Image> animationSprites = new ArrayList<>();
 
     long animationSwitchDelay;
-    Image currentFrame;
+    public Image currentFrame;
     long lastTime = 0;
 
 
@@ -32,7 +32,7 @@ public class Animation {
     }
 
 
-    static class Builder {
+    public static class Builder {
 
         Animation animation = new Animation();
 

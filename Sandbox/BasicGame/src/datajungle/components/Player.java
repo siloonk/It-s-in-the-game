@@ -1,5 +1,7 @@
-package datajungle;
+package datajungle.components;
 
+import datajungle.*;
+import datajungle.scenes.BaseScene;
 import datajungle.systems.Spritesheet;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
@@ -14,17 +16,15 @@ public class Player {
 
     CollisionBox collisionBox = new CollisionBox(x, y,44, 96);
     int speed = 2;
-    int jumpHeight = 70;
-    int currentJumped = 70;
+    int jumpForce = -15;
+    int zVelocity = 0;
     Animation walkAnimation;
-    boolean isGrounded = true;
+    boolean isGrounded = false;
     boolean isJumping = false;
 
     Spritesheet sheet = new Spritesheet();
 
     public Player() {
-
-
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
         animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(1), sheet.getImage(2));
@@ -36,34 +36,35 @@ public class Player {
 
         boolean[] keysPressed = BasicGame.keysPressed;
 
-        if (keysPressed[KeyEvent.VK_D]) {
+        boolean canMove = !collisionBox.isColliding(CollisionManager.getColliders());
+
+        if (keysPressed[KeyEvent.VK_D] && canMove) {
             this.x += this.speed;
         }
 
-        if (keysPressed[KeyEvent.VK_A]) {
+        if (keysPressed[KeyEvent.VK_A] && canMove) {
             this.x -= this.speed;
         }
 
         if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded) {
             isJumping = true;
-            isGrounded = false;
+            this.zVelocity = jumpForce;
         }
 
-        if (isJumping && currentJumped > 0) {
-            this.y -= 4;
-            currentJumped -= 4;
+        if (canMove) this.y += zVelocity;
+
+
+        isGrounded = collisionBox.isOnGround(CollisionManager.getColliders());
+
+
+        if (!isGrounded) {
+            zVelocity += Settings.GRAVITY;
         } else {
-            currentJumped = jumpHeight;
+            zVelocity = 0;
             isJumping = false;
         }
 
-
-        if ((this.y + collisionBox.height - Settings.GRAVITY < Settings.JUNGLE_FLOOR_LEVEL) && !isJumping) {
-            isGrounded = false;
-            this.y += Settings.GRAVITY;
-        } else if (!isJumping){
-            isGrounded = true;
-        }
+        collisionBox.updateCoords(x, y);
     }
 
     private void draw() {
