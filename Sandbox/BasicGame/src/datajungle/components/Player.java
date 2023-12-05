@@ -22,15 +22,14 @@ public class Player {
     boolean isGrounded = false;
     boolean isJumping = false;
 
-    Spritesheet sheet = new Spritesheet();
+    Spritesheet sheet = new Spritesheet("./assets/images/sheets/characters.png", 256, 96, 44, 96);
 
     public Player() {
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
-        animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(1), sheet.getImage(2));
+        animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(1), sheet.getImage(0), sheet.getImage(2));
         walkAnimation = animBuilder.build();
     }
-
 
     private void move() {
 
@@ -53,9 +52,7 @@ public class Player {
 
         if (canMove) this.y += zVelocity;
 
-
         isGrounded = collisionBox.isOnGround(CollisionManager.getColliders());
-
 
         if (!isGrounded) {
             zVelocity += Settings.GRAVITY;

@@ -8,30 +8,29 @@ import java.util.ArrayList;
 
 public class Spritesheet {
 
-    Image spritesheet = new Image("./assets/images/sheets/characters.png", 0, 0);
+    Image spritesheet;
 
     ArrayList<Image> sprites = new ArrayList<>();
+    String path;
 
-    public Spritesheet() {
-        // 44, 96
+    public Spritesheet(String path, int totalWidth, int totalheight, int spriteWidth, int spriteHeight) {
+        Image spritesheet = new Image(path, 0, 0);
 
-        spritesheet.setFilename("character");
-        splitSheet(44, 96, 2);
+        spritesheet.setFilename(path);
+        splitSheet(totalWidth, totalheight, spriteWidth, spriteHeight, 2);
 
     }
 
 
-    public void splitSheet(int width, int height, int whiteSpace) {
+    public void splitSheet(int totalWidth, int totalHeight, int spriteWidth, int spriteHeight, int whiteSpace) {
         int x = 0;
         int y = 0;
 
-        int w = spritesheet.getWidth();
-        int h = spritesheet.getHeight();
-
-        for (x = 0; x < 256; x += width) {
-            sprites.add(spritesheet.createSubImage("character", x + "Character", Math.max(x - whiteSpace, 0), y, width, height));
+        for (x = 0; x < totalWidth; x += spriteWidth) {
+            for (y = 0; y < totalHeight; y += spriteHeight) {
+                sprites.add(spritesheet.createSubImage(path, x + path, Math.max(x - whiteSpace, 0), y, spriteWidth, spriteHeight));
+            }
         }
-
 
     }
 

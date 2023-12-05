@@ -13,6 +13,8 @@ public class Animation {
     public Image currentFrame;
     long lastTime = 0;
 
+    int currentFrameIndex = 0;
+
 
 
     public void update() {
@@ -21,10 +23,12 @@ public class Animation {
         }
 
         if (lastTime + animationSwitchDelay < System.currentTimeMillis()) {
-            if (animationSprites.indexOf(currentFrame) == animationSprites.size() - 1) {
+            if (currentFrameIndex == animationSprites.size() - 1) {
                 currentFrame = animationSprites.get(0);
+                currentFrameIndex = 0;
             } else {
-                currentFrame = animationSprites.get(animationSprites.indexOf(currentFrame) + 1);
+                currentFrameIndex++;
+                currentFrame = animationSprites.get(currentFrameIndex);
             }
 
             lastTime = System.currentTimeMillis();

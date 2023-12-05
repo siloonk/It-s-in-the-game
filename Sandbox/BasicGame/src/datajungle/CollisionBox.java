@@ -10,8 +10,8 @@ public class CollisionBox {
     int x;
     int y;
     int width;
-    public int height;
-    public boolean isGround;
+    int height;
+    boolean isGround;
 
 
     public CollisionBox(int x, int y, int width, int height) {
