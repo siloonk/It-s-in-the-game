@@ -14,8 +14,9 @@ public class Spritesheet {
     String path;
 
     public Spritesheet(String path, int totalWidth, int totalheight, int spriteWidth, int spriteHeight) {
-        Image spritesheet = new Image(path, 0, 0);
+        spritesheet = new Image(path, 0, 0);
 
+        this.path = path;
         spritesheet.setFilename(path);
         splitSheet(totalWidth, totalheight, spriteWidth, spriteHeight, 2);
 
