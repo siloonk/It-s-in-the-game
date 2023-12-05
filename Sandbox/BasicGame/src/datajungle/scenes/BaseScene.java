@@ -23,7 +23,7 @@ public class BaseScene extends Scene {
     @Override
     public void init() {
         player = new Player();
-        pc = new PC(SaxionApp.getWidth() / 2, 550);
+        pc = new PC(SaxionApp.getWidth() / 2, 520);
     }
 
     @Override
