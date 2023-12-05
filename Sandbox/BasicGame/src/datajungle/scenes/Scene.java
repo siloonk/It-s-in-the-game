@@ -33,6 +33,10 @@ public abstract class Scene {
         this.isRunning = running;
     }
 
+    public String getName() {
+        return name;
+    }
+
 
 
 

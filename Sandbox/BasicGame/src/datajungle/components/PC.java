@@ -1,56 +1,54 @@
 package datajungle.components;
 
+import datajungle.BasicGame;
+import datajungle.Collider;
+import datajungle.scenes.MainMenuScene;
 import nl.saxion.app.SaxionApp;
-import nl.saxion.app.canvas.drawable.Image;
+
+import java.awt.*;
 
 public class PC {
 
-    int x = SaxionApp.getWidth() /2 ;
-    Image image;
+    //Collider collider;
 
-    int dataTransferRate;
     int dataTransfered = 0;
-    int dataToTransfer;
+    int dataToTransfer = 500;
+    int dataTransferRate = 1; // How much data gets sent every .1 seconds
 
-    long lastDataTransfered = 0;
-    int health;
+    long lastDataTransfer = System.currentTimeMillis();
 
+    int health = 50;
 
+    int x, y;
 
-    public PC(Image image, int dataTransferRate, int dataToTransfer, int health) {
-        this.image = image;
-        this.dataTransferRate = dataTransferRate;
-        this.dataToTransfer = dataToTransfer;
-        this.health = health;
+    public PC(int x, int y) {
 
-        this.image.setX(x);
-        this.image.setY(600);
+        //collider = new Collider(x, y, 50, 50);
+        this.x = x;
+        this.y = y;
+
     }
-
 
     public void damage(int damage) {
-        this.health -= damage;
-
+        this.health -= health;
         if (this.health <= 0) {
-            // Gameover
+            BasicGame.changeScene(new MainMenuScene());
         }
     }
 
-    public void draw() {
-
-    }
 
     public void update() {
-        // Data ready to transfer
-        if (lastDataTransfered + 100 < System.currentTimeMillis()) {
-            lastDataTransfered = System.currentTimeMillis();
-            this.dataTransfered += dataTransferRate;
+        drawBox();
 
-            // Check if pc has transfered all it's data
-            if (this.dataTransfered >= dataToTransfer) {
-                // progress level
-            }
-        }
+        if (lastDataTransfer + 100 > System.currentTimeMillis())  return;
+
+        lastDataTransfer = System.currentTimeMillis();
+        dataTransfered += dataTransferRate;
     }
+
+    private void drawBox() {
+        SaxionApp.drawRectangle(this.x, this.y, 50, 50);
+    }
+
 
 }

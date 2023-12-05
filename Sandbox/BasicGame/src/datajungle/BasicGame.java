@@ -17,10 +17,10 @@ import java.lang.reflect.Field;
 
 public class BasicGame implements GameLoop {
     // Een lijst van alle keys die op dit moment ingedrukt zijn
-    public static boolean[] keysPressed = new boolean[300];
+    public static boolean[] keysPressed = new boolean[525];
 
     // De huidige scene die geselecteerd is.
-    Scene currentScene;
+    private static Scene currentScene;
 
 
     public static void main(String[] args) {
@@ -60,6 +60,10 @@ public class BasicGame implements GameLoop {
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
 
+    }
+
+    public static void changeScene(Scene scene) {
+        currentScene = scene;
     }
 
 

@@ -1,4 +1,4 @@
-package datajungle;
+package datajungle.systems;
 
 import nl.saxion.app.canvas.drawable.Image;
 
@@ -12,7 +12,6 @@ public class Animation {
     long animationSwitchDelay;
     public Image currentFrame;
     long lastTime = 0;
-
     int currentFrameIndex = 0;
 
 
