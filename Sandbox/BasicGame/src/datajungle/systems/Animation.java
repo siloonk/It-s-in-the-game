@@ -15,7 +15,6 @@ public class Animation {
     int currentFrameIndex = 0;
 
 
-
     public void update() {
         if (currentFrame == null) {
             currentFrame = animationSprites.get(0);

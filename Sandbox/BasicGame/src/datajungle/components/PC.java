@@ -1,9 +1,7 @@
 package datajungle.components;
 
 import datajungle.BasicGame;
-import datajungle.Collider;
 import datajungle.scenes.MainMenuScene;
-import datajungle.systems.Animation;
 import datajungle.systems.Spritesheet;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
@@ -16,12 +14,10 @@ public class PC {
     Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 96, 64, 32, 64, 3);
 
     int dataTransfered = 0;
-    int dataToTransfer = 500;
+    int dataToTransfer = 10;
     int dataTransferRate = 1; // How much data gets sent every .1 seconds
 
     long lastDataTransfer = System.currentTimeMillis();
-    Animation dataTransferAnimation;
-    Animation currentAnimation;
 
     int health = 50;
 
@@ -32,13 +28,6 @@ public class PC {
         //collider = new Collider(x, y, 50, 50);
         this.x = x;
         this.y = y;
-
-        Animation.Builder animBuiler = new Animation.Builder();
-        animBuiler.setAnimationSwitchDelay(1000);
-        animBuiler.setAnimationSprites(sheet.getImage(1), sheet.getImage(0));
-        dataTransferAnimation = animBuiler.build();
-
-        currentAnimation = dataTransferAnimation;
     }
 
     public void damage(int damage) {
@@ -50,7 +39,6 @@ public class PC {
 
 
     public void update() {
-        currentAnimation.update();
         draw();
 
         if (lastDataTransfer + 1000 > System.currentTimeMillis())  return;
@@ -58,17 +46,28 @@ public class PC {
         lastDataTransfer = System.currentTimeMillis();
         dataTransfered += dataTransferRate;
 
-        System.out.println(dataTransfered);
+
         if (dataTransfered >= dataToTransfer) {
             System.out.println("You have won!");
         }
     }
 
     private void draw() {
-        Image img = currentAnimation.currentFrame;
+        int barX = this.x + 4;
+        int barY = this.y + sheet.getImage(1).getHeight() / 2 - 13;
+        int width = sheet.getImage(1).getWidth() - 8;
+        int height = 5;
+
+        SaxionApp.setBorderSize(0);
+
+        Image img = sheet.getImage(1);
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);
+        SaxionApp.setFill(Color.GRAY);
+        SaxionApp.drawRectangle(barX, barY, width, height);
+        SaxionApp.setFill(Color.YELLOW);
+        SaxionApp.drawRectangle(barX, barY, Math.min((int)(width * (dataTransfered / (float)dataToTransfer)), width), height);
     }
 
 

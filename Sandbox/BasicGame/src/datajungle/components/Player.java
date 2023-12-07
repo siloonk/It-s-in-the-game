@@ -16,7 +16,7 @@ public class Player {
 
     Collider collider = new Collider(x, y, 44, 96);
     int speed = 2;
-    int jumpForce = -8;
+    int jumpForce = -11;
     int zVelocity = 0;
     Animation walkAnimationLeft;
     Animation walkAnimationRight;
@@ -42,14 +42,15 @@ public class Player {
         walkAnimationRight = animBuilder.build();
 
         animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSwitchDelay(300);
+        animBuilder.setAnimationSwitchDelay(700);
         animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(1));
         idleAnimationleft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSwitchDelay(300);
+        animBuilder.setAnimationSwitchDelay(700);
         animBuilder.setAnimationSprites(sheet.getImage(5), sheet.getImage(6));
         idleAnimationRight = animBuilder.build();
+
 
         currentAnimation = idleAnimationleft;
     }
