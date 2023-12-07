@@ -34,8 +34,6 @@ public class BasicGame implements GameLoop {
         currentScene = new BaseScene();
         // Initialiseer de scene
         currentScene.init();
-
-
     }
 
     @Override

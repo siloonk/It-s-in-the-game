@@ -83,7 +83,7 @@ public class Player {
         if (!hasMoved && direction == 1)
             currentAnimation = idleAnimationRight;
 
-        isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, 0);
+        isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, -5);
 
         if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded) {
             isJumping = true;

@@ -13,9 +13,9 @@ public class BaseScene extends Scene {
         super("base_scene", true);
     }
 
-    //public CollisionBox floorCollider = new CollisionBox(0, 570, SaxionApp.getWidth(), SaxionApp.getHeight() - 590, true);
     public Collider floorCollider = new Collider(0, 590, SaxionApp.getWidth(), SaxionApp.getHeight() - 700);
-
+    public Collider platformLeftCollider = new Collider(0, 250, 343, 70);
+    public Collider platformRightCollider = new Collider(SaxionApp.getWidth() - 343, 250, 343, 70);
 
     Player player;
     PC pc;
@@ -23,7 +23,7 @@ public class BaseScene extends Scene {
     @Override
     public void init() {
         player = new Player();
-        pc = new PC(SaxionApp.getWidth() / 2, 520);
+        pc = new PC(SaxionApp.getWidth() / 2, 467);
     }
 
     @Override
