@@ -28,7 +28,7 @@ public class Player {
 
     Animation currentAnimation;
 
-    Spritesheet sheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96);
+    Spritesheet sheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96, 0);
 
     public Player() {
         Animation.Builder animBuilder = new Animation.Builder();
@@ -83,7 +83,7 @@ public class Player {
         if (!hasMoved && direction == 1)
             currentAnimation = idleAnimationRight;
 
-        isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, 0);
+        isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, -5);
 
         if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded) {
             isJumping = true;

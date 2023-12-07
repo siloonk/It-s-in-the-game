@@ -11,10 +11,10 @@ import java.awt.*;
 public class PC {
 
     //Collider collider;
-    Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 96, 64, 32, 64, 3);
+    Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 63, 64, 2);
 
     int dataTransfered = 0;
-    int dataToTransfer = 10;
+    int dataToTransfer = 90;
     int dataTransferRate = 1; // How much data gets sent every .1 seconds
 
     long lastDataTransfer = System.currentTimeMillis();
@@ -53,15 +53,15 @@ public class PC {
     }
 
     private void draw() {
-        int barX = this.x + 4;
+        int barX = this.x + 9 - sheet.getImage(1).getWidth() / 2;
         int barY = this.y + sheet.getImage(1).getHeight() / 2 - 13;
-        int width = sheet.getImage(1).getWidth() - 8;
-        int height = 5;
+        int width = sheet.getImage(1).getWidth() - 20;
+        int height = 9;
 
         SaxionApp.setBorderSize(0);
 
         Image img = sheet.getImage(1);
-        img.setX(x);
+        img.setX(x - sheet.getImage(1).getWidth() / 2);
         img.setY(y);
         SaxionApp.add(img);
         SaxionApp.setFill(Color.GRAY);
