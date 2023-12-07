@@ -3,6 +3,7 @@ package datajungle.scenes;
 import datajungle.Collider;
 import datajungle.components.PC;
 import datajungle.components.Player;
+import datajungle.components.Enemy;
 import nl.saxion.app.SaxionApp;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class BaseScene extends Scene {
 
     Player player;
     PC pc;
+    Enemy enemy;
 
     @Override
     public void init() {
         player = new Player();
         pc = new PC(SaxionApp.getWidth() / 2, 467);
+        enemy = new Enemy();
     }
 
     @Override
@@ -31,6 +34,7 @@ public class BaseScene extends Scene {
         SaxionApp.drawImage("./assets/images/gameBackground.png", 0, 0);
         pc.update();
         player.update();
+        enemy.update();
 
     }
 }
