@@ -11,7 +11,7 @@ import java.awt.*;
 public class PC {
 
     //Collider collider;
-    Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 96, 64, 32, 64, 3);
+    Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 96, 64, 32, 64, 1);
 
     int dataTransfered = 0;
     int dataToTransfer = 10;

@@ -29,7 +29,7 @@ public class Spritesheet {
 
         this.path = path;
         spritesheet.setFilename(path);
-        splitSheet(totalWidth, totalheight, spriteWidth, spriteHeight, 2);
+        splitSheet(totalWidth, totalheight, spriteWidth, spriteHeight, 0);
 
     }
 

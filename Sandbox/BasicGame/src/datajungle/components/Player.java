@@ -28,7 +28,7 @@ public class Player {
 
     Animation currentAnimation;
 
-    Spritesheet sheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96);
+    Spritesheet sheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96, 0);
 
     public Player() {
         Animation.Builder animBuilder = new Animation.Builder();
