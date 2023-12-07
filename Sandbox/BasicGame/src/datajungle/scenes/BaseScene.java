@@ -9,6 +9,7 @@ import nl.saxion.app.SaxionApp;
 import java.util.ArrayList;
 
 public class BaseScene extends Scene {
+    int time = 200;
 
     public BaseScene() {
         super("base_scene", true);
@@ -35,6 +36,9 @@ public class BaseScene extends Scene {
         pc.update();
         player.update();
         enemy.update();
-
+        if (time == 0) {
+            enemy = new Enemy();
+            time = 200;
+        } else {time--;}
     }
 }

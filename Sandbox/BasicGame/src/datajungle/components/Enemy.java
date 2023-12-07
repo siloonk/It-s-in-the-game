@@ -13,11 +13,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Enemy {
-
-    int x = 0;
-    int y = 540;
     int w = 64;
     int h = 32;
+
+    int x = -w;
+    int y = 540;
     Collider collider = new Collider(x, y, w, h);
     int speed = 1;
     boolean isGrounded = false;
