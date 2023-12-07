@@ -9,19 +9,20 @@ import datajungle.systems.Spritesheet;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Enemy {
 
-    int x = SaxionApp.getWidth() / 4;
-    int y = SaxionApp.getHeight() / 2;
-    int w = 40;
-    int h = 80;
+    int x = 0;
+    int y = 540;
+    int w = 64;
+    int h = 32;
     Collider collider = new Collider(x, y, w, h);
     int speed = 1;
     boolean isGrounded = false;
     int direction = -1;
-
+    // 64 bij 32 voor de enemy width and height
     private void move() {
 
         boolean[] keysPressed = BasicGame.keysPressed;
@@ -32,6 +33,8 @@ public class Enemy {
         if (canMove) {
             this.x += this.speed;
             this.direction = 1;
+        } if (x == 590 - w) {
+            this.x -= this.speed;
         }
 
         isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, 0);
@@ -40,6 +43,7 @@ public class Enemy {
     }
 
     private void draw() {
+        SaxionApp.setFill(Color.WHITE);
         SaxionApp.drawRectangle(x, y, w, h);
     }
 
