@@ -18,31 +18,23 @@ public class Enemy {
 
     int x = -w;
     int y = 540;
-    Collider collider = new Collider(x, y, w, h);
     int speed = 1;
     boolean isGrounded = false;
     int direction = -1;
     // 64 bij 32 voor de enemy width and height
     private void move() {
 
-        boolean[] keysPressed = BasicGame.keysPressed;
 
-        boolean canMove = !collider.isColliding(CollisionManager.getColliders(), direction);
-
-
-        if (canMove) {
+        if (1 == 1) {
             this.x += this.speed;
             this.direction = 1;
         } if (x == 590 - w) {
             this.x -= this.speed;
         }
-
-        isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, 0);
-
-        collider.updateCoords(x, y);
     }
 
     private void draw() {
+        SaxionApp.turnBorderOn();
         SaxionApp.setFill(Color.WHITE);
         SaxionApp.drawRectangle(x, y, w, h);
     }
