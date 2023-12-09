@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static datajungle.Settings.SOLID;
 
 public class BaseScene extends Scene {
-    int time = 200;
+    int time = 120;
 
     public BaseScene() {
         super("base_scene", true);
@@ -24,12 +24,16 @@ public class BaseScene extends Scene {
     Player player;
     PC pc;
     Enemy enemy;
+    int counter = 0;
+
+    ArrayList<Enemy> enemies = new ArrayList<>();
 
     @Override
     public void init() {
         player = new Player();
         pc = new PC(SaxionApp.getWidth() / 2, 467);
         enemy = new Enemy();
+        enemies.add(enemy);
     }
 
     @Override
@@ -37,10 +41,22 @@ public class BaseScene extends Scene {
         SaxionApp.drawImage("./assets/images/gameBackground.png", 0, 0);
         pc.update();
         player.update();
-        enemy.update();
+
+        for (Enemy enemy : enemies) {
+            enemy.update();
+        }
         if (time == 0) {
-            enemy = new Enemy();
-            time = 200;
-        } else {time--;}
+            if (counter < enemies.size()) {
+                // Reset the counter if it exceeds the size of the list
+                counter++;
+            } else {
+                // Spawn a new enemy and add it to the list
+                enemy = new Enemy();
+                enemies.add(enemy);
+            }
+            time = 120;
+        } else {
+            time--;
+        }
     }
 }
