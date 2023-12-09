@@ -12,12 +12,18 @@ import nl.saxion.app.canvas.drawable.Image;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import static datajungle.Settings.DAMAGE;
+
 public class Enemy {
     int w = 64;
     int h = 32;
 
     int x = -w;
     int y = 540;
+
+
+    Collider collider = new Collider(x, y, w, h, DAMAGE);
+
     int speed = 1;
     boolean isGrounded = false;
     int direction = -1;
