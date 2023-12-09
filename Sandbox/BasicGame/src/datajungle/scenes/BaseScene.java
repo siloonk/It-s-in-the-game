@@ -8,6 +8,8 @@ import nl.saxion.app.SaxionApp;
 
 import java.util.ArrayList;
 
+import static datajungle.Settings.SOLID;
+
 public class BaseScene extends Scene {
     int time = 200;
 
@@ -15,9 +17,9 @@ public class BaseScene extends Scene {
         super("base_scene", true);
     }
 
-    public Collider floorCollider = new Collider(0, 590, SaxionApp.getWidth(), SaxionApp.getHeight() - 700);
-    public Collider platformLeftCollider = new Collider(0, 250, 343, 70);
-    public Collider platformRightCollider = new Collider(SaxionApp.getWidth() - 343, 250, 343, 70);
+    public Collider floorCollider = new Collider(0, 590, SaxionApp.getWidth(), SaxionApp.getHeight() - 700, SOLID);
+    public Collider platformLeftCollider = new Collider(0, 250, 343, 70, SOLID);
+    public Collider platformRightCollider = new Collider(SaxionApp.getWidth() - 343, 250, 343, 70, SOLID);
 
     Player player;
     PC pc;

@@ -12,13 +12,16 @@ import nl.saxion.app.canvas.drawable.Image;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import static datajungle.Settings.DAMAGE;
+import static datajungle.Settings.SOLID;
+
 public class Enemy {
     int w = 64;
     int h = 32;
 
     int x = -w;
     int y = 540;
-    Collider collider = new Collider(x, y, w, h);
+    Collider collider = new Collider(x, y, w, h, DAMAGE);
     int speed = 1;
     boolean isGrounded = false;
     int direction = -1;
@@ -27,8 +30,7 @@ public class Enemy {
 
         boolean[] keysPressed = BasicGame.keysPressed;
 
-        boolean canMove = !collider.isColliding(CollisionManager.getColliders(), direction);
-
+        boolean canMove = true;
 
         if (canMove) {
             this.x += this.speed;
@@ -37,7 +39,7 @@ public class Enemy {
             this.x -= this.speed;
         }
 
-        isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, 0);
+        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, 0);
 
         collider.updateCoords(x, y);
     }

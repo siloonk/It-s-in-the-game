@@ -9,12 +9,15 @@ import nl.saxion.app.canvas.drawable.Image;
 
 import java.awt.event.KeyEvent;
 
+import static datajungle.Settings.DAMAGE;
+import static datajungle.Settings.SOLID;
+
 public class Player {
 
     int x = SaxionApp.getWidth() / 2;
     int y = SaxionApp.getHeight() / 2;
 
-    Collider collider = new Collider(x, y, 44, 96);
+    Collider collider = new Collider(x, y, 44, 96, DAMAGE);
     int speed = 2;
     int jumpForce = -11;
     int zVelocity = 0;
@@ -59,7 +62,7 @@ public class Player {
 
         boolean[] keysPressed = BasicGame.keysPressed;
 
-        boolean canMove = !collider.isColliding(CollisionManager.getColliders(), direction);
+        boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
 
         // Boolean for the walking animation
         boolean hasMoved = false;
@@ -83,7 +86,7 @@ public class Player {
         if (!hasMoved && direction == 1)
             currentAnimation = idleAnimationRight;
 
-        isGrounded = collider.isColliding(CollisionManager.getColliders(), 0, -5);
+        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, Settings.GRAVITY * -1);
 
         if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded) {
             isJumping = true;

@@ -8,17 +8,17 @@ import java.util.ArrayList;
 public class Collider {
 
 
-    private int x, y, width, height;
+    private int x, y, width, height, behaviour;
 
 
-
-    public Collider(int x, int y, int width, int height) {
+    public Collider(int x, int y, int width, int height, int behaviour) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.behaviour = behaviour;
 
-        CollisionManager.addCollider(this);
+        CollisionManager.addCollider(this, behaviour);
     }
 
 
@@ -47,7 +47,6 @@ public class Collider {
         this.y = y;
     }
 
-
     public boolean isColliding(Collider collider, int xOffset, int yOffset) {
         return this.x + xOffset < collider.x + collider.width && this.x + this.width > collider.x + xOffset && this.y + yOffset < collider.y + collider.height && this.y + this.height > collider.y + yOffset;
     }
@@ -57,7 +56,6 @@ public class Collider {
             if (collider == this) continue;
             if (collider.isColliding(this, xOffset, yOffset)) return true;
         }
-
         return false;
     }
 
