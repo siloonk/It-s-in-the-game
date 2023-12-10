@@ -8,6 +8,7 @@ import nl.saxion.app.SaxionApp;
 
 import java.util.ArrayList;
 
+import static datajungle.Settings.LADDER;
 import static datajungle.Settings.SOLID;
 
 public class BaseScene extends Scene {
@@ -20,6 +21,8 @@ public class BaseScene extends Scene {
     public Collider floorCollider = new Collider(0, 590, SaxionApp.getWidth(), SaxionApp.getHeight() - 700, SOLID);
     public Collider platformLeftCollider = new Collider(0, 250, 343, 70, SOLID);
     public Collider platformRightCollider = new Collider(SaxionApp.getWidth() - 343, 250, 343, 70, SOLID);
+    public Collider ropeCollider = new Collider(251, 467, 32, 406, LADDER);
+    public Collider ladderCollider = new Collider(985, 467, 45, 406, LADDER);
 
     Player player;
     PC pc;

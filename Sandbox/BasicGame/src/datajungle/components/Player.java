@@ -7,10 +7,11 @@ import datajungle.systems.Spritesheet;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
-import static datajungle.Settings.DAMAGE;
-import static datajungle.Settings.SOLID;
+import static datajungle.Settings.*;
 
 public class Player {
 
@@ -28,6 +29,8 @@ public class Player {
     boolean isGrounded = false;
     boolean isJumping = false;
     int direction = -1;
+    boolean isOnLadder = false;
+    Collider usedLadder = null;
 
     Animation currentAnimation;
 
@@ -67,33 +70,67 @@ public class Player {
         // Boolean for the walking animation
         boolean hasMoved = false;
 
-        if (keysPressed[KeyEvent.VK_D] && canMove) {
+        if (keysPressed[KeyEvent.VK_D] && canMove && !isOnLadder) {
             this.x += this.speed;
             this.direction = 1;
             currentAnimation = walkAnimationRight;
             hasMoved = true;
         }
 
-        if (keysPressed[KeyEvent.VK_A] && canMove) {
+        if (keysPressed[KeyEvent.VK_A] && canMove && !isOnLadder) {
             this.x -= this.speed;
             this.direction = -1;
             currentAnimation = walkAnimationLeft;
             hasMoved = true;
         }
 
+        Collider ladderInRange = null;
+        // Check if there are ladders in range
+        ArrayList<Collider> colliders = CollisionManager.getColliders(LADDER);
+        for (Collider c : colliders) {
+            System.out.println(collider.distance(c));
+            if (collider.distance(c) < 40) {
+                SaxionApp.setTextDrawingColor(Color.BLACK);
+                SaxionApp.drawText("Press E to use ladder!", c.getX() - 100, c.getY(), 24);
+                ladderInRange = c;
+            }
+        }
+
+        // Check if the player is on a ladder, if so move and check if they have exceeded the ladder's height
+        if (keysPressed[KeyEvent.VK_W] && isOnLadder) {
+            this.y -= 2;
+
+            if (this.y - this.collider.getHeight() < usedLadder.getY() - usedLadder.getHeight()) {
+                isOnLadder = false;
+            }
+        }
+
+        // Check if the player is in range of a ladder and if so clamp to the ladder
+        if (keysPressed[KeyEvent.VK_E] && (ladderInRange != null)) {
+            isOnLadder = true;
+            usedLadder = ladderInRange;
+        }
+
+
+        // Change idle animations
         if (!hasMoved && direction == -1)
             currentAnimation = idleAnimationleft;
         if (!hasMoved && direction == 1)
             currentAnimation = idleAnimationRight;
 
-        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, Settings.GRAVITY * -1);
 
-        if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded) {
+        // Check if the player is on the ground
+        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, zVelocity * -1);
+
+
+        // Check if the player is allowed to jump
+        if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded && !isOnLadder) {
             isJumping = true;
             this.zVelocity = jumpForce;
         }
 
-        if (!isGrounded || zVelocity < 0) this.y += zVelocity;
+        // Check if the player player should be able to move according to the zVelocity
+        if ((!isGrounded || zVelocity < 0) && !isOnLadder) this.y += zVelocity;
 
         if (!isGrounded || zVelocity < 0) {
             zVelocity += Settings.GRAVITY;

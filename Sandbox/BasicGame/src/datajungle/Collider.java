@@ -67,4 +67,8 @@ public class Collider {
         }
         return false;
     }
+
+    public float distance(Collider other) {
+        return (float) (Math.max(this.x, other.x) - Math.min(this.x, other.x));
+    }
 }

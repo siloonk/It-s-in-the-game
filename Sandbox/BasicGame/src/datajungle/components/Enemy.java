@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import static datajungle.Settings.DAMAGE;
+import static datajungle.Settings.SOLID;
 
 public class Enemy {
     int w = 64;
