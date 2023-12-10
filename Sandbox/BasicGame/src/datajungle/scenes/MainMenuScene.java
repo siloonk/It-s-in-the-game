@@ -1,6 +1,4 @@
 package datajungle.scenes;
-
-import datajungle.ui.ButtonElement;
 import datajungle.ui.GUI;
 import datajungle.ui.LabelElement;
 
