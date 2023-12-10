@@ -66,14 +66,14 @@ public class Player {
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerAttackSheet.getImage(0), playerAttackSheet.getImage(1));
-        animBuilder.setAnimationSwitchDelay(400);
+        animBuilder.setAnimationSwitchDelay(100);
         animBuilder.setOnce(true);
         attackLeft = animBuilder.build();
 
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSprites(playerMoveSheet.getImage(5), playerAttackSheet.getImage(2), playerAttackSheet.getImage(3));
-        animBuilder.setAnimationSwitchDelay(400);
+        animBuilder.setAnimationSwitchDelay(100);
         animBuilder.setOnce(true);
         attackRight = animBuilder.build();
 
