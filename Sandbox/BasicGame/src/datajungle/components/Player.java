@@ -20,43 +20,62 @@ public class Player {
 
     Collider collider = new Collider(x, y, 44, 96, DAMAGE);
     int speed = 2;
+    long attackCooldown = 300; // Cooldown is in milliseconds
+    long lastAttack = 0;
+
     int jumpForce = -11;
     int zVelocity = 0;
     Animation walkAnimationLeft;
     Animation walkAnimationRight;
     Animation idleAnimationleft;
     Animation idleAnimationRight;
+    Animation attackLeft;
+    Animation attackRight;
     boolean isGrounded = false;
     boolean isJumping = false;
     int direction = -1;
     boolean isOnLadder = false;
     Collider usedLadder = null;
+    boolean isAttacking = false;
 
     Animation currentAnimation;
 
-    Spritesheet sheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96, 0);
+    Spritesheet playerMoveSheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96, 0);
+    Spritesheet playerAttackSheet = new Spritesheet("./assets/images/sheets/player_attack.png", 114, 192, 57, 96, 13);
 
     public Player() {
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
-        animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(2), sheet.getImage(0), sheet.getImage(3));
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerMoveSheet.getImage(2), playerMoveSheet.getImage(0), playerMoveSheet.getImage(3));
         walkAnimationLeft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
-        animBuilder.setAnimationSprites(sheet.getImage(5), sheet.getImage(7), sheet.getImage(5), sheet.getImage(8));
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(5), playerMoveSheet.getImage(7), playerMoveSheet.getImage(5), playerMoveSheet.getImage(8));
         walkAnimationRight = animBuilder.build();
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(700);
-        animBuilder.setAnimationSprites(sheet.getImage(0), sheet.getImage(1));
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerMoveSheet.getImage(1));
         idleAnimationleft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(700);
-        animBuilder.setAnimationSprites(sheet.getImage(5), sheet.getImage(6));
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(5), playerMoveSheet.getImage(6));
         idleAnimationRight = animBuilder.build();
 
+        animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerAttackSheet.getImage(0), playerAttackSheet.getImage(1));
+        animBuilder.setAnimationSwitchDelay(400);
+        animBuilder.setOnce(true);
+        attackLeft = animBuilder.build();
+
+
+        animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(5), playerAttackSheet.getImage(2), playerAttackSheet.getImage(3));
+        animBuilder.setAnimationSwitchDelay(400);
+        animBuilder.setOnce(true);
+        attackRight = animBuilder.build();
 
         currentAnimation = idleAnimationleft;
     }
@@ -64,6 +83,12 @@ public class Player {
     private void move() {
 
         boolean[] keysPressed = BasicGame.keysPressed;
+        boolean mouseButtonPressed = BasicGame.leftMouseButtonPressed;
+
+        if (currentAnimation == attackLeft || currentAnimation == attackRight) {
+            if (currentAnimation.isDone()) isAttacking = false;
+        } else isAttacking = false;
+
 
         boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
 
@@ -73,14 +98,14 @@ public class Player {
         if (keysPressed[KeyEvent.VK_D] && canMove && !isOnLadder) {
             this.x += this.speed;
             this.direction = 1;
-            currentAnimation = walkAnimationRight;
+            if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationRight;
             hasMoved = true;
         }
 
         if (keysPressed[KeyEvent.VK_A] && canMove && !isOnLadder) {
             this.x -= this.speed;
             this.direction = -1;
-            currentAnimation = walkAnimationLeft;
+            if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationLeft;
             hasMoved = true;
         }
 
@@ -88,7 +113,6 @@ public class Player {
         // Check if there are ladders in range
         ArrayList<Collider> colliders = CollisionManager.getColliders(LADDER);
         for (Collider c : colliders) {
-            System.out.println(collider.distance(c));
             if (collider.distance(c) < 40) {
                 SaxionApp.setTextDrawingColor(Color.BLACK);
                 SaxionApp.drawText("Press E to use ladder!", c.getX() - 100, c.getY(), 24);
@@ -113,11 +137,20 @@ public class Player {
 
 
         // Change idle animations
-        if (!hasMoved && direction == -1)
+        if (!hasMoved && direction == -1 && (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)))
             currentAnimation = idleAnimationleft;
-        if (!hasMoved && direction == 1)
+        if (!hasMoved && direction == 1 && (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)))
             currentAnimation = idleAnimationRight;
 
+        if (mouseButtonPressed && (lastAttack + attackCooldown < System.currentTimeMillis()) && !isAttacking) {
+            attackRight.reset();
+            attackLeft.reset();
+            if (direction == 1) currentAnimation = attackRight;
+            if (direction == -1) currentAnimation = attackLeft;
+
+            isAttacking = true;
+            lastAttack = System.currentTimeMillis();
+        }
 
         // Check if the player is on the ground
         isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, zVelocity * -1);

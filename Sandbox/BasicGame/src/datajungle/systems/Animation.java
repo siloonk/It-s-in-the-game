@@ -13,6 +13,8 @@ public class Animation {
     public Image currentFrame;
     long lastTime = 0;
     int currentFrameIndex = 0;
+    boolean fireOnce = false;
+    boolean isDone = false;
 
 
     public void update() {
@@ -21,16 +23,32 @@ public class Animation {
         }
 
         if (lastTime + animationSwitchDelay < System.currentTimeMillis()) {
-            if (currentFrameIndex == animationSprites.size() - 1) {
+            if (currentFrameIndex == animationSprites.size() - 1 && !fireOnce) {
                 currentFrame = animationSprites.get(0);
                 currentFrameIndex = 0;
-            } else {
+            } else if (fireOnce && currentFrameIndex == animationSprites.size() - 1) {
+                isDone = true;
+            }
+            else {
                 currentFrameIndex++;
                 currentFrame = animationSprites.get(currentFrameIndex);
             }
 
             lastTime = System.currentTimeMillis();
         }
+    }
+
+    public void reset() {
+        currentFrameIndex = 0;
+        isDone = false;
+    }
+
+    public Image getLastFrame() {
+        return animationSprites.get(animationSprites.size() - 1);
+    }
+
+    public boolean isDone() {
+        return (currentFrame == animationSprites.get(animationSprites.size() - 1) && lastTime + animationSwitchDelay < System.currentTimeMillis()) || isDone;
     }
 
 
@@ -40,6 +58,10 @@ public class Animation {
 
         public void setAnimationSwitchDelay(long animationSwitchDelay) {
             animation.animationSwitchDelay = animationSwitchDelay;
+        }
+
+        public void setOnce(boolean once) {
+            animation.fireOnce = once;
         }
 
         public void setAnimationSprites(Image ...images) {

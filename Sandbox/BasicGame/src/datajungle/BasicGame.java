@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 public class BasicGame implements GameLoop {
     // Een lijst van alle keys die op dit moment ingedrukt zijn
     public static boolean[] keysPressed = new boolean[525];
+    public static boolean leftMouseButtonPressed = false;
 
     // De huidige scene die geselecteerd is.
     private static Scene currentScene;
@@ -57,6 +58,10 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton())
+            leftMouseButtonPressed = true;
+        else
+            leftMouseButtonPressed = false;
 
     }
 
