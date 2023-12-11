@@ -96,14 +96,16 @@ public class Player {
         boolean hasMoved = false;
 
         if (keysPressed[KeyEvent.VK_D] && canMove && !isOnLadder) {
-            this.x += this.speed;
+            if (this.x + collider.getWidth() + this.speed < SaxionApp.getWidth())
+                this.x += this.speed;
             this.direction = 1;
             if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationRight;
             hasMoved = true;
         }
 
         if (keysPressed[KeyEvent.VK_A] && canMove && !isOnLadder) {
-            this.x -= this.speed;
+            if (this.x - this.speed > 0)
+                this.x -= this.speed;
             this.direction = -1;
             if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationLeft;
             hasMoved = true;
@@ -178,8 +180,6 @@ public class Player {
     private void draw() {
         currentAnimation.update();
         Image img = currentAnimation.currentFrame;
-
-
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);

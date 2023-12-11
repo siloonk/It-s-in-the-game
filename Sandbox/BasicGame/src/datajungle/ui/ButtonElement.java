@@ -1,5 +1,6 @@
 package datajungle.ui;
 
+import datajungle.BasicGame;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
 
@@ -59,6 +60,10 @@ public class ButtonElement extends UIElement {
         // Change selectedImage to the focussed image
         if (isFocussed() && selectedImage != focussedImage) {
             selectedImage = focussedImage;
+        } else if (isFocussed() && BasicGame.leftMouseButtonPressed) {
+            selectedImage = clickedImage;
+        } else {
+            selectedImage = unfocussedImage;
         }
 
         drawText();
