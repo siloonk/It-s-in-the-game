@@ -3,6 +3,7 @@ package datajungle.components;
 import datajungle.BasicGame;
 import datajungle.Collider;
 import datajungle.Settings;
+import datajungle.scenes.BaseScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
 import datajungle.systems.Spritesheet;
@@ -18,6 +19,8 @@ import static datajungle.Settings.SOLID;
 public class Enemy {
     int w = 64;
     int h = 32;
+
+    int health = 3; // enemy health
 
     int x = -w;
     int y = 550;
@@ -51,6 +54,14 @@ public class Enemy {
         if (x == 590 - w) {
             this.x -= this.speed;
         }
+
+        collider.updateCoords(x, y);
+    }
+
+    public void damage(int damage) {
+        this.health -= damage;
+        if (health <= 0)
+            BaseScene.killEnemy(this);
     }
 
     private void draw() {

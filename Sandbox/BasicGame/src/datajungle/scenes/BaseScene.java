@@ -29,7 +29,7 @@ public class BaseScene extends Scene {
     Enemy enemy;
     int counter = 0;
 
-    ArrayList<Enemy> enemies = new ArrayList<>();
+    private static ArrayList<Enemy> enemies = new ArrayList<>();
 
     @Override
     public void init() {
@@ -61,5 +61,14 @@ public class BaseScene extends Scene {
         } else {
             time--;
         }
+    }
+
+    public static void killEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+
+
+    public static ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }

@@ -1,6 +1,7 @@
 package datajungle.components;
 
 import datajungle.*;
+import datajungle.scenes.BaseScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
 import datajungle.systems.Spritesheet;
@@ -22,6 +23,7 @@ public class Player {
     int speed = 2;
     long attackCooldown = 300; // Cooldown is in milliseconds
     long lastAttack = 0;
+    int damage = 1;
 
     int jumpForce = -11;
     int zVelocity = 0;
@@ -149,6 +151,14 @@ public class Player {
             attackLeft.reset();
             if (direction == 1) currentAnimation = attackRight;
             if (direction == -1) currentAnimation = attackLeft;
+
+            // Player started the attack thus deal damage
+            for (int i = 0; i < BaseScene.getEnemies().size(); i++) {
+                Enemy enemy = BaseScene.getEnemies().get(i);
+                if (enemy.collider.isColliding(collider, direction * 10, 0)) {
+                    enemy.damage(damage);
+                }
+            }
 
             isAttacking = true;
             lastAttack = System.currentTimeMillis();
