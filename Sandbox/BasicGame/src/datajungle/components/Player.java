@@ -162,7 +162,7 @@ public class Player {
             this.zVelocity = jumpForce;
         }
 
-        // Check if the player player should be able to move according to the zVelocity
+        // Check if the player should be able to move according to the zVelocity
         if ((!isGrounded || zVelocity < 0) && !isOnLadder) this.y += zVelocity;
 
         if (!isGrounded || zVelocity < 0) {

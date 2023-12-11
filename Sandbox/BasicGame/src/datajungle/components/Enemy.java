@@ -22,6 +22,11 @@ public class Enemy {
     int x = -w;
     int y = 540;
 
+    Animation walkEnemyRight;
+
+    Animation currentAnimation;
+
+    Spritesheet EnemyMoveSheet = new Spritesheet("./assets/images/sheets/spider.png", 222, 196, 64, 32, 0);
 
     Collider collider = new Collider(x, y, w, h, DAMAGE);
 
@@ -29,13 +34,21 @@ public class Enemy {
     boolean isGrounded = false;
     int direction = -1;
     // 64 bij 32 voor de enemy width and height
+
+    public Enemy() {
+        Animation.Builder animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(200);
+        animBuilder.setAnimationSprites(EnemyMoveSheet.getImage(0), EnemyMoveSheet.getImage(2));
+        walkEnemyRight = animBuilder.build();
+        currentAnimation = walkEnemyRight;
+    }
     private void move() {
-
-
-        if (1 == 1) {
-            this.x += this.speed;
-            this.direction = 1;
-        } if (x == 590 - w) {
+        this.x += this.speed;
+        this.direction = 1;
+        if (currentAnimation.isDone()) {
+            currentAnimation = walkEnemyRight;
+        }
+        if (x == 590 - w) {
             this.x -= this.speed;
         }
     }
