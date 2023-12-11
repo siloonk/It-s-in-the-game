@@ -16,6 +16,5 @@ public abstract class UIElement {
 
     protected void update() {
         draw();
-        System.out.println(MouseInfo.getPointerInfo().getLocation().x);
     }
 }

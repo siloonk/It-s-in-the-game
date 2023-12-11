@@ -25,11 +25,14 @@ public class Enemy {
     int x = -w;
     int y = 550;
 
-    Animation walkEnemyRight;
+    Animation enemyWalkRight;
+    Animation enemyWalkLeft;
+    Animation enemyDamageLeft;
+    Animation enemyDamageRight;
 
     Animation currentAnimation;
 
-    Spritesheet EnemyMoveSheet = new Spritesheet("./assets/images/sheets/spider.png", 448, 64, 64, 32, 0);
+    Spritesheet enemyMoveSheet = new Spritesheet("./assets/images/sheets/spider.png", 448, 64, 64, 32, 0);
 
     Collider collider = new Collider(x, y, w, h, DAMAGE);
 
@@ -41,15 +44,33 @@ public class Enemy {
     public Enemy() {
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(200);
-        animBuilder.setAnimationSprites(EnemyMoveSheet.getImage(11), EnemyMoveSheet.getImage(12), EnemyMoveSheet.getImage(11), EnemyMoveSheet.getImage(13));
-        walkEnemyRight = animBuilder.build();
-        currentAnimation = walkEnemyRight;
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(11), enemyMoveSheet.getImage(12), enemyMoveSheet.getImage(11), enemyMoveSheet.getImage(13));
+        enemyWalkRight = animBuilder.build();
+
+        animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(200);
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(0), enemyMoveSheet.getImage(1), enemyMoveSheet.getImage(0), enemyMoveSheet.getImage(2));
+        enemyWalkLeft = animBuilder.build();
+
+        animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(200);
+        animBuilder.setOnce(true);
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(0), enemyMoveSheet.getImage(6));
+        enemyDamageLeft = animBuilder.build();
+
+        animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(200);
+        animBuilder.setOnce(true);
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(7), enemyMoveSheet.getImage(13));
+        enemyDamageRight = animBuilder.build();
+
+        currentAnimation = enemyWalkRight;
     }
     private void move() {
         this.x += this.speed;
         this.direction = 1;
         if (currentAnimation.isDone()) {
-            currentAnimation = walkEnemyRight;
+            currentAnimation = enemyWalkRight;
         }
         if (x == 590 - w) {
             this.x -= this.speed;
