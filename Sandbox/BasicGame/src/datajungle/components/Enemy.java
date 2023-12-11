@@ -20,8 +20,13 @@ public class Enemy {
     int h = 32;
 
     int x = -w;
-    int y = 540;
+    int y = 550;
 
+    Animation walkEnemyRight;
+
+    Animation currentAnimation;
+
+    Spritesheet EnemyMoveSheet = new Spritesheet("./assets/images/sheets/spider.png", 448, 64, 64, 32, 0);
 
     Collider collider = new Collider(x, y, w, h, DAMAGE);
 
@@ -29,21 +34,32 @@ public class Enemy {
     boolean isGrounded = false;
     int direction = -1;
     // 64 bij 32 voor de enemy width and height
+
+    public Enemy() {
+        Animation.Builder animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(200);
+        animBuilder.setAnimationSprites(EnemyMoveSheet.getImage(11), EnemyMoveSheet.getImage(12), EnemyMoveSheet.getImage(11), EnemyMoveSheet.getImage(13));
+        walkEnemyRight = animBuilder.build();
+        currentAnimation = walkEnemyRight;
+    }
     private void move() {
-
-
-        if (1 == 1) {
-            this.x += this.speed;
-            this.direction = 1;
-        } if (x == 590 - w) {
+        this.x += this.speed;
+        this.direction = 1;
+        if (currentAnimation.isDone()) {
+            currentAnimation = walkEnemyRight;
+        }
+        if (x == 590 - w) {
             this.x -= this.speed;
         }
     }
 
     private void draw() {
-        SaxionApp.turnBorderOn();
-        SaxionApp.setFill(Color.WHITE);
-        SaxionApp.drawRectangle(x, y, w, h);
+        currentAnimation.update();
+        Image img = currentAnimation.currentFrame;
+
+        img.setX(x);
+        img.setY(y);
+        SaxionApp.add(img);
     }
 
     public void update() {
