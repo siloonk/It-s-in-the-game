@@ -179,7 +179,6 @@ public class Player {
         currentAnimation.update();
         Image img = currentAnimation.currentFrame;
 
-
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);
