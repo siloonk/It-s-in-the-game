@@ -11,6 +11,7 @@ import nl.saxion.app.canvas.drawable.Image;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.ArrayList;
 
 import static datajungle.Settings.*;
@@ -132,6 +133,10 @@ public class Player {
                 hasMoved = true;
             }
             direction = -1;
+        }
+
+        if (keysPressed[KeyEvent.VK_A] && keysPressed[KeyEvent.VK_D] && !isJumping && !isOnLadder && !isAttacking) {
+            currentAnimation = idleAnimationleft;
         }
 
         Collider ladderInRange = null;
