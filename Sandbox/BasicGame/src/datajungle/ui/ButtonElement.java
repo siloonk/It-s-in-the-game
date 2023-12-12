@@ -28,7 +28,6 @@ public class ButtonElement extends UIElement {
         this.clickedImage = clickedImage;
         this.text = text;
         this.function = function;
-
         selectedImage = unfocussedImage;
 
     }

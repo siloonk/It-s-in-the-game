@@ -62,7 +62,7 @@ public class Collider {
     public boolean isColliding(ArrayList<Collider> colliders, int direction)  {
         for (Collider collider : colliders) {
             if (collider == this) continue;
-            boolean isColliding = this.x + direction * 3 < collider.x + collider.width && this.x + this.width > collider.x + direction * 3 && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+            boolean isColliding = this.x + direction * 10 < collider.x + collider.width && this.x + this.width > collider.x + direction * 10 && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
             if (isColliding) return true;
         }
         return false;
