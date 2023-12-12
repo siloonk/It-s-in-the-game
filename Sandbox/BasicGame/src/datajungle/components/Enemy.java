@@ -23,7 +23,8 @@ public class Enemy {
     int health = 3; // enemy health
 
     int x = -w;
-    int y = 550;
+    int y = 0;
+    int yVelocity;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
@@ -38,10 +39,14 @@ public class Enemy {
 
     int speed = 1;
     boolean isGrounded = false;
-    int direction = -1;
+    int direction = 1;
     // 64 bij 32 voor de enemy width and height
 
-    public Enemy() {
+    public Enemy(int x, int y, int direction) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(200);
         animBuilder.setAnimationSprites(enemyMoveSheet.getImage(11), enemyMoveSheet.getImage(12), enemyMoveSheet.getImage(11), enemyMoveSheet.getImage(13));
@@ -64,17 +69,30 @@ public class Enemy {
         animBuilder.setAnimationSprites(enemyMoveSheet.getImage(7), enemyMoveSheet.getImage(13));
         enemyDamageRight = animBuilder.build();
 
-        currentAnimation = enemyWalkRight;
+        if (direction == 1) {currentAnimation = enemyWalkRight;}
+        if (direction == -1) {currentAnimation = enemyWalkLeft;}
     }
     private void move() {
-        this.x += this.speed;
-        this.direction = 1;
+        this.x += this.speed * direction;
         if (currentAnimation.isDone()) {
             currentAnimation = enemyWalkRight;
         }
         if (x == 590 - w) {
             this.x -= this.speed;
         }
+        if (x == 620 + w) {
+            this.x += this.speed;
+        }
+        // Check if the player is on the ground
+        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
+
+        if (!isGrounded || yVelocity < 0) {
+            yVelocity += Settings.GRAVITY;
+        } else {
+            yVelocity = 0;
+        }
+
+        y += yVelocity;
 
         collider.updateCoords(x, y);
     }
@@ -88,7 +106,6 @@ public class Enemy {
     private void draw() {
         currentAnimation.update();
         Image img = currentAnimation.currentFrame;
-
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);
