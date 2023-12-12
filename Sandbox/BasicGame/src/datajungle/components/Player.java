@@ -1,6 +1,7 @@
 package datajungle.components;
 
 import datajungle.*;
+import datajungle.Collider;
 import datajungle.scenes.BaseScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
@@ -21,18 +22,20 @@ public class Player {
 
     Collider collider = new Collider(x, y, 44, 96, DAMAGE);
     int speed = 2;
-    long attackCooldown = 300; // Cooldown is in milliseconds
+    long attackCooldown = 500; // Cooldown is in milliseconds
     long lastAttack = 0;
     int damage = 1;
 
     int jumpForce = -11;
-    int zVelocity = 0;
+    int yVelocity = 0;
     Animation walkAnimationLeft;
     Animation walkAnimationRight;
     Animation idleAnimationleft;
     Animation idleAnimationRight;
     Animation attackLeft;
     Animation attackRight;
+    Animation jumpRight;
+    Animation jumpLeft;
     boolean isGrounded = false;
     boolean isJumping = false;
     int direction = -1;
@@ -79,6 +82,18 @@ public class Player {
         animBuilder.setOnce(true);
         attackRight = animBuilder.build();
 
+        animBuilder = new Animation.Builder();
+        animBuilder.setOnce(true);
+        animBuilder.setAnimationSwitchDelay(400);
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(2));
+        jumpLeft = animBuilder.build();
+
+        animBuilder = new Animation.Builder();
+        animBuilder.setOnce(true);
+        animBuilder.setAnimationSwitchDelay(400);
+        animBuilder.setAnimationSprites(playerMoveSheet.getImage(7));
+        jumpRight = animBuilder.build();
+
         currentAnimation = idleAnimationleft;
     }
 
@@ -92,25 +107,31 @@ public class Player {
         } else isAttacking = false;
 
 
-        boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
+        boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction * speed);
 
         // Boolean for the walking animation
         boolean hasMoved = false;
 
-        if (keysPressed[KeyEvent.VK_D] && canMove && !isOnLadder) {
-            if (this.x + collider.getWidth() + this.speed < SaxionApp.getWidth())
-                this.x += this.speed;
-            this.direction = 1;
-            if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationRight;
-            hasMoved = true;
+        if (keysPressed[KeyEvent.VK_D] && !isOnLadder) {
+            if (canMove) {
+                if (this.x + collider.getWidth() + this.speed < SaxionApp.getWidth())
+                    this.x += this.speed;
+                if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationRight;
+                hasMoved = true;
+            }
+
+            direction = 1;
+
         }
 
-        if (keysPressed[KeyEvent.VK_A] && canMove && !isOnLadder) {
-            if (this.x - this.speed > 0)
-                this.x -= this.speed;
-            this.direction = -1;
-            if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationLeft;
-            hasMoved = true;
+        if (keysPressed[KeyEvent.VK_A] && !isOnLadder) {
+            if (canMove) {
+                if (this.x - this.speed > 0)
+                    this.x -= this.speed;
+                if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationLeft;
+                hasMoved = true;
+            }
+            direction = -1;
         }
 
         Collider ladderInRange = null;
@@ -165,22 +186,27 @@ public class Player {
         }
 
         // Check if the player is on the ground
-        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, zVelocity * -1);
+        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
 
 
         // Check if the player is allowed to jump
         if (keysPressed[KeyEvent.VK_SPACE] && !isJumping && isGrounded && !isOnLadder) {
             isJumping = true;
-            this.zVelocity = jumpForce;
+            this.yVelocity = jumpForce;
+        }
+
+        if (!isGrounded && isJumping) {
+            if (direction == 1) currentAnimation = jumpRight;
+            if (direction == -1) currentAnimation = jumpLeft;
         }
 
         // Check if the player player should be able to move according to the zVelocity
-        if ((!isGrounded || zVelocity < 0) && !isOnLadder) this.y += zVelocity;
+        if ((!isGrounded || yVelocity < 0) && !isOnLadder) this.y += yVelocity;
 
-        if (!isGrounded || zVelocity < 0) {
-            zVelocity += Settings.GRAVITY;
+        if (!isGrounded || yVelocity < 0) {
+            yVelocity += Settings.GRAVITY;
         } else {
-            zVelocity = 0;
+            yVelocity = 0;
             isJumping = false;
         }
 

@@ -28,8 +28,8 @@ public class BaseScene extends Scene {
     PC pc;
     Enemy enemy;
     int counter = 0;
-
     private static ArrayList<Enemy> enemies = new ArrayList<>();
+
 
     @Override
     public void init() {
@@ -37,6 +37,7 @@ public class BaseScene extends Scene {
         pc = new PC(SaxionApp.getWidth() / 2, 467);
         enemy = new Enemy();
         enemies.add(enemy);
+
     }
 
     @Override
@@ -54,7 +55,7 @@ public class BaseScene extends Scene {
                 counter++;
             } else {
                 // Spawn a new enemy and add it to the list
-                enemy = new Enemy();
+                enemy = new Enemy(x, y, direction);
                 enemies.add(enemy);
             }
             time = 120;
