@@ -13,7 +13,7 @@ public class MainMenuScene extends Scene {
     GUI gui = new GUI();
     @Override
     public void init() {
-        gui.addElement(new LabelElement(500, 500, "Test", 50, Color.GREEN));
+        gui.addElement(new LabelElement(500, 500, "GAME OVER!!", 50, Color.RED));
     }
 
     @Override

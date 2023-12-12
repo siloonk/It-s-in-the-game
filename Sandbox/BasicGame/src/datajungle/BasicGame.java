@@ -67,6 +67,7 @@ public class BasicGame implements GameLoop {
 
     public static void changeScene(Scene scene) {
         currentScene = scene;
+        scene.init();
     }
 
 

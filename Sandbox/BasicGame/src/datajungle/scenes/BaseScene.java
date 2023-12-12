@@ -27,7 +27,7 @@ public class BaseScene extends Scene {
     public Collider ladderCollider = new Collider(985, 467, 45, 406, LADDER);
 
     Player player;
-    PC pc;
+    public static PC pc;
     Enemy enemy;
 
     private static ArrayList<Enemy> enemies = new ArrayList<>();
@@ -61,7 +61,7 @@ public class BaseScene extends Scene {
                 Spawnpoint point = spawnpoints.get(whereComeFrom);
                 enemy = new Enemy(point.x, point.y, point.direction);
                 enemies.add(enemy);
-                time = 250;
+                time = SaxionApp.getRandomValueBetween(100,250);
         } else {
             time--;
         }

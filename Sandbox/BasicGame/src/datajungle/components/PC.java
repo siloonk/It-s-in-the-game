@@ -19,8 +19,8 @@ public class PC {
 
     long lastDataTransfer = System.currentTimeMillis();
 
-    int health = 50;
-    int maxHealth = 50;
+    public int health = 50;
+    public int maxHealth = 50;
     int x, y;
 
     public PC(int x, int y) {
@@ -31,7 +31,7 @@ public class PC {
     }
 
     public void damage(int damage) {
-        this.health -= health;
+        this.health -= damage;
         if (this.health <= 0) {
             BasicGame.changeScene(new MainMenuScene());
         }
@@ -73,13 +73,16 @@ public class PC {
         int healthBarX = 100;
         int healthBarWidth = SaxionApp.getWidth() - 200;
         int healthBarY = 70;
-        int healthBarHeight = 40;
+        int healthBarHeight = 20;
 
+        SaxionApp.setFill(Color.BLACK);
+        SaxionApp.drawRectangle(healthBarX - 2, healthBarY - 2, healthBarWidth + 4, healthBarHeight + 4);
         SaxionApp.setFill(Color.GRAY);
-
-        SaxionApp.drawRectangle(healthBarX - 5, healthBarY - 5, healthBarWidth + 10, healthBarHeight + 10);
+        SaxionApp.drawRectangle(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
         SaxionApp.setFill(Color.GREEN);
         SaxionApp.drawRectangle(healthBarX, healthBarY, (int)((float)health/maxHealth * healthBarWidth), healthBarHeight);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("PC Health", healthBarX + healthBarWidth / 2 - 68, healthBarY - 35, 30);
     }
 
 

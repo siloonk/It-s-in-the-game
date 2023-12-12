@@ -1,6 +1,5 @@
 package datajungle.components;
 
-import datajungle.BasicGame;
 import datajungle.Collider;
 import datajungle.Settings;
 import datajungle.scenes.BaseScene;
@@ -11,7 +10,6 @@ import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 import static datajungle.Settings.DAMAGE;
 import static datajungle.Settings.SOLID;
@@ -24,16 +22,20 @@ public class Enemy {
 
     int maxHealth = 3; // max health
 
-    int x = -w;
+    int x = 0;
     int y = 0;
-    int yVelocity;
+    int yVelocity; // y velocity is needed for the above enemies to drop down
+
+    int attackTimer = 50;
+
+    int attack = 5;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
     Animation enemyDamageLeft;
     Animation enemyDamageRight;
 
-    Animation currentAnimation;
+    Animation currentAnimation; // makes an animation for all possible animations of the spider
 
     Spritesheet enemyMoveSheet = new Spritesheet("./assets/images/sheets/spider.png", 448, 64, 64, 32, 0);
 
@@ -79,6 +81,15 @@ public class Enemy {
         if (currentAnimation.isDone()) {
             currentAnimation = enemyWalkRight;
         }
+
+        attackTimer--;
+        if (attackTimer == 0 && x == 590 - w || attackTimer == 0 && x == 620 + w) {
+            BaseScene.pc.damage(attack);
+            attackTimer = 50;
+        } else if (attackTimer == 0) {
+            attackTimer = 1;
+        }
+
         if (x == 590 - w) {
             this.x -= this.speed;
         }
@@ -114,7 +125,7 @@ public class Enemy {
         SaxionApp.setFill(Color.DARK_GRAY);
         SaxionApp.drawRectangle(x, y-8, w, 8);
         SaxionApp.setFill(Color.GREEN);
-        SaxionApp.drawRectangle(x, y-8, (int) ((float) health/maxHealth * w), 8);
+        SaxionApp.drawRectangle(x, y-8, (int) ((float) health / maxHealth * w), 8);
     }
 
     public void update() {
