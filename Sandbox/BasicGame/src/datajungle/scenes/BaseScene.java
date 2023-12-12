@@ -14,7 +14,7 @@ import static datajungle.Settings.LADDER;
 import static datajungle.Settings.SOLID;
 
 public class BaseScene extends Scene {
-    int time = 120;
+    int time = 10;
 
     public BaseScene() {
         super("base_scene", true);
@@ -29,7 +29,6 @@ public class BaseScene extends Scene {
     Player player;
     PC pc;
     Enemy enemy;
-    int counter = 0;
 
     private static ArrayList<Enemy> enemies = new ArrayList<>();
 
@@ -57,17 +56,12 @@ public class BaseScene extends Scene {
             enemy.update();
         }
         if (time == 0) {
-            if (counter < enemies.size()) {
-                // Reset the counter if it exceeds the size of the list
-                counter++;
-            } else {
                 // Spawn a new enemy and add it to the list
                 int whereComeFrom = SaxionApp.getRandomValueBetween(0,4); // 0, 1, 2, 3
                 Spawnpoint point = spawnpoints.get(whereComeFrom);
                 enemy = new Enemy(point.x, point.y, point.direction);
                 enemies.add(enemy);
-            }
-            time = 2;
+                time = 250;
         } else {
             time--;
         }

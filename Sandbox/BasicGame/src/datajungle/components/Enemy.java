@@ -22,6 +22,8 @@ public class Enemy {
 
     int health = 3; // enemy health
 
+    int maxHealth = 3; // max health
+
     int x = -w;
     int y = 0;
     int yVelocity;
@@ -109,6 +111,10 @@ public class Enemy {
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);
+        SaxionApp.setFill(Color.DARK_GRAY);
+        SaxionApp.drawRectangle(x, y-8, w, 8);
+        SaxionApp.setFill(Color.GREEN);
+        SaxionApp.drawRectangle(x, y-8, (int) ((float) health/maxHealth * w), 8);
     }
 
     public void update() {
