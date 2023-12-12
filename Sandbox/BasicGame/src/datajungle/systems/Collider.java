@@ -48,13 +48,13 @@ public class Collider {
     }
 
     public boolean isColliding(Collider collider, int xOffset, int yOffset) {
-        return this.x + xOffset < collider.x + collider.width && this.x + this.width > collider.x + xOffset && this.y + yOffset < collider.y + collider.height && this.y + this.height > collider.y + yOffset;
+        return this.x < collider.x + collider.width + xOffset && this.x + this.width > collider.x + xOffset && this.y + yOffset < collider.y + collider.height && this.y + this.height > collider.y + yOffset;
     }
 
     public boolean isColliding(ArrayList<Collider> colliders, int xOffset, int yOffset) {
         for (Collider collider : colliders) {
             if (collider == this) continue;
-            if (collider.isColliding(this, xOffset, yOffset)) return true;
+            if (collider.isColliding(this, -xOffset, yOffset)) return true;
         }
         return false;
     }
@@ -62,7 +62,13 @@ public class Collider {
     public boolean isColliding(ArrayList<Collider> colliders, int direction)  {
         for (Collider collider : colliders) {
             if (collider == this) continue;
-            boolean isColliding = this.x + direction * 10 < collider.x + collider.width && this.x + this.width > collider.x + direction * 10 && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+            boolean isColliding;
+            if (this.x < collider.x) {
+                direction *= -1;
+                isColliding = this.x + direction * 10 < collider.x + collider.width && this.x + this.width > collider.x + direction * 10 && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+            } else {
+                isColliding = this.x + direction * 10 < collider.x + collider.width && this.x + this.width > collider.x + direction * 10 && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+            }
             if (isColliding) return true;
         }
         return false;

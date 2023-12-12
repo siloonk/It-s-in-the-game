@@ -20,7 +20,7 @@ public class PC {
     long lastDataTransfer = System.currentTimeMillis();
 
     int health = 50;
-
+    int maxHealth = 50;
     int x, y;
 
     public PC(int x, int y) {
@@ -48,7 +48,6 @@ public class PC {
 
 
         if (dataTransfered >= dataToTransfer) {
-            System.out.println("You have won!");
         }
     }
 
@@ -68,6 +67,19 @@ public class PC {
         SaxionApp.drawRectangle(barX, barY, width, height);
         SaxionApp.setFill(Color.YELLOW);
         SaxionApp.drawRectangle(barX, barY, Math.min((int)(width * (dataTransfered / (float)dataToTransfer)), width), height);
+
+
+        // Draw health bar
+        int healthBarX = 100;
+        int healthBarWidth = SaxionApp.getWidth() - 200;
+        int healthBarY = 70;
+        int healthBarHeight = 40;
+
+        SaxionApp.setFill(Color.GRAY);
+
+        SaxionApp.drawRectangle(healthBarX - 5, healthBarY - 5, healthBarWidth + 10, healthBarHeight + 10);
+        SaxionApp.setFill(Color.GREEN);
+        SaxionApp.drawRectangle(healthBarX, healthBarY, (int)((float)health/maxHealth * healthBarWidth), healthBarHeight);
     }
 
 

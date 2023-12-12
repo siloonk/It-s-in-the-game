@@ -108,7 +108,7 @@ public class Player {
         } else isAttacking = false;
 
 
-        boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction * speed);
+        boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * 3));
 
         // Boolean for the walking animation
         boolean hasMoved = false;
@@ -145,7 +145,7 @@ public class Player {
         for (Collider c : colliders) {
             if (collider.distance(c) < 40) {
                 SaxionApp.setTextDrawingColor(Color.BLACK);
-                SaxionApp.drawText("Press E to use ladder!", c.getX() - 100, c.getY(), 24);
+                SaxionApp.drawText("Press E to climb!", c.getX() - 100, c.getY(), 24);
                 ladderInRange = c;
             }
         }
@@ -181,7 +181,7 @@ public class Player {
             // Player started the attack thus deal damage
             for (int i = 0; i < BaseScene.getEnemies().size(); i++) {
                 Enemy enemy = BaseScene.getEnemies().get(i);
-                if (enemy.collider.isColliding(collider, direction * 10, 0)) {
+                if (enemy.collider.isColliding(collider, direction * 25, 0)) {
                     enemy.damage(damage);
                 }
             }
