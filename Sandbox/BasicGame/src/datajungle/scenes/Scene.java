@@ -23,6 +23,11 @@ public abstract class Scene {
 
     }
 
+    // Wordt gecalled wanneer de scene gesloten wordt
+    public void close() {
+
+    }
+
     // kijk of de scene aan staat
     public boolean isRunning() {
         return isRunning;

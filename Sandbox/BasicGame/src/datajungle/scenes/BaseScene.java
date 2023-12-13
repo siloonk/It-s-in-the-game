@@ -7,7 +7,9 @@ import datajungle.components.Enemy;
 import datajungle.components.Spawnpoint;
 import nl.saxion.app.SaxionApp;
 
-import java.lang.reflect.Array;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static datajungle.Settings.LADDER;
@@ -25,6 +27,8 @@ public class BaseScene extends Scene {
     public Collider platformRightCollider = new Collider(SaxionApp.getWidth() - 343, 250, 690, 70, SOLID);
     public Collider ropeCollider = new Collider(251, 467, 32, 406, LADDER);
     public Collider ladderCollider = new Collider(985, 467, 45, 406, LADDER);
+    Clip backgroundSound;
+
 
     Player player;
     public static PC pc;
@@ -34,9 +38,11 @@ public class BaseScene extends Scene {
 
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
+
     @Override
     public void init() {
         player = new Player();
+        playSound("background.wav");
         pc = new PC(SaxionApp.getWidth() / 2, 467);
         enemy = new Enemy(-100,0,-1);
         enemies.add(enemy);
@@ -67,6 +73,13 @@ public class BaseScene extends Scene {
         }
     }
 
+    @Override
+    public void close() {
+        backgroundSound.stop();
+        backgroundSound.close();
+    }
+
+
     public static void killEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
@@ -74,5 +87,18 @@ public class BaseScene extends Scene {
 
     public static ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public void playSound(String soundFile){
+        try {
+            File f = new File("./assets/sounds/" + soundFile);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            backgroundSound = clip;
+            backgroundSound.loop(-1);
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
