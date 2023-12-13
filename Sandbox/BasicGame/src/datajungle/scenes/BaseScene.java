@@ -42,7 +42,7 @@ public class BaseScene extends Scene {
     @Override
     public void init() {
         player = new Player();
-        playSound("background.wav");
+        playSound("background.wav", true);
         pc = new PC(SaxionApp.getWidth() / 2, 467);
         enemy = new Enemy(-100,0,-1);
         enemies.add(enemy);
@@ -89,14 +89,16 @@ public class BaseScene extends Scene {
         return enemies;
     }
 
-    public void playSound(String soundFile){
+    public void playSound(String soundFile, boolean loop){
         try {
             File f = new File("./assets/sounds/" + soundFile);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
             backgroundSound = clip;
-            backgroundSound.loop(-1);
+            if (loop)
+                backgroundSound.loop(-1);
+            else backgroundSound.start();
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             throw new RuntimeException(e);
         }
