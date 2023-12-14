@@ -71,14 +71,14 @@ public class Player {
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSprites(playerAttackSheet.getImage(10), playerAttackSheet.getImage(11), playerAttackSheet.getImage(12), playerAttackSheet.getImage(13), playerAttackSheet.getImage(14), playerAttackSheet.getImage(15), playerAttackSheet.getImage(16), playerAttackSheet.getImage(17), playerAttackSheet.getImage(18), playerAttackSheet.getImage(19));
-        animBuilder.setAnimationSwitchDelay(25);
+        animBuilder.setAnimationSwitchDelay(8);
         animBuilder.setOnce(true);
         attackLeft = animBuilder.build();
 
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSprites(playerAttackSheet.getImage(9), playerAttackSheet.getImage(8), playerAttackSheet.getImage(7), playerAttackSheet.getImage(6), playerAttackSheet.getImage(5), playerAttackSheet.getImage(4), playerAttackSheet.getImage(3), playerAttackSheet.getImage(2), playerAttackSheet.getImage(1), playerAttackSheet.getImage(0));
-        animBuilder.setAnimationSwitchDelay(35);
+        animBuilder.setAnimationSwitchDelay(8);
         animBuilder.setOnce(true);
         attackRight = animBuilder.build();
 

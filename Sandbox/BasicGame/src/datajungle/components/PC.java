@@ -19,8 +19,8 @@ public class PC {
 
     long lastDataTransfer = System.currentTimeMillis();
 
-    public int health = 500;
-    public int maxHealth = 500;
+    public int health = 50;
+    public int maxHealth = 50;
     int x, y;
 
     public PC(int x, int y) {
