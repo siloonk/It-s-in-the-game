@@ -1,6 +1,6 @@
 package datajungle.scenes;
 
-import datajungle.Collider;
+import datajungle.systems.Collider;
 import datajungle.components.PC;
 import datajungle.components.Player;
 import datajungle.components.Enemy;
@@ -96,8 +96,7 @@ public class BaseScene extends Scene {
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
             backgroundSound = clip;
-            if (loop)
-                backgroundSound.loop(-1);
+            if (loop) backgroundSound.loop(-1);
             else backgroundSound.start();
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             throw new RuntimeException(e);

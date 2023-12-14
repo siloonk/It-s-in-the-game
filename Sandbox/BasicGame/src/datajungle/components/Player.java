@@ -1,7 +1,7 @@
 package datajungle.components;
 
 import datajungle.*;
-import datajungle.Collider;
+import datajungle.systems.Collider;
 import datajungle.scenes.BaseScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
@@ -11,7 +11,6 @@ import nl.saxion.app.canvas.drawable.Image;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 
 import static datajungle.Settings.*;
