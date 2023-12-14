@@ -28,7 +28,7 @@ public class Enemy {
 
     int attackTimer = 50;
 
-    int attack = 5;
+    int attack = 1;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
@@ -43,8 +43,7 @@ public class Enemy {
 
     int speed = 1;
     boolean isGrounded = false;
-    int direction = 1;
-    // 64 bij 32 voor de enemy width and height
+    int direction = 1; // sets the direction for where the enemy comes from
 
     public Enemy(int x, int y, int direction) {
         this.x = x;
@@ -71,16 +70,13 @@ public class Enemy {
         animBuilder.setAnimationSwitchDelay(200);
         animBuilder.setOnce(true);
         animBuilder.setAnimationSprites(enemyMoveSheet.getImage(7), enemyMoveSheet.getImage(13));
-        enemyDamageRight = animBuilder.build();
+        enemyDamageRight = animBuilder.build(); // makes all the animations for all directions
 
         if (direction == 1) {currentAnimation = enemyWalkRight;}
         if (direction == -1) {currentAnimation = enemyWalkLeft;}
     }
     private void move() {
         this.x += this.speed * direction;
-        if (currentAnimation.isDone()) {
-            currentAnimation = enemyWalkRight;
-        }
 
         attackTimer--;
         if (attackTimer == 0 && x == 590 - w || attackTimer == 0 && x == 620 + w) {
@@ -122,7 +118,8 @@ public class Enemy {
         img.setX(x);
         img.setY(y);
         SaxionApp.add(img);
-        SaxionApp.setFill(Color.DARK_GRAY);
+
+        SaxionApp.setFill(Color.DARK_GRAY); // draws the healthbar of the enemy
         SaxionApp.drawRectangle(x, y-8, w, 8);
         SaxionApp.setFill(Color.GREEN);
         SaxionApp.drawRectangle(x, y-8, (int) ((float) health / maxHealth * w), 8);
