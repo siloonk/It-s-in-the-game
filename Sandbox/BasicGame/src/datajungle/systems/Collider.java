@@ -1,6 +1,5 @@
-package datajungle;
+package datajungle.systems;
 
-import datajungle.systems.CollisionManager;
 import nl.saxion.app.SaxionApp;
 
 import java.util.ArrayList;

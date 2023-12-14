@@ -1,7 +1,5 @@
 package datajungle.systems;
 
-import datajungle.Collider;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

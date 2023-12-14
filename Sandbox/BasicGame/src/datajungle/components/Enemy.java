@@ -1,6 +1,6 @@
 package datajungle.components;
 
-import datajungle.Collider;
+import datajungle.systems.Collider;
 import datajungle.Settings;
 import datajungle.scenes.BaseScene;
 import datajungle.systems.Animation;

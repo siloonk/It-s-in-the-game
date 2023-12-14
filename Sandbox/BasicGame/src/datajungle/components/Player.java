@@ -1,7 +1,7 @@
 package datajungle.components;
 
 import datajungle.*;
-import datajungle.Collider;
+import datajungle.systems.Collider;
 import datajungle.scenes.BaseScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
@@ -11,7 +11,6 @@ import nl.saxion.app.canvas.drawable.Image;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 
 import static datajungle.Settings.*;
@@ -47,7 +46,7 @@ public class Player {
     Animation currentAnimation;
 
     Spritesheet playerMoveSheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96, 0);
-    Spritesheet playerAttackSheet = new Spritesheet("./assets/images/sheets/player_attack.png", 114, 192, 57, 96, 13);
+    Spritesheet playerAttackSheet = new Spritesheet("./assets/images/sheets/player_attack.png", 480, 186, 48, 93, 0);
 
     public Player() {
         Animation.Builder animBuilder = new Animation.Builder();
@@ -71,15 +70,15 @@ public class Player {
         idleAnimationRight = animBuilder.build();
 
         animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerAttackSheet.getImage(0), playerAttackSheet.getImage(1));
-        animBuilder.setAnimationSwitchDelay(100);
+        animBuilder.setAnimationSprites(playerAttackSheet.getImage(10), playerAttackSheet.getImage(11), playerAttackSheet.getImage(12), playerAttackSheet.getImage(13), playerAttackSheet.getImage(14), playerAttackSheet.getImage(15), playerAttackSheet.getImage(16), playerAttackSheet.getImage(17), playerAttackSheet.getImage(18), playerAttackSheet.getImage(19));
+        animBuilder.setAnimationSwitchDelay(25);
         animBuilder.setOnce(true);
         attackLeft = animBuilder.build();
 
 
         animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSprites(playerMoveSheet.getImage(5), playerAttackSheet.getImage(2), playerAttackSheet.getImage(3));
-        animBuilder.setAnimationSwitchDelay(100);
+        animBuilder.setAnimationSprites(playerAttackSheet.getImage(9), playerAttackSheet.getImage(8), playerAttackSheet.getImage(7), playerAttackSheet.getImage(6), playerAttackSheet.getImage(5), playerAttackSheet.getImage(4), playerAttackSheet.getImage(3), playerAttackSheet.getImage(2), playerAttackSheet.getImage(1), playerAttackSheet.getImage(0));
+        animBuilder.setAnimationSwitchDelay(35);
         animBuilder.setOnce(true);
         attackRight = animBuilder.build();
 
@@ -143,7 +142,7 @@ public class Player {
         // Check if there are ladders in range
         ArrayList<Collider> colliders = CollisionManager.getColliders(LADDER);
         for (Collider c : colliders) {
-            if (collider.distance(c) < 40) {
+            if (collider.distance(c) < 40 && collider.getY() >= c.getY()) {
                 SaxionApp.setTextDrawingColor(Color.BLACK);
                 SaxionApp.drawText("Press E to climb!", c.getX() - 100, c.getY(), 24);
                 ladderInRange = c;
