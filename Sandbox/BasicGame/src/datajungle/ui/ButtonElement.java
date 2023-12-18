@@ -51,6 +51,7 @@ public class ButtonElement extends UIElement {
     private void drawText() {
         int textX = x - selectedImage.getWidth() / 2 - text.length() * FONT_SIZE / 2;
         int textY = y - selectedImage.getHeight() / 2 + FONT_SIZE;
+        SaxionApp.drawText(this.text, x, y, FONT_SIZE);
     }
 
     @Override

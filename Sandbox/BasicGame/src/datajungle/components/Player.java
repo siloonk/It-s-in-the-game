@@ -22,8 +22,11 @@ public class Player {
 
     Collider collider = new Collider(x, y, 44, 96, DAMAGE);
     int speed = 2;
+    int dashSpeed = 20;
     long attackCooldown = 500; // Cooldown is in milliseconds
+    long dashCooldown = 300; // Cooldown is in milliseconds
     long lastAttack = 0;
+    long lastDash;
     int damage = 1;
 
     int jumpForce = -11;
@@ -132,6 +135,12 @@ public class Player {
                 hasMoved = true;
             }
             direction = -1;
+        }
+
+        if (keysPressed[KeyEvent.VK_SHIFT] && (lastDash + dashCooldown < System.currentTimeMillis()) && canMove) {
+            if (this.x + collider.getWidth() + (this.dashSpeed * direction) < SaxionApp.getWidth())
+                x += direction * dashSpeed;
+            lastDash = System.currentTimeMillis();
         }
 
         if (keysPressed[KeyEvent.VK_A] && keysPressed[KeyEvent.VK_D] && !isJumping && !isOnLadder && !isAttacking) {
