@@ -10,11 +10,6 @@ import nl.saxion.app.interaction.MouseEvent;
 import datajungle.scenes.BaseScene;
 import datajungle.scenes.Scene;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.Field;
-
 public class BasicGame implements GameLoop {
     // Een lijst van alle keys die op dit moment ingedrukt zijn
     public static boolean[] keysPressed = new boolean[525];
@@ -36,6 +31,7 @@ public class BasicGame implements GameLoop {
         // Initialiseer de scene
         currentScene.init();
     }
+
 
     @Override
     public void loop() {

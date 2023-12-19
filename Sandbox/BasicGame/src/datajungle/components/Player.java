@@ -48,10 +48,12 @@ public class Player {
 
     Animation currentAnimation;
 
-    Spritesheet playerMoveSheet = new Spritesheet("./assets/images/sheets/characters.png", 222, 196, 45, 96, 0);
-    Spritesheet playerAttackSheet = new Spritesheet("./assets/images/sheets/player_attack.png", 480, 186, 48, 93, 0);
+    Spritesheet playerMoveSheet;
+    Spritesheet playerAttackSheet;
 
-    public Player() {
+    public Player(String characterSheet, String characterAttackSheet) {
+        playerMoveSheet = new Spritesheet(characterSheet, 222, 196, 48, 96, 0);
+        playerAttackSheet = new Spritesheet(characterAttackSheet, 480, 186, 48, 93, 0);
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
         animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerMoveSheet.getImage(2), playerMoveSheet.getImage(0), playerMoveSheet.getImage(3));

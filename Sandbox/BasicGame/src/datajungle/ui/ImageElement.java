@@ -8,15 +8,20 @@ public class ImageElement extends UIElement {
     Image img;
     String imgPath;
 
-    public ImageElement(int x, int y, Image img) {
+    public ImageElement(Image imgPath, int x, int y, Image img) {
         super(x, y);
         img.setX(x);
         img.setY(y);
     }
 
-    public ImageElement(int x, int y, String imgPath) {
+    public ImageElement(String imgPath, int x, int y) {
         super(x, y);
         this.img = new Image(imgPath, x, y);
+    }
+
+    public ImageElement(String imgPath, int x, int y, int width, int height) {
+        super(x, y);
+        this.img = new Image(imgPath, x, y, width, height);
     }
 
     @Override
