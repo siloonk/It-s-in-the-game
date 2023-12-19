@@ -20,9 +20,9 @@ public class MainMenuScene extends Scene {
     @Override
     public void init() {
         gui.addElement(new ImageElement("./assets/images/background.png", 0, 0));
-        gui.addElement(new LabelElement(500, 500, "GAME OVER!!", 50, Color.RED));
+        gui.addElement(new LabelElement(500, 100, "GAME OVER!!", 50, Color.RED));
         try {
-            gui.addElement(new ButtonElement(500, 100, 400, 100, "Retry", "./assets/images/unfocussed_button.png", "./assets/images/focussed_button.png", getClass().getMethod("retryButtonClicked")));
+            gui.addElement(new ButtonElement(500, 500, 400, 100, "Retry", "./assets/images/unfocussed_button.png", "./assets/images/focussed_button.png", getClass().getMethod("retryButtonClicked")));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }

@@ -56,7 +56,7 @@ public class ButtonElement extends UIElement {
         int imageWidth = unfocussedImage.getWidth();
         int imageHeight = unfocussedImage.getHeight();
 
-        return (mouseX < x + imageWidth && mouseX > x && mouseY < y + imageHeight && mouseY > y);
+        return (mouseX < x + imageWidth && mouseX > x && mouseY < y + (imageHeight * 1.5) && mouseY > y);
     }
 
     private void drawText() {
