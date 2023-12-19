@@ -43,6 +43,8 @@ public class BaseScene extends Scene {
     public void init() {
         player = new Player();
         playSound("background.wav", true);
+        enemies.clear();
+        spawnpoints.clear();
         pc = new PC(SaxionApp.getWidth() / 2, 467);
         enemy = new Enemy(-100,0,-1);
         enemies.add(enemy);
