@@ -28,7 +28,7 @@ public class Enemy {
 
     int attackTimer = 50;
 
-    int attack = 1;
+    int attack = 5;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;

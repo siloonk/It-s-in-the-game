@@ -54,7 +54,7 @@ public class BaseScene extends Scene {
 
     @Override
     public void update(boolean[] keysPressed) {
-        SaxionApp.drawImage("./assets/images/gameBackground.png", 0, 0);
+        SaxionApp.drawImage("./assets/images/gameBackground2.png", 0, 0);
         pc.update();
         player.update();
 
