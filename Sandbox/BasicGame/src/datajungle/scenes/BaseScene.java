@@ -41,7 +41,7 @@ public class BaseScene extends Scene {
 
     @Override
     public void init() {
-        player = new Player();
+        player = new Player("./assets/images/sheets/characters_ruben.png", "./assets/images/sheets/player_attack.png");
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
