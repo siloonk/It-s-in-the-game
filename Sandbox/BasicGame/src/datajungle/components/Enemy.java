@@ -2,7 +2,7 @@ package datajungle.components;
 
 import datajungle.systems.Collider;
 import datajungle.Settings;
-import datajungle.scenes.BaseScene;
+import datajungle.scenes.ForestLevelScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
 import datajungle.systems.Spritesheet;
@@ -84,7 +84,7 @@ public class Enemy {
 
         attackTimer--;
         if (attackTimer == 0 && x == 590 - w || attackTimer == 0 && x == 620 + w) {
-            BaseScene.pc.damage(attack);
+            ForestLevelScene.pc.damage(attack);
             attackTimer = 50;
         } else if (attackTimer == 0) {
             attackTimer = 1;
@@ -113,7 +113,7 @@ public class Enemy {
     public void damage(int damage) {
         this.health -= damage;
         if (health <= 0)
-            BaseScene.killEnemy(this);
+            ForestLevelScene.killEnemy(this);
     }
 
     private void draw() {

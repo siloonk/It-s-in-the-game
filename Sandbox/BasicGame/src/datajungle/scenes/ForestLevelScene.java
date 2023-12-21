@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import static datajungle.Settings.LADDER;
 import static datajungle.Settings.SOLID;
 
-public class BaseScene extends Scene {
+public class ForestLevelScene extends Scene {
     int time = 10;
 
-    public BaseScene() {
-        super("base_scene", true);
+    public ForestLevelScene() {
+        super("forest_level_scene", false);
     }
 
     public Collider floorCollider = new Collider(0, 590, SaxionApp.getWidth() + 420, SaxionApp.getHeight() - 700, SOLID);
@@ -56,7 +56,7 @@ public class BaseScene extends Scene {
 
     @Override
     public void update(boolean[] keysPressed) {
-        SaxionApp.drawImage("./assets/images/gameBackground.png", 0, 0);
+        SaxionApp.drawImage("./assets/images/forest_game_background.png", 0, 0);
         pc.update();
         player.update();
 

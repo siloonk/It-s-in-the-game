@@ -1,7 +1,7 @@
 package datajungle.components;
 
 import datajungle.BasicGame;
-import datajungle.scenes.MainMenuScene;
+import datajungle.scenes.GameOverScene;
 import datajungle.systems.Spritesheet;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
@@ -33,7 +33,7 @@ public class PC {
     public void damage(int damage) {
         this.health -= damage;
         if (this.health <= 0) {
-            BasicGame.changeScene(new MainMenuScene());
+            BasicGame.changeScene(new GameOverScene());
         }
     }
 

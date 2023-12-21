@@ -2,7 +2,7 @@ package datajungle.components;
 
 import datajungle.*;
 import datajungle.systems.Collider;
-import datajungle.scenes.BaseScene;
+import datajungle.scenes.ForestLevelScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
 import datajungle.systems.Spritesheet;
@@ -189,8 +189,8 @@ public class Player {
             if (direction == -1) currentAnimation = attackLeft;
 
             // Player started the attack thus deal damage
-            for (int i = 0; i < BaseScene.getEnemies().size(); i++) {
-                Enemy enemy = BaseScene.getEnemies().get(i);
+            for (int i = 0; i < ForestLevelScene.getEnemies().size(); i++) {
+                Enemy enemy = ForestLevelScene.getEnemies().get(i);
                 if (enemy.collider.isColliding(collider, direction * 25, 0)) {
                     enemy.damage(damage);
                 }

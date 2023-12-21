@@ -7,7 +7,7 @@ import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import datajungle.scenes.BaseScene;
+import datajungle.scenes.ForestLevelScene;
 import datajungle.scenes.Scene;
 
 public class BasicGame implements GameLoop {
@@ -27,7 +27,7 @@ public class BasicGame implements GameLoop {
     @Override
     public void init() {
         // Zet de huidige scene naar een instance van BaseScene
-        currentScene = new BaseScene();
+        currentScene = new MainMenuScene();
         // Initialiseer de scene
         currentScene.init();
     }
