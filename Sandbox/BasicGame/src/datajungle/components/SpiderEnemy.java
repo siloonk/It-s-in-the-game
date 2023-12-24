@@ -47,7 +47,7 @@ public class SpiderEnemy extends Enemy {
     int direction = 1; // sets the direction for where the enemy comes from
 
     public SpiderEnemy(int x, int y, int direction) {
-        super();
+        super(x, y, direction);
         this.x = x;
         this.y = y;
         this.direction = direction;

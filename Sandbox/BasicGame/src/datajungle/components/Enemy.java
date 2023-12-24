@@ -22,8 +22,10 @@ public abstract class Enemy {
         this.direction = direction;
     }
 
-    public Enemy() {
-
+    public Enemy(int x, int y, int direction) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
     }
 
     public void init() {
