@@ -190,7 +190,7 @@ public class Player {
 
             // Player started the attack thus deal damage
             for (int i = 0; i < BaseScene.getEnemies().size(); i++) {
-                Enemy enemy = BaseScene.getEnemies().get(i);
+                SpiderEnemy enemy = BaseScene.getEnemies().get(i);
                 if (enemy.collider.isColliding(collider, direction * 25, 0)) {
                     enemy.damage(damage);
                 }

@@ -3,7 +3,7 @@ package datajungle.scenes;
 import datajungle.systems.Collider;
 import datajungle.components.PC;
 import datajungle.components.Player;
-import datajungle.components.Enemy;
+import datajungle.components.SpiderEnemy;
 import datajungle.components.Spawnpoint;
 import nl.saxion.app.SaxionApp;
 
@@ -32,9 +32,9 @@ public class BaseScene extends Scene {
 
     Player player;
     public static PC pc;
-    Enemy enemy;
+    SpiderEnemy enemy;
 
-    private static ArrayList<Enemy> enemies = new ArrayList<>();
+    private static ArrayList<SpiderEnemy> enemies = new ArrayList<>();
 
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class BaseScene extends Scene {
         enemies.clear();
         spawnpoints.clear();
         pc = new PC(SaxionApp.getWidth() / 2, 467);
-        enemy = new Enemy(-100,0,-1);
+        enemy = new SpiderEnemy(-100,0,-1);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
         spawnpoints.add(new Spawnpoint (-32, 220, 1));
@@ -60,14 +60,14 @@ public class BaseScene extends Scene {
         pc.update();
         player.update();
 
-        for (Enemy enemy : enemies) {
+        for (SpiderEnemy enemy : enemies) {
             enemy.update();
         }
         if (time == 0) {
                 // Spawn a new enemy and add it to the list
                 int whereComeFrom = SaxionApp.getRandomValueBetween(0,4); // 0, 1, 2, 3
                 Spawnpoint point = spawnpoints.get(whereComeFrom);
-                enemy = new Enemy(point.x, point.y, point.direction);
+                enemy = new SpiderEnemy(point.x, point.y, point.direction);
                 enemies.add(enemy);
                 time = SaxionApp.getRandomValueBetween(100,250);
         } else {
@@ -82,12 +82,12 @@ public class BaseScene extends Scene {
     }
 
 
-    public static void killEnemy(Enemy enemy) {
+    public static void killEnemy(SpiderEnemy enemy) {
         enemies.remove(enemy);
     }
 
 
-    public static ArrayList<Enemy> getEnemies() {
+    public static ArrayList<SpiderEnemy> getEnemies() {
         return enemies;
     }
 
