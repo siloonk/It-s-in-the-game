@@ -41,7 +41,7 @@ public class ForestLevelScene extends Scene {
 
     @Override
     public void init() {
-        player = new Player("./assets/images/sheets/characters_ruben.png", "./assets/images/sheets/player_attack.png");
+        player = new Player("./assets/images/sheets/characters_sil.png", "./assets/images/sheets/player_attack_sil.png");
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
@@ -85,7 +85,6 @@ public class ForestLevelScene extends Scene {
     public static void killEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
-
 
     public static ArrayList<Enemy> getEnemies() {
         return enemies;

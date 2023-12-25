@@ -20,17 +20,18 @@ public class Player {
     int x = SaxionApp.getWidth() / 2;
     int y = SaxionApp.getHeight() / 2;
 
+
+    // Player data
     Collider collider = new Collider(x, y, 44, 96, DAMAGE);
     int speed = 2;
-    int dashSpeed = 20;
     long attackCooldown = 500; // Cooldown is in milliseconds
-    long dashCooldown = 300; // Cooldown is in milliseconds
-    long lastAttack = 0;
-    long lastDash;
+    long dashCooldown = 700; // Cooldown is in milliseconds
     int damage = 1;
-
     int jumpForce = -11;
+    int dashForce = 20;
     int yVelocity = 0;
+
+    // Animations
     Animation walkAnimationLeft;
     Animation walkAnimationRight;
     Animation idleAnimationleft;
@@ -39,12 +40,20 @@ public class Player {
     Animation attackRight;
     Animation jumpRight;
     Animation jumpLeft;
+
+    long lastAttack = 0;
+    long lastDash = 0;
+
+    int direction = -1;
+    int currentDashForce = 0;
+    Collider usedLadder = null;
+
+    // modifiers
     boolean isGrounded = false;
     boolean isJumping = false;
-    int direction = -1;
     boolean isOnLadder = false;
-    Collider usedLadder = null;
     boolean isAttacking = false;
+    boolean isDashing = false;
 
     Animation currentAnimation;
 
@@ -83,7 +92,7 @@ public class Player {
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSprites(playerAttackSheet.getImage(9), playerAttackSheet.getImage(8), playerAttackSheet.getImage(7), playerAttackSheet.getImage(6), playerAttackSheet.getImage(5), playerAttackSheet.getImage(4), playerAttackSheet.getImage(3), playerAttackSheet.getImage(2), playerAttackSheet.getImage(1), playerAttackSheet.getImage(0));
-        animBuilder.setAnimationSwitchDelay(35);
+        animBuilder.setAnimationSwitchDelay(25);
         animBuilder.setOnce(true);
         attackRight = animBuilder.build();
 
@@ -139,10 +148,20 @@ public class Player {
             direction = -1;
         }
 
-        if (keysPressed[KeyEvent.VK_SHIFT] && (lastDash + dashCooldown < System.currentTimeMillis()) && canMove) {
-            if (this.x + collider.getWidth() + (this.dashSpeed * direction) < SaxionApp.getWidth())
-                x += direction * dashSpeed;
+        if (keysPressed[KeyEvent.VK_SHIFT] && (lastDash + dashCooldown < System.currentTimeMillis()) && canMove && !isDashing && !isOnLadder) {
+            isDashing = true;
+            currentDashForce = dashForce;
             lastDash = System.currentTimeMillis();
+        }
+
+        if (isDashing) {
+            if (!(currentDashForce > 0)) {
+                isDashing = false;
+            } else {
+                if (this.x + collider.getWidth() + (this.currentDashForce * direction) < SaxionApp.getWidth() && this.x + (this.currentDashForce * direction) > 0)
+                    x += direction * currentDashForce;
+                currentDashForce--;
+            }
         }
 
         if (keysPressed[KeyEvent.VK_A] && keysPressed[KeyEvent.VK_D] && !isJumping && !isOnLadder && !isAttacking) {
