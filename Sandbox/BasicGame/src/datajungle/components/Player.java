@@ -23,6 +23,9 @@ public class Player {
 
     // Player data
     Collider collider = new Collider(x, y, 44, 96, DAMAGE);
+    Collider groundCheckCollider = new Collider(x + 20, y, 10, 96, UTIL);
+
+    boolean canMove;
     int speed = 2;
     long attackCooldown = 500; // Cooldown is in milliseconds
     long dashCooldown = 700; // Cooldown is in milliseconds
@@ -122,6 +125,10 @@ public class Player {
 
 
         boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * 3));
+        if (!canMove && !isOnLadder) {
+            this.x += this.speed * (direction * - 1);
+        }
+        canMove = true;
 
         // Boolean for the walking animation
         boolean hasMoved = false;
@@ -159,7 +166,8 @@ public class Player {
                 isDashing = false;
             } else {
                 if (this.x + collider.getWidth() + (this.currentDashForce * direction) < SaxionApp.getWidth() && this.x + (this.currentDashForce * direction) > 0)
-                    x += direction * currentDashForce;
+                    if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * 3)))
+                        x += direction * currentDashForce;
                 currentDashForce--;
             }
         }
