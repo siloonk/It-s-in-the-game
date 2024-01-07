@@ -179,11 +179,13 @@ public class Player {
         Collider ladderInRange = null;
         // Check if there are ladders in range
         ArrayList<Collider> colliders = CollisionManager.getColliders(LADDER);
-        for (Collider c : colliders) {
-            if (collider.distance(c) < 40 && collider.getY() >= c.getY()) {
-                SaxionApp.setTextDrawingColor(Color.BLACK);
-                SaxionApp.drawText("Press E to climb!", c.getX() - 100, c.getY(), 24);
-                ladderInRange = c;
+        if (colliders != null) {
+            for (Collider c : colliders) {
+                if (collider.distance(c) < 40 && collider.getY() >= c.getY()) {
+                    SaxionApp.setTextDrawingColor(Color.BLACK);
+                    SaxionApp.drawText("Press E to climb!", c.getX() - 100, c.getY(), 24);
+                    ladderInRange = c;
+                }
             }
         }
 

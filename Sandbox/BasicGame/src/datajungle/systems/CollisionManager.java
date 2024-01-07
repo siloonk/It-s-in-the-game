@@ -18,4 +18,8 @@ public class CollisionManager {
     public static ArrayList<Collider> getColliders(int action) {
         return colliders.get(action);
     }
+
+    public static void clearColliders() {
+        colliders = new HashMap<>();
+    }
 }

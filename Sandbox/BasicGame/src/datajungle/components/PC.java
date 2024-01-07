@@ -2,11 +2,13 @@ package datajungle.components;
 
 import datajungle.BasicGame;
 import datajungle.scenes.GameOverScene;
+import datajungle.scenes.Scene;
 import datajungle.systems.Spritesheet;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.canvas.drawable.Image;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class PC {
 
@@ -14,7 +16,7 @@ public class PC {
     Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 63, 64, 2);
 
     int dataTransfered = 0;
-    int dataToTransfer = 90;
+    int dataToTransfer = 10;
     int dataTransferRate = 1; // How much data gets sent every .1 seconds
 
     long lastDataTransfer = System.currentTimeMillis();
@@ -22,12 +24,13 @@ public class PC {
     public int health = 500;
     public int maxHealth = 500;
     int x, y;
+    private Class<? extends Scene> nextLevel;
 
-    public PC(int x, int y) {
-
+    public PC(int x, int y, Class<? extends Scene> nextLevel) {
         //collider = new Collider(x, y, 50, 50);
         this.x = x;
         this.y = y;
+        this.nextLevel = nextLevel;
     }
 
     public void damage(int damage) {
@@ -48,6 +51,11 @@ public class PC {
 
 
         if (dataTransfered >= dataToTransfer) {
+            try {
+                BasicGame.changeScene((Scene) nextLevel.getConstructors()[0].newInstance());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

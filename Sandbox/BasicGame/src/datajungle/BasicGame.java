@@ -1,6 +1,7 @@
 package datajungle;
 
 import datajungle.scenes.MainMenuScene;
+import datajungle.systems.CollisionManager;
 import nl.saxion.app.SaxionApp;
 
 
@@ -63,6 +64,7 @@ public class BasicGame implements GameLoop {
 
     public static void changeScene(Scene scene) {
         currentScene.close();
+        //CollisionManager.clearColliders();
         currentScene = scene;
         scene.init();
     }
