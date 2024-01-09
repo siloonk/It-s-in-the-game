@@ -16,7 +16,7 @@ public class PC {
     Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 63, 64, 2);
 
     int dataTransfered = 0;
-    int dataToTransfer = 100;
+    int dataToTransfer = 0;
     int dataTransferRate = 1; // How much data gets sent every .1 seconds
 
     long lastDataTransfer = System.currentTimeMillis();

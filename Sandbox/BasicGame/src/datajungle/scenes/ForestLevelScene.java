@@ -42,7 +42,7 @@ public class ForestLevelScene extends Scene {
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
-        pc = new PC(SaxionApp.getWidth() / 2, 467, ForestLevelScene.class);
+        pc = new PC(SaxionApp.getWidth() / 2, 467, SnowLevelScene.class);
         enemy = new SpiderEnemy(-100,0,-1);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
