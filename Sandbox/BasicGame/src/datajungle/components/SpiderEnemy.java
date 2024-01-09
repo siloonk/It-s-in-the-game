@@ -24,9 +24,10 @@ public class SpiderEnemy extends Enemy {
     int maxHealth = 3; // max health
     int yVelocity; // y velocity is needed for the above enemies to drop down
 
-    int attackTimer = 50;
+    long attackTimer = 300;
+    long lastAttack;
 
-    int attack = 0;
+    int attack = 50;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
@@ -59,14 +60,12 @@ public class SpiderEnemy extends Enemy {
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(200);
-        animBuilder.setOnce(true);
-        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(0), enemyMoveSheet.getImage(6));
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(3), enemyMoveSheet.getImage(4), enemyMoveSheet.getImage(5));
         enemyDamageLeft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(200);
-        animBuilder.setOnce(true);
-        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(7), enemyMoveSheet.getImage(13));
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(10), enemyMoveSheet.getImage(9), enemyMoveSheet.getImage(8));
         enemyDamageRight = animBuilder.build(); // makes all the animations for all directions
 
         if (direction == 1) {currentAnimation = enemyWalkRight;}
@@ -75,20 +74,18 @@ public class SpiderEnemy extends Enemy {
     private void move() {
         this.x += this.speed * direction;
 
-        attackTimer--;
-        if (attackTimer == 0 && x == 590 - w || attackTimer == 0 && x == 620 + w) {
+        if (lastAttack + attackTimer < System.currentTimeMillis() && x == 590 - w || x == 620 + w) {
             ForestLevelScene.pc.damage(attack);
-            System.out.println(this.x - w);
-            attackTimer = 50;
-        } else if (attackTimer == 0) {
-            attackTimer = 1;
+            lastAttack = System.currentTimeMillis();
         }
 
         if (x == 590 - w) {
             this.x -= this.speed;
+            currentAnimation = enemyDamageRight;
         }
         if (x == 620 + w) {
             this.x += this.speed;
+            currentAnimation = enemyDamageLeft;
         }
         // Check if the player is on the ground
         isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);

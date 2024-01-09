@@ -11,9 +11,6 @@ import static datajungle.Settings.SOLID;
 
 public class SnowLevelScene extends Scene {
 
-    /*
-            Nieuwe waarden zijn nodig!!
-     */
     public Collider mainGroundCollider = new Collider(0, 582, 1280, 138, SOLID);
     public Collider secondGroundCollider = new Collider(203, 535, 878, 49, SOLID);
     public Collider thirdGroundCollider = new Collider(302, 487, 680, 49, SOLID);
