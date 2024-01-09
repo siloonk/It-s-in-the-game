@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import static datajungle.Settings.LADDER;
 import static datajungle.Settings.SOLID;
 
-public class BaseScene extends Scene {
+public class ForestLevelScene extends Scene {
     int time = 10;
 
-    public BaseScene() {
+    public ForestLevelScene() {
         super("base_scene", true);
     }
 
@@ -45,7 +45,7 @@ public class BaseScene extends Scene {
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
-        pc = new PC(SaxionApp.getWidth() / 2, 467);
+        pc = new PC(SaxionApp.getWidth() / 2, 467, SnowLevelScene.class);
         enemy = new SpiderEnemy(-100,0,-1);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
