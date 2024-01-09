@@ -2,6 +2,7 @@ package datajungle.scenes;
 
 import datajungle.components.Player;
 import datajungle.systems.Collider;
+import datajungle.systems.CollisionManager;
 import nl.saxion.app.SaxionApp;
 
 import java.awt.*;

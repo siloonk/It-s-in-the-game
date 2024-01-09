@@ -64,7 +64,6 @@ public class BasicGame implements GameLoop {
 
     public static void changeScene(Scene scene) {
         currentScene.close();
-        //CollisionManager.clearColliders();
         scene.init();
         currentScene = scene;
     }

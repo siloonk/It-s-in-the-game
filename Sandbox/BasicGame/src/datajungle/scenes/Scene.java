@@ -1,5 +1,7 @@
 package datajungle.scenes;
 
+import datajungle.systems.CollisionManager;
+
 public abstract class Scene {
 
     private String name;
@@ -25,7 +27,6 @@ public abstract class Scene {
 
     // Wordt gecalled wanneer de scene gesloten wordt
     public void close() {
-
     }
 
     // kijk of de scene aan staat

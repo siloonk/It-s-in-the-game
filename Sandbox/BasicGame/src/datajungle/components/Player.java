@@ -124,7 +124,7 @@ public class Player {
         } else isAttacking = false;
 
 
-        boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * 3));
+        boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
         if (!canMove && !isOnLadder) {
             this.x += this.speed * (direction * - 1);
         }

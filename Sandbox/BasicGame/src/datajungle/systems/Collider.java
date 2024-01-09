@@ -64,9 +64,9 @@ public class Collider {
             boolean isColliding;
             if (this.x < collider.x) {
                 direction *= -1;
-                isColliding = this.x + direction * 10 < collider.x + collider.width && this.x + this.width > collider.x + direction * 10 && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+                isColliding = this.x + direction < collider.x + collider.width && this.x + this.width > collider.x + direction && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
             } else {
-                isColliding = this.x + direction * 10 < collider.x + collider.width && this.x + this.width > collider.x + direction * 10 && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+                isColliding = this.x + direction < collider.x + collider.width && this.x + this.width > collider.x + direction && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
             }
             if (isColliding) return true;
         }

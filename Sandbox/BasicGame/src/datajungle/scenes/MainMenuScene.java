@@ -28,7 +28,7 @@ public class MainMenuScene extends Scene {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        ButtonElement playButton = new ButtonElement(SaxionApp.getWidth() / 2 - 55, 450).builder()
+        ButtonElement playButton = new ButtonElement(SaxionApp.getWidth() / 2 - 55, 390).builder()
                 .setText("Play")
                 .setFocussedImage("./assets/images/blank_button.png")
                 .setUnfocussedImage("./assets/images/blank_button.png")
@@ -37,7 +37,7 @@ public class MainMenuScene extends Scene {
                 .setHeight(50)
                 .build();
 
-        ButtonElement exitButton = new ButtonElement(SaxionApp.getWidth() / 2 - 50, 520).builder()
+        ButtonElement exitButton = new ButtonElement(SaxionApp.getWidth() / 2 - 50, 480).builder()
                 .setText("Exit")
                 .setFocussedImage("./assets/images/blank_button.png")
                 .setUnfocussedImage("./assets/images/blank_button.png")
@@ -46,7 +46,9 @@ public class MainMenuScene extends Scene {
                 .setHeight(50)
                 .build();
 
-        gui.addElement(new ImageElement("./assets/images/menu_background.png", SaxionApp.getWidth()/2-300, 0, 600, 1280));
+
+        gui.addElement(new ImageElement("./assets/images/menu_background.png", SaxionApp.getWidth()/2-340, 0, 680, 1280));
+        gui.addElement(new ImageElement("./assets/images/logo.png", SaxionApp.getWidth()/2-315, 50));
         gui.addElement(playButton);
         gui.addElement(exitButton);
     }
