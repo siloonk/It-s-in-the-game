@@ -40,18 +40,5 @@ public class SnowLevelScene extends Scene {
     public void update(boolean[] keysPressed) {
         SaxionApp.drawImage("./assets/images/snowy_game_background.png", 0, 0);
         player.update();
-        mainGroundCollider.draw();
-        secondGroundCollider.draw();
-        thirdGroundCollider.draw();
-        fourthGroundCollider.draw();
-        fifthGroundCollider.draw();
-
-        topleft.draw();
-        toplefttwo.draw();
-        topleftthree.draw();
-
-        topright.draw();
-        toprighttwo.draw();
-        toprightthree.draw();
     }
 }

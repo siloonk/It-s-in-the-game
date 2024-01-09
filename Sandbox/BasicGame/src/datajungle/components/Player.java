@@ -128,7 +128,6 @@ public class Player {
         if (!canMove && !isOnLadder) {
             this.x += this.speed * (direction * - 1);
         }
-        canMove = true;
 
         // Boolean for the walking animation
         boolean hasMoved = false;

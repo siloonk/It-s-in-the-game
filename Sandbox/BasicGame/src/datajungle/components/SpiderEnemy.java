@@ -27,7 +27,7 @@ public class SpiderEnemy extends Enemy {
     long attackTimer = 300;
     long lastAttack;
 
-    int attack = 50;
+    int attack = 5;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
@@ -74,7 +74,7 @@ public class SpiderEnemy extends Enemy {
     private void move() {
         this.x += this.speed * direction;
 
-        if (lastAttack + attackTimer < System.currentTimeMillis() && x == 590 - w || x == 620 + w) {
+        if (lastAttack + attackTimer < System.currentTimeMillis() && (x == 590 - w || x == 620 + w)) {
             ForestLevelScene.pc.damage(attack);
             lastAttack = System.currentTimeMillis();
         }
