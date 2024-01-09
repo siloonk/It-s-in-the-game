@@ -161,7 +161,7 @@ public class Player {
             lastDash = System.currentTimeMillis();
         }
 
-        if (isDashing) {
+        if (isDashing && !isOnLadder) {
             if (!(currentDashForce > 0)) {
                 isDashing = false;
             } else {
