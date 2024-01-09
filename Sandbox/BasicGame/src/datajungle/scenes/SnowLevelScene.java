@@ -18,6 +18,13 @@ public class SnowLevelScene extends Scene {
     public Collider thirdGroundCollider = new Collider(302, 487, 680, 49, SOLID);
     public Collider fourthGroundCollider = new Collider(401, 439, 482, 49, SOLID);
     public Collider fifthGroundCollider = new Collider(549, 391, 185, 49, SOLID);
+    public Collider topleft = new Collider(0, 150, 290, 182, SOLID);
+    public Collider toplefttwo = new Collider(0, 150, 340, 134, SOLID);
+    public Collider topleftthree = new Collider(0, 150, 390, 86, SOLID);
+
+    public Collider topright = new Collider(993, 150, 286, 182, SOLID); // onderste
+    public Collider toprighttwo = new Collider(944, 150, 336, 134, SOLID); // middeslte
+    public Collider toprightthree = new Collider(894, 150, 386, 86, SOLID); // bovenste
 
     Player player;
 
@@ -41,5 +48,12 @@ public class SnowLevelScene extends Scene {
         fourthGroundCollider.draw();
         fifthGroundCollider.draw();
 
+        topleft.draw();
+        toplefttwo.draw();
+        topleftthree.draw();
+
+        topright.draw();
+        toprighttwo.draw();
+        toprightthree.draw();
     }
 }
