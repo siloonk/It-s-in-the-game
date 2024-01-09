@@ -24,10 +24,10 @@ public class SpiderEnemy extends Enemy {
     int maxHealth = 3; // max health
     int yVelocity; // y velocity is needed for the above enemies to drop down
 
-    long attackTimer = 300;
+    long attackTimer = 900;
     long lastAttack;
 
-    int attack = 5;
+    int attack = 1;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
@@ -59,13 +59,13 @@ public class SpiderEnemy extends Enemy {
         enemyWalkLeft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSwitchDelay(200);
-        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(3), enemyMoveSheet.getImage(4), enemyMoveSheet.getImage(5));
+        animBuilder.setAnimationSwitchDelay(300);
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(5), enemyMoveSheet.getImage(3), enemyMoveSheet.getImage(4));
         enemyDamageLeft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSwitchDelay(200);
-        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(10), enemyMoveSheet.getImage(9), enemyMoveSheet.getImage(8));
+        animBuilder.setAnimationSwitchDelay(300);
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(8), enemyMoveSheet.getImage(10), enemyMoveSheet.getImage(9));
         enemyDamageRight = animBuilder.build(); // makes all the animations for all directions
 
         if (direction == 1) {currentAnimation = enemyWalkRight;}
