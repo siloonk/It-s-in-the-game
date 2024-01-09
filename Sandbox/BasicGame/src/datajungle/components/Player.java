@@ -2,7 +2,7 @@ package datajungle.components;
 
 import datajungle.*;
 import datajungle.systems.Collider;
-import datajungle.scenes.BaseScene;
+import datajungle.scenes.ForestLevelScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
 import datajungle.systems.Spritesheet;
@@ -20,17 +20,21 @@ public class Player {
     int x = SaxionApp.getWidth() / 2;
     int y = SaxionApp.getHeight() / 2;
 
-    Collider collider = new Collider(x, y, 44, 96, DAMAGE);
-    int speed = 2;
-    int dashSpeed = 20;
-    long attackCooldown = 500; // Cooldown is in milliseconds
-    long dashCooldown = 300; // Cooldown is in milliseconds
-    long lastAttack = 0;
-    long lastDash;
-    int damage = 1;
 
+    // Player data
+    Collider collider = new Collider(x, y, 44, 96, DAMAGE);
+    Collider groundCheckCollider = new Collider(x + 20, y, 10, 96, UTIL);
+
+    boolean canMove;
+    int speed = 2;
+    long attackCooldown = 500; // Cooldown is in milliseconds
+    long dashCooldown = 700; // Cooldown is in milliseconds
+    int damage = 1;
     int jumpForce = -11;
+    int dashForce = 20;
     int yVelocity = 0;
+
+    // Animations
     Animation walkAnimationLeft;
     Animation walkAnimationRight;
     Animation idleAnimationleft;
@@ -39,12 +43,20 @@ public class Player {
     Animation attackRight;
     Animation jumpRight;
     Animation jumpLeft;
+
+    long lastAttack = 0;
+    long lastDash = 0;
+
+    int direction = -1;
+    int currentDashForce = 0;
+    Collider usedLadder = null;
+
+    // modifiers
     boolean isGrounded = false;
     boolean isJumping = false;
-    int direction = -1;
     boolean isOnLadder = false;
-    Collider usedLadder = null;
     boolean isAttacking = false;
+    boolean isDashing = false;
 
     Animation currentAnimation;
 
@@ -76,14 +88,14 @@ public class Player {
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSprites(playerAttackSheet.getImage(10), playerAttackSheet.getImage(11), playerAttackSheet.getImage(12), playerAttackSheet.getImage(13), playerAttackSheet.getImage(14), playerAttackSheet.getImage(15), playerAttackSheet.getImage(16), playerAttackSheet.getImage(17), playerAttackSheet.getImage(18), playerAttackSheet.getImage(19));
-        animBuilder.setAnimationSwitchDelay(8);
+        animBuilder.setAnimationSwitchDelay(25);
         animBuilder.setOnce(true);
         attackLeft = animBuilder.build();
 
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSprites(playerAttackSheet.getImage(9), playerAttackSheet.getImage(8), playerAttackSheet.getImage(7), playerAttackSheet.getImage(6), playerAttackSheet.getImage(5), playerAttackSheet.getImage(4), playerAttackSheet.getImage(3), playerAttackSheet.getImage(2), playerAttackSheet.getImage(1), playerAttackSheet.getImage(0));
-        animBuilder.setAnimationSwitchDelay(8);
+        animBuilder.setAnimationSwitchDelay(25);
         animBuilder.setOnce(true);
         attackRight = animBuilder.build();
 
@@ -113,6 +125,10 @@ public class Player {
 
 
         boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * 3));
+        if (!canMove && !isOnLadder) {
+            this.x += this.speed * (direction * - 1);
+        }
+        canMove = true;
 
         // Boolean for the walking animation
         boolean hasMoved = false;
@@ -139,10 +155,21 @@ public class Player {
             direction = -1;
         }
 
-        if (keysPressed[KeyEvent.VK_SHIFT] && (lastDash + dashCooldown < System.currentTimeMillis()) && canMove) {
-            if (this.x + collider.getWidth() + (this.dashSpeed * direction) < SaxionApp.getWidth())
-                x += direction * dashSpeed;
+        if (keysPressed[KeyEvent.VK_SHIFT] && (lastDash + dashCooldown < System.currentTimeMillis()) && canMove && !isDashing && !isOnLadder) {
+            isDashing = true;
+            currentDashForce = dashForce;
             lastDash = System.currentTimeMillis();
+        }
+
+        if (isDashing) {
+            if (!(currentDashForce > 0)) {
+                isDashing = false;
+            } else {
+                if (this.x + collider.getWidth() + (this.currentDashForce * direction) < SaxionApp.getWidth() && this.x + (this.currentDashForce * direction) > 0)
+                    if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * 3)))
+                        x += direction * currentDashForce;
+                currentDashForce--;
+            }
         }
 
         if (keysPressed[KeyEvent.VK_A] && keysPressed[KeyEvent.VK_D] && !isJumping && !isOnLadder && !isAttacking) {
@@ -152,11 +179,13 @@ public class Player {
         Collider ladderInRange = null;
         // Check if there are ladders in range
         ArrayList<Collider> colliders = CollisionManager.getColliders(LADDER);
-        for (Collider c : colliders) {
-            if (collider.distance(c) < 40 && collider.getY() >= c.getY()) {
-                SaxionApp.setTextDrawingColor(Color.BLACK);
-                SaxionApp.drawText("Press E to climb!", c.getX() - 100, c.getY(), 24);
-                ladderInRange = c;
+        if (colliders != null) {
+            for (Collider c : colliders) {
+                if (collider.distance(c) < 40 && collider.getY() >= c.getY()) {
+                    SaxionApp.setTextDrawingColor(Color.BLACK);
+                    SaxionApp.drawText("Press E to climb!", c.getX() - 100, c.getY(), 24);
+                    ladderInRange = c;
+                }
             }
         }
 
@@ -189,8 +218,8 @@ public class Player {
             if (direction == -1) currentAnimation = attackLeft;
 
             // Player started the attack thus deal damage
-            for (int i = 0; i < BaseScene.getEnemies().size(); i++) {
-                SpiderEnemy enemy = BaseScene.getEnemies().get(i);
+            for (int i = 0; i < ForestLevelScene.getEnemies().size(); i++) {
+                Enemy enemy = ForestLevelScene.getEnemies().get(i);
                 if (enemy.collider.isColliding(collider, direction * 25, 0)) {
                     enemy.damage(damage);
                 }

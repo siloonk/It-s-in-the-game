@@ -1,13 +1,14 @@
 package datajungle;
 
 import datajungle.scenes.MainMenuScene;
+import datajungle.systems.CollisionManager;
 import nl.saxion.app.SaxionApp;
 
 
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import datajungle.scenes.BaseScene;
+import datajungle.scenes.ForestLevelScene;
 import datajungle.scenes.Scene;
 
 public class BasicGame implements GameLoop {
@@ -27,7 +28,7 @@ public class BasicGame implements GameLoop {
     @Override
     public void init() {
         // Zet de huidige scene naar een instance van BaseScene
-        currentScene = new BaseScene();
+        currentScene = new MainMenuScene();
         // Initialiseer de scene
         currentScene.init();
     }
@@ -63,6 +64,7 @@ public class BasicGame implements GameLoop {
 
     public static void changeScene(Scene scene) {
         currentScene.close();
+        //CollisionManager.clearColliders();
         currentScene = scene;
         scene.init();
     }
