@@ -1,11 +1,14 @@
 package datajungle.components;
 
+import datajungle.systems.Collider;
+
 public abstract class Enemy {
 
-    private int x;
-    private int y;
-    private int w;
-    private int h;
+    public int x;
+    public int y;
+    public int w;
+    public int h;
+    public Collider collider;
     private int direction;
 
     private int health;
@@ -32,9 +35,11 @@ public abstract class Enemy {
 
     }
 
-    public void update(boolean[] keysPressed) {
+    public void update() {
 
     }
+
+    public abstract void damage(int damage);
 
     public void close() {
 

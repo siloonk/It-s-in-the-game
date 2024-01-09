@@ -104,7 +104,7 @@ public class ButtonElement extends UIElement {
             try {
                 function.invoke(null);
             } catch (IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
         SaxionApp.add(selectedImage);

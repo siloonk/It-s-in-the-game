@@ -22,9 +22,6 @@ public class SpiderEnemy extends Enemy {
     int health = 3; // enemy health
 
     int maxHealth = 3; // max health
-
-    int x = 0;
-    int y = 0;
     int yVelocity; // y velocity is needed for the above enemies to drop down
 
     int attackTimer = 50;
@@ -40,7 +37,6 @@ public class SpiderEnemy extends Enemy {
 
     Spritesheet enemyMoveSheet = new Spritesheet("./assets/images/sheets/spider.png", 448, 64, 64, 32, 0);
 
-    Collider collider = new Collider(x, y, w, h, DAMAGE);
 
     int speed = 1;
     boolean isGrounded = false;
@@ -48,8 +44,7 @@ public class SpiderEnemy extends Enemy {
 
     public SpiderEnemy(int x, int y, int direction) {
         super(x, y, direction);
-        this.x = x;
-        this.y = y;
+        this.collider = new Collider(x, y, w, h, DAMAGE);
         this.direction = direction;
 
         Animation.Builder animBuilder = new Animation.Builder();
@@ -83,6 +78,7 @@ public class SpiderEnemy extends Enemy {
         attackTimer--;
         if (attackTimer == 0 && x == 590 - w || attackTimer == 0 && x == 620 + w) {
             ForestLevelScene.pc.damage(attack);
+            System.out.println(this.x - w);
             attackTimer = 50;
         } else if (attackTimer == 0) {
             attackTimer = 1;
@@ -108,6 +104,7 @@ public class SpiderEnemy extends Enemy {
         collider.updateCoords(x, y);
     }
 
+    @Override
     public void damage(int damage) {
         this.health -= damage;
         if (health <= 0)
@@ -127,6 +124,7 @@ public class SpiderEnemy extends Enemy {
         SaxionApp.drawRectangle(x, y-8, (int) ((float) health / maxHealth * w), 8);
     }
 
+    @Override
     public void update() {
         draw();
         move();

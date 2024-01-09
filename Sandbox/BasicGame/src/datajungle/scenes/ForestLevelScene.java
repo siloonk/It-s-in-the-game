@@ -1,10 +1,7 @@
 package datajungle.scenes;
 
+import datajungle.components.*;
 import datajungle.systems.Collider;
-import datajungle.components.PC;
-import datajungle.components.Player;
-import datajungle.components.SpiderEnemy;
-import datajungle.components.Spawnpoint;
 import nl.saxion.app.SaxionApp;
 
 import javax.sound.sampled.*;
@@ -32,20 +29,20 @@ public class ForestLevelScene extends Scene {
 
     Player player;
     public static PC pc;
-    SpiderEnemy enemy;
+    Enemy enemy;
 
-    private static ArrayList<SpiderEnemy> enemies = new ArrayList<>();
+    private static ArrayList<Enemy> enemies = new ArrayList<>();
 
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
 
     @Override
     public void init() {
-        player = new Player("./assets/images/sheets/characters_ruben.png", "./assets/images/sheets/player_attack.png");
+        player = new Player("./assets/images/sheets/characters_ruben.png", "./assets/images/sheets/player_attack_sil.png");
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
-        pc = new PC(SaxionApp.getWidth() / 2, 467, SnowLevelScene.class);
+        pc = new PC(SaxionApp.getWidth() / 2, 467, ForestLevelScene.class);
         enemy = new SpiderEnemy(-100,0,-1);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
@@ -56,11 +53,11 @@ public class ForestLevelScene extends Scene {
 
     @Override
     public void update(boolean[] keysPressed) {
-        SaxionApp.drawImage("./assets/images/gameBackground2.png", 0, 0);
+        SaxionApp.drawImage("./assets/images/forest_game_background.png", 0, 0);
         pc.update();
         player.update();
 
-        for (SpiderEnemy enemy : enemies) {
+        for (Enemy enemy : enemies) {
             enemy.update();
         }
         if (time == 0) {
@@ -82,12 +79,12 @@ public class ForestLevelScene extends Scene {
     }
 
 
-    public static void killEnemy(SpiderEnemy enemy) {
+    public static void killEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
 
 
-    public static ArrayList<SpiderEnemy> getEnemies() {
+    public static ArrayList<Enemy> getEnemies() {
         return enemies;
     }
 

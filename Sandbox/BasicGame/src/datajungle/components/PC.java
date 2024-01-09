@@ -16,15 +16,15 @@ public class PC {
     Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 63, 64, 2);
 
     int dataTransfered = 0;
-    int dataToTransfer = 10;
+    int dataToTransfer = 100;
     int dataTransferRate = 1; // How much data gets sent every .1 seconds
 
     long lastDataTransfer = System.currentTimeMillis();
 
-    public int health = 50;
-    public int maxHealth = 50;
+    public int health = 500;
+    public int maxHealth = 500;
     int x, y;
-    private Class<? extends Scene> nextLevel;
+    private final Class<? extends Scene> nextLevel;
 
     public PC(int x, int y, Class<? extends Scene> nextLevel) {
         //collider = new Collider(x, y, 50, 50);
