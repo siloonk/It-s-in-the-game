@@ -1,6 +1,7 @@
 package datajungle.components;
 
 import datajungle.*;
+import datajungle.scenes.GameOverScene;
 import datajungle.systems.Collider;
 import datajungle.scenes.ForestLevelScene;
 import datajungle.systems.Animation;
@@ -327,6 +328,11 @@ public class Player {
     public void applySlowness() {
         isSlowed = true;
         slowStart = System.currentTimeMillis();
+    }
+
+    public void damage(int damage) {
+        this.health -= damage;
+        if (this.health < 0) BasicGame.changeScene(new GameOverScene());
     }
 
     public void update() {
