@@ -16,14 +16,14 @@ public class ForestLevelScene extends Scene {
     int time = 10;
 
     public ForestLevelScene() {
-        super("base_scene", true);
+        super("base_scene", false);
     }
 
-    public Collider floorCollider = new Collider(0, 590, SaxionApp.getWidth() + 420, SaxionApp.getHeight() - 700, SOLID);
-    public Collider platformLeftCollider = new Collider(0, 250, 343, 70, SOLID);
-    public Collider platformRightCollider = new Collider(SaxionApp.getWidth() - 343, 250, 690, 70, SOLID);
-    public Collider ropeCollider = new Collider(251, 467, 32, 406, LADDER);
-    public Collider ladderCollider = new Collider(985, 467, 45, 406, LADDER);
+    public Collider floorCollider;
+    public Collider platformLeftCollider;
+    public Collider platformRightCollider;
+    public Collider ropeCollider;
+    public Collider ladderCollider;
     Clip backgroundSound;
 
 
@@ -38,7 +38,15 @@ public class ForestLevelScene extends Scene {
 
     @Override
     public void init() {
-        player = new Player("./assets/images/sheets/characters_ruben.png", "./assets/images/sheets/player_attack_sil.png");
+        floorCollider = new Collider(0, 590, SaxionApp.getWidth() + 420, SaxionApp.getHeight() - 700, SOLID);
+        platformLeftCollider = new Collider(0, 250, 343, 70, SOLID);
+        platformRightCollider = new Collider(SaxionApp.getWidth() - 343, 250, 690, 70, SOLID);
+        ropeCollider = new Collider(251, 467, 32, 406, LADDER);
+        ladderCollider = new Collider(985, 467, 45, 406, LADDER);
+
+
+
+        player = new Player("./assets/images/sheets/characters_ruben.png", "./assets/images/sheets/player_attack_sil.png", SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
@@ -74,6 +82,7 @@ public class ForestLevelScene extends Scene {
 
     @Override
     public void close() {
+        super.close();
         backgroundSound.stop();
         backgroundSound.close();
     }

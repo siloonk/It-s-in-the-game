@@ -30,6 +30,7 @@ public abstract class Scene {
 
     // Wordt gecalled wanneer de scene gesloten wordt
     public void close() {
+        isRunning = false;
     }
 
     // kijk of de scene aan staat

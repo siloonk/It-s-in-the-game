@@ -1,5 +1,6 @@
 package datajungle.scenes;
 import datajungle.BasicGame;
+import datajungle.systems.CollisionManager;
 import datajungle.ui.ButtonElement;
 import datajungle.ui.GUI;
 import datajungle.ui.ImageElement;

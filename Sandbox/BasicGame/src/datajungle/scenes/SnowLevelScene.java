@@ -5,25 +5,30 @@ import datajungle.systems.Collider;
 import datajungle.systems.CollisionManager;
 import nl.saxion.app.SaxionApp;
 
+import javax.sound.sampled.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static datajungle.Settings.SOLID;
 
 public class SnowLevelScene extends Scene {
 
-    public Collider mainGroundCollider = new Collider(0, 582, 1380, 138, SOLID);
-    public Collider secondGroundCollider = new Collider(203, 535, 878, 49, SOLID);
-    public Collider thirdGroundCollider = new Collider(302, 487, 680, 49, SOLID);
-    public Collider fourthGroundCollider = new Collider(401, 439, 482, 49, SOLID);
-    public Collider fifthGroundCollider = new Collider(549, 391, 185, 49, SOLID);
-    public Collider topleft = new Collider(0, 150, 290, 182, SOLID);
-    public Collider toplefttwo = new Collider(0, 150, 340, 134, SOLID);
-    public Collider topleftthree = new Collider(0, 150, 390, 86, SOLID);
+    public Collider mainGroundCollider;
+    public Collider secondGroundCollider;
+    public Collider thirdGroundCollider;
+    public Collider fourthGroundCollider;
+    public Collider fifthGroundCollider;
+    public Collider topleft;
+    public Collider toplefttwo;
+    public Collider topleftthree;
 
-    public Collider topright = new Collider(993, 150, 286, 182, SOLID); // onderste
-    public Collider toprighttwo = new Collider(944, 150, 336, 134, SOLID); // middeslte
-    public Collider toprightthree = new Collider(894, 150, 440, 86, SOLID); // bovenste
+    public Collider topright;
+    public Collider toprighttwo;
+    public Collider toprightthree;
+
+    Clip backgroundSound;
 
 
     private static ArrayList<Enemy> enemies = new ArrayList<>();
@@ -41,7 +46,23 @@ public class SnowLevelScene extends Scene {
 
     @Override
     public void init() {
-        player = new Player("./assets/images/sheets/characters_sil.png", "./assets/images/sheets/player_attack_sil.png");
+        // Colliders
+        mainGroundCollider = new Collider(0, 582, 1500, 138, SOLID);
+        secondGroundCollider = new Collider(203, 535, 878, 49, SOLID);
+        thirdGroundCollider = new Collider(302, 487, 680, 49, SOLID);
+        fourthGroundCollider = new Collider(401, 439, 482, 49, SOLID);
+        fifthGroundCollider = new Collider(549, 391, 185, 49, SOLID);
+        topleft = new Collider(0, 150, 290, 182, SOLID);
+        toplefttwo = new Collider(0, 150, 340, 134, SOLID);
+        topleftthree = new Collider(0, 150, 390, 86, SOLID);
+
+        topright = new Collider(993, 150, 286, 182, SOLID); // onderste
+        toprighttwo = new Collider(944, 150, 336, 134, SOLID); // middeslte
+        toprightthree = new Collider(894, 150, 386, 86, SOLID); // bovenste
+
+
+
+        player = new Player("./assets/images/sheets/characters_sil.png", "./assets/images/sheets/player_attack_sil.png", SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
         pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 75);
         Enemy enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
@@ -49,6 +70,7 @@ public class SnowLevelScene extends Scene {
         spawnpoints.add(new Spawnpoint (-32, 120, 1));
         spawnpoints.add(new Spawnpoint (SaxionApp.getWidth()+32, 555, -1));
         spawnpoints.add(new Spawnpoint (SaxionApp.getWidth()+32, 120, -1));
+        playSound("background.wav", true);
     }
 
 
@@ -72,5 +94,26 @@ public class SnowLevelScene extends Scene {
         }
 
         player.update();
+    }
+
+    public void playSound(String soundFile, boolean loop){
+        try {
+            File f = new File("./assets/sounds/" + soundFile);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            backgroundSound = clip;
+            if (loop) backgroundSound.loop(-1);
+            else backgroundSound.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        backgroundSound.stop();
+        backgroundSound.close();
     }
 }

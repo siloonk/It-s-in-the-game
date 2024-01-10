@@ -18,13 +18,13 @@ import static datajungle.Settings.*;
 
 public class Player {
 
-    int x = SaxionApp.getWidth() / 2;
-    int y = SaxionApp.getHeight() / 2;
+    int x;
+    int y;
 
 
     // Player data
     Collider collider = new Collider(x, y, 44, 96, DAMAGE);
-    Collider groundCheckCollider = new Collider(x + 20, y, 10, 96, UTIL);
+    Collider groundCheckCollider = new Collider(x + 20, y + 66, 10, 30, UTIL);
 
     boolean canMove;
     int speed = 2;
@@ -79,7 +79,9 @@ public class Player {
     Spritesheet playerMoveSheet;
     Spritesheet playerAttackSheet;
 
-    public Player(String characterSheet, String characterAttackSheet) {
+    public Player(String characterSheet, String characterAttackSheet, int x, int y) {
+        this.x = x;
+        this.y = y;
         playerMoveSheet = new Spritesheet(characterSheet, 222, 196, 48, 96, 0);
         playerAttackSheet = new Spritesheet(characterAttackSheet, 480, 186, 48, 93, 0);
         Animation.Builder animBuilder = new Animation.Builder();
@@ -131,7 +133,6 @@ public class Player {
     }
 
     private void move() {
-
         boolean[] keysPressed = BasicGame.keysPressed;
         boolean mouseButtonPressed = BasicGame.leftMouseButtonPressed;
 
@@ -146,8 +147,10 @@ public class Player {
 
         boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
         if (!canMove && !isOnLadder) {
-            this.x += this.speed * (direction * - 1);
-            direction *= -1;
+            if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * -1))
+                this.x += this.speed * (direction * - 1);
+            else
+                canMove = true;
         }
 
         // Boolean for the walking animation
@@ -253,7 +256,7 @@ public class Player {
         }
 
         // Check if the player is on the ground
-        isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
+        isGrounded = groundCheckCollider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
 
 
         // Check if the player is allowed to jump
@@ -278,6 +281,7 @@ public class Player {
         }
 
         collider.updateCoords(x, y);
+        groundCheckCollider.updateCoords(x + 15, y + 66);
     }
 
     private void draw() {
