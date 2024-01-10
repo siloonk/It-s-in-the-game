@@ -149,8 +149,10 @@ public class Player {
         if (!canMove && !isOnLadder) {
             if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * -1))
                 this.x += this.speed * (direction * -1);
-            else if (collider.isColliding(CollisionManager.getColliders(SOLID), direction * -5))
+            else if (collider.isColliding(CollisionManager.getColliders(SOLID), direction * -5) && isGrounded)
                 canMove = true;
+            else
+                this.x += this.speed * (direction * -1);
         }
 
 
