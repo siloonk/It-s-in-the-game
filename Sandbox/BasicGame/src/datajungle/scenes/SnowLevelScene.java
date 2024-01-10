@@ -48,20 +48,17 @@ public class SnowLevelScene extends Scene {
     @Override
     public void init() {
         // Colliders
-        mainGroundCollider = new Collider(0, 582, 1500, 138, SOLID);
-        secondGroundCollider = new Collider(203, 535, 878, 49, SOLID);
-        thirdGroundCollider = new Collider(302, 487, 680, 49, SOLID);
-        fourthGroundCollider = new Collider(401, 439, 482, 49, SOLID);
-        fifthGroundCollider = new Collider(549, 391, 185, 49, SOLID);
-        topleft = new Collider(0, 150, 290, 182, SOLID);
-        toplefttwo = new Collider(0, 150, 340, 134, SOLID);
-        topleftthree = new Collider(0, 150, 390, 86, SOLID);
-
-        topright = new Collider(993, 150, 286, 182, SOLID); // onderste
+        mainGroundCollider = new Collider(0, 582, 1380, 138, SOLID);// onderste
+        secondGroundCollider = new Collider(203, 535, 878, 49, SOLID); // 1 boven onderste
+        thirdGroundCollider = new Collider(302, 487, 680, 49, SOLID); // 2 boven onderste
+        fourthGroundCollider = new Collider(401, 439, 482, 49, SOLID); // 3 boven onderste
+        fifthGroundCollider = new Collider(549, 391, 185, 49, SOLID); // bovenste (met tafel)
+        topleft = new Collider(0, 150, 290, 182, SOLID); // onderste
+        toplefttwo = new Collider(0, 150, 340, 134, SOLID); // middelste
+        topleftthree = new Collider(0, 150, 390, 86, SOLID); // bovenste
+        topright  = new Collider(993, 150, 286, 182, SOLID); // onderste
         toprighttwo = new Collider(944, 150, 336, 134, SOLID); // middeslte
-        toprightthree = new Collider(894, 150, 386, 86, SOLID); // bovenste
-
-
+        toprightthree = new Collider(894, 150, 440, 86, SOLID); // bovenste
 
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
         pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 75);

@@ -157,7 +157,7 @@ public class Player {
 
         // Boolean for the walking animation
         boolean hasMoved = false;
-        int currSpeed = this.speed;
+        int currentSpeed = this.speed;
         if (isSlowed) this.speed = speed / 2;
 
         if (keysPressed[KeyEvent.VK_D] && !isOnLadder) {
@@ -180,7 +180,7 @@ public class Player {
             direction = -1;
         }
 
-        this.speed = currSpeed;
+        this.speed = currentSpeed;
 
         if (keysPressed[KeyEvent.VK_SHIFT] && (lastDash + dashCooldown < System.currentTimeMillis()) && canMove && !isDashing && !isOnLadder) {
             isDashing = true;

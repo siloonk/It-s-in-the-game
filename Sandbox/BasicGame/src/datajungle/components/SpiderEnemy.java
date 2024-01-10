@@ -82,6 +82,10 @@ public class SpiderEnemy extends Enemy {
             lastAttack = System.currentTimeMillis();
         }
 
+        if ((x == 203 - w || x == 302 - w || x == 401 - w || x == 549 - w || x == 734 || x == 883 || x == 982 || x == 1081) && y > 200) {
+            y-=64;
+        }
+
         if (x == pc.pcCollider.getX() - w) {
             this.x -= this.speed;
             currentAnimation = enemyDamageRight;
