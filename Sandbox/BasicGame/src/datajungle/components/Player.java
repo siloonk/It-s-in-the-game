@@ -148,10 +148,12 @@ public class Player {
         boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
         if (!canMove && !isOnLadder) {
             if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * -1))
-                this.x += this.speed * (direction * - 1);
-            else
+                this.x += this.speed * (direction * -1);
+            else if (collider.isColliding(CollisionManager.getColliders(SOLID), direction * -5))
                 canMove = true;
         }
+
+
 
         // Boolean for the walking animation
         boolean hasMoved = false;
@@ -192,7 +194,7 @@ public class Player {
                 isDashing = false;
             } else {
                 if (this.x + collider.getWidth() + (this.currentDashForce * direction) < SaxionApp.getWidth() && this.x + (this.currentDashForce * direction) > 0)
-                    if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * 3)))
+                    if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * (speed * currentDashForce)))
                         x += direction * currentDashForce;
                 currentDashForce--;
             }
@@ -244,8 +246,8 @@ public class Player {
             if (direction == -1) currentAnimation = attackLeft;
 
             // Player started the attack thus deal damage
-            for (int i = 0; i < ForestLevelScene.getEnemies().size(); i++) {
-                Enemy enemy = ForestLevelScene.getEnemies().get(i);
+            for (int i = 0; i < BasicGame.currentScene.getEnemies().size(); i++) {
+                Enemy enemy = BasicGame.currentScene.getEnemies().get(i);
                 if (enemy.collider.isColliding(collider, direction * 25, 0)) {
                     enemy.damage(damage);
                 }

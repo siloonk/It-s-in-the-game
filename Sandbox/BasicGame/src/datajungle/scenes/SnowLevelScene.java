@@ -1,5 +1,6 @@
 package datajungle.scenes;
 
+import datajungle.Settings;
 import datajungle.components.*;
 import datajungle.systems.Collider;
 import datajungle.systems.CollisionManager;
@@ -62,7 +63,7 @@ public class SnowLevelScene extends Scene {
 
 
 
-        player = new Player("./assets/images/sheets/characters_sil.png", "./assets/images/sheets/player_attack_sil.png", SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
+        player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
         pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 75);
         Enemy enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
@@ -73,6 +74,15 @@ public class SnowLevelScene extends Scene {
         playSound("background.wav", true);
     }
 
+    @Override
+    public void killEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+
+    @Override
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
 
     @Override
     public void update(boolean[] keysPressed) {
@@ -109,6 +119,7 @@ public class SnowLevelScene extends Scene {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void close() {

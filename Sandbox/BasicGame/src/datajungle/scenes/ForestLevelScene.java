@@ -1,5 +1,6 @@
 package datajungle.scenes;
 
+import datajungle.Settings;
 import datajungle.components.*;
 import datajungle.systems.Collider;
 import nl.saxion.app.SaxionApp;
@@ -46,7 +47,7 @@ public class ForestLevelScene extends Scene {
 
 
 
-        player = new Player("./assets/images/sheets/characters_ruben.png", "./assets/images/sheets/player_attack_sil.png", SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
+        player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
@@ -93,8 +94,8 @@ public class ForestLevelScene extends Scene {
         enemies.remove(enemy);
     }
 
-
-    public static ArrayList<Enemy> getEnemies() {
+    @Override
+    public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
 

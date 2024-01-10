@@ -17,7 +17,7 @@ public class BasicGame implements GameLoop {
     public static boolean leftMouseButtonPressed = false;
 
     // De huidige scene die geselecteerd is.
-    private static Scene currentScene;
+    public static Scene currentScene;
 
 
     public static void main(String[] args) {
@@ -40,7 +40,8 @@ public class BasicGame implements GameLoop {
         SaxionApp.clear();
         // Update de huidige scene
 
-        currentScene.update(keysPressed);
+        if (currentScene.isRunning())
+            currentScene.update(keysPressed);
     }
 
     @Override
@@ -64,7 +65,9 @@ public class BasicGame implements GameLoop {
 
     public static void changeScene(Scene scene) {
         currentScene.close();
+        CollisionManager.clearColliders();
         scene.init();
+        scene.setRunning(true);
         currentScene = scene;
     }
 

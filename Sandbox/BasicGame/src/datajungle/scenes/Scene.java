@@ -4,10 +4,12 @@ import datajungle.components.Enemy;
 import datajungle.components.Player;
 import datajungle.systems.CollisionManager;
 
+import java.util.List;
+
 public abstract class Scene {
 
     private String name;
-    private boolean isRunning = false;
+    private boolean isRunning;
     public Player player;
 
 
@@ -30,7 +32,7 @@ public abstract class Scene {
 
     // Wordt gecalled wanneer de scene gesloten wordt
     public void close() {
-        isRunning = false;
+        setRunning(false);
     }
 
     // kijk of de scene aan staat
@@ -49,5 +51,9 @@ public abstract class Scene {
 
     public void killEnemy(Enemy enemy) {
 
+    }
+
+    public List<Enemy> getEnemies() {
+        return null;
     }
 }
