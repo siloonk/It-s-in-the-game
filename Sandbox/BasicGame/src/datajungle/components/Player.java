@@ -29,10 +29,16 @@ public class Player {
     int speed = 2;
     long attackCooldown = 500; // Cooldown is in milliseconds
     long dashCooldown = 700; // Cooldown is in milliseconds
+    long poisonDamageDelay = 1000;
+    long bleedDamageDelay = 1000;
     int damage = 1;
     int jumpForce = -11;
     int dashForce = 20;
     int yVelocity = 0;
+    int health = 10;
+
+    int poisonCount = 0;
+    int bleedCount = 0;
 
     // Animations
     Animation walkAnimationLeft;
@@ -46,6 +52,11 @@ public class Player {
 
     long lastAttack = 0;
     long lastDash = 0;
+    long lastPoisoned = 0;
+    long lastBled = 0;
+    long slowStart;
+    long slowedTime;
+
 
     int direction = -1;
     int currentDashForce = 0;
@@ -57,6 +68,10 @@ public class Player {
     boolean isOnLadder = false;
     boolean isAttacking = false;
     boolean isDashing = false;
+    boolean isPoisoned = false;
+    boolean isSlowed = false;
+    boolean isBleeding = false;
+
 
     Animation currentAnimation;
 
@@ -123,14 +138,21 @@ public class Player {
             if (currentAnimation.isDone()) isAttacking = false;
         } else isAttacking = false;
 
+        if (slowStart + slowedTime < System.currentTimeMillis()) {
+            isSlowed = false;
+        }
+
 
         boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
         if (!canMove && !isOnLadder) {
             this.x += this.speed * (direction * - 1);
+            direction *= -1;
         }
 
         // Boolean for the walking animation
         boolean hasMoved = false;
+        int currSpeed = this.speed;
+        if (isSlowed) this.speed = speed / 2;
 
         if (keysPressed[KeyEvent.VK_D] && !isOnLadder) {
             if (canMove) {
@@ -139,9 +161,7 @@ public class Player {
                 if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationRight;
                 hasMoved = true;
             }
-
             direction = 1;
-
         }
 
         if (keysPressed[KeyEvent.VK_A] && !isOnLadder) {
@@ -154,9 +174,12 @@ public class Player {
             direction = -1;
         }
 
+        this.speed = currSpeed;
+
         if (keysPressed[KeyEvent.VK_SHIFT] && (lastDash + dashCooldown < System.currentTimeMillis()) && canMove && !isDashing && !isOnLadder) {
             isDashing = true;
-            currentDashForce = dashForce;
+            if (isSlowed) currentDashForce = dashForce / 2;
+            else currentDashForce = dashForce;
             lastDash = System.currentTimeMillis();
         }
 
@@ -264,8 +287,51 @@ public class Player {
         SaxionApp.add(img);
     }
 
+    private void checkDamageModifiers() {
+        // Poison check
+        if (isPoisoned) {
+            if (lastPoisoned + poisonDamageDelay < System.currentTimeMillis() && poisonCount < 5) {
+                if (health > 1) {
+                    health--; // start animatie ofzo
+                }
+                lastPoisoned = System.currentTimeMillis();
+            } else if (poisonCount >= 5) {
+                isPoisoned = false;
+                poisonCount = 0;
+            }
+        }
+
+        if (isBleeding) {
+            if (lastBled + bleedDamageDelay < System.currentTimeMillis() && bleedCount < 5) {
+                health--; // start animatie ofzo
+                lastBled = System.currentTimeMillis();
+            } else if (bleedCount >= 5) {
+                isBleeding = false;
+                bleedCount = 0;
+            }
+        }
+    }
+
+    public void applyPoison() {
+        isPoisoned = true;
+        poisonCount = 0;
+        lastPoisoned = System.currentTimeMillis();
+    }
+
+    public void applyBleeding() {
+        isBleeding = true;
+        bleedCount = 0;
+        lastBled = System.currentTimeMillis();
+    }
+
+    public void applySlowness() {
+        isSlowed = true;
+        slowStart = System.currentTimeMillis();
+    }
+
     public void update() {
         draw();
+        checkDamageModifiers();
         move();
     }
 }

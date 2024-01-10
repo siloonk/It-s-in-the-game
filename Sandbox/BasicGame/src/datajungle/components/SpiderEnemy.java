@@ -3,7 +3,6 @@ package datajungle.components;
 import datajungle.scenes.Scene;
 import datajungle.systems.Collider;
 import datajungle.Settings;
-import datajungle.scenes.ForestLevelScene;
 import datajungle.systems.Animation;
 import datajungle.systems.CollisionManager;
 import datajungle.systems.Spritesheet;
@@ -42,11 +41,15 @@ public class SpiderEnemy extends Enemy {
     int speed = 1;
     boolean isGrounded = false;
     int direction = 1; // sets the direction for where the enemy comes from
+    PC pc;
+    Scene scene;
 
-    public SpiderEnemy(int x, int y, int direction) {
+    public SpiderEnemy(int x, int y, int direction, PC pc, Scene scene) {
         super(x, y, direction);
+        this.pc = pc;
         this.collider = new Collider(x, y, w, h, DAMAGE);
         this.direction = direction;
+        this.scene = scene;
 
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(200);
@@ -74,20 +77,20 @@ public class SpiderEnemy extends Enemy {
     private void move() {
         this.x += this.speed * direction;
 
-        if (lastAttack + attackTimer < System.currentTimeMillis() && (x == 590 - w || x == 620 + w)) {
-            ForestLevelScene.pc.damage(attack);
+        if (lastAttack + attackTimer < System.currentTimeMillis() && (x == pc.pcCollider.getX() - w || x == pc.pcCollider.getX() + pc.pcCollider.getWidth())) {
+            pc.damage(attack);
             lastAttack = System.currentTimeMillis();
         }
 
-        if (x == 590 - w) {
+        if (x == pc.pcCollider.getX() - w) {
             this.x -= this.speed;
             currentAnimation = enemyDamageRight;
         }
-        if (x == 620 + w) {
+        if (x == pc.pcCollider.getX() + pc.pcCollider.getWidth()) {
             this.x += this.speed;
             currentAnimation = enemyDamageLeft;
         }
-        // Check if the player is on the ground
+        // Check if the enemy is on the ground
         isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
 
         if (!isGrounded || yVelocity < 0) {
@@ -105,7 +108,7 @@ public class SpiderEnemy extends Enemy {
     public void damage(int damage) {
         this.health -= damage;
         if (health <= 0)
-            ForestLevelScene.killEnemy(this);
+            scene.killEnemy(this);
     }
 
     private void draw() {

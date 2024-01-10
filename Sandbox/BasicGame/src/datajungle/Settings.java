@@ -9,4 +9,5 @@ public class Settings {
     public static int DAMAGE = 1;
     public static int LADDER = 2;
     public static int UTIL = 3;
+    public static int PC = 4;
 }

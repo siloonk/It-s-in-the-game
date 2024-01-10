@@ -42,8 +42,8 @@ public class ForestLevelScene extends Scene {
         playSound("background.wav", true);
         enemies.clear();
         spawnpoints.clear();
-        pc = new PC(SaxionApp.getWidth() / 2, 467, SnowLevelScene.class, 100, 100);
-        enemy = new SpiderEnemy(-100,0,-1);
+        pc = new PC(SaxionApp.getWidth() / 2, 467, SnowLevelScene.class, 0, 100);
+        enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
         spawnpoints.add(new Spawnpoint (-32, 220, 1));
@@ -64,7 +64,7 @@ public class ForestLevelScene extends Scene {
                 // Spawn a new enemy and add it to the list
                 int whereComeFrom = SaxionApp.getRandomValueBetween(0,4); // 0, 1, 2, 3
                 Spawnpoint point = spawnpoints.get(whereComeFrom);
-                enemy = new SpiderEnemy(point.x, point.y, point.direction);
+                enemy = new SpiderEnemy(point.x, point.y, point.direction, pc, this);
                 enemies.add(enemy);
                 time = SaxionApp.getRandomValueBetween(100,250);
         } else {
@@ -79,7 +79,8 @@ public class ForestLevelScene extends Scene {
     }
 
 
-    public static void killEnemy(Enemy enemy) {
+    @Override
+    public void killEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
 

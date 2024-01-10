@@ -1,11 +1,14 @@
 package datajungle.scenes;
 
+import datajungle.components.Enemy;
+import datajungle.components.Player;
 import datajungle.systems.CollisionManager;
 
 public abstract class Scene {
 
     private String name;
     private boolean isRunning = false;
+    public Player player;
 
 
     // Initialiseer een Scene object met een naam een een boolean isRunning
@@ -43,8 +46,7 @@ public abstract class Scene {
         return name;
     }
 
+    public void killEnemy(Enemy enemy) {
 
-
-
-
+    }
 }

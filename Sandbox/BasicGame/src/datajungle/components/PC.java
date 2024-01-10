@@ -1,8 +1,10 @@
 package datajungle.components;
 
 import datajungle.BasicGame;
+import datajungle.Settings;
 import datajungle.scenes.GameOverScene;
 import datajungle.scenes.Scene;
+import datajungle.systems.Collider;
 import datajungle.systems.CollisionManager;
 import datajungle.systems.Spritesheet;
 import nl.saxion.app.SaxionApp;
@@ -15,6 +17,7 @@ public class PC {
 
     //Collider collider;
     Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 63, 64, 2);
+    Collider pcCollider;
 
     int dataTransfered;
     int dataToTransfer;
@@ -28,7 +31,7 @@ public class PC {
     private final Class<? extends Scene> nextLevel;
 
     public PC(int x, int y, Class<? extends Scene> nextLevel, int dataToTransfer, int maxHealth) {
-        //collider = new Collider(x, y, 50, 50);
+        pcCollider = new Collider(x - 40, y, 80, 50, Settings.PC);
         this.x = x;
         this.y = y;
         this.nextLevel = nextLevel;
