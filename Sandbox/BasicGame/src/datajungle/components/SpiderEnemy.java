@@ -26,7 +26,7 @@ public class SpiderEnemy extends Enemy {
     long attackTimer = 900;
     long lastAttack;
 
-    int attack = 1;
+    int attack = 0;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;

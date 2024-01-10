@@ -12,7 +12,7 @@ import static datajungle.Settings.SOLID;
 
 public class SnowLevelScene extends Scene {
 
-    public Collider mainGroundCollider = new Collider(0, 582, 1280, 138, SOLID);
+    public Collider mainGroundCollider = new Collider(0, 582, 1380, 138, SOLID);
     public Collider secondGroundCollider = new Collider(203, 535, 878, 49, SOLID);
     public Collider thirdGroundCollider = new Collider(302, 487, 680, 49, SOLID);
     public Collider fourthGroundCollider = new Collider(401, 439, 482, 49, SOLID);
@@ -23,7 +23,7 @@ public class SnowLevelScene extends Scene {
 
     public Collider topright = new Collider(993, 150, 286, 182, SOLID); // onderste
     public Collider toprighttwo = new Collider(944, 150, 336, 134, SOLID); // middeslte
-    public Collider toprightthree = new Collider(894, 150, 386, 86, SOLID); // bovenste
+    public Collider toprightthree = new Collider(894, 150, 440, 86, SOLID); // bovenste
 
 
     private static ArrayList<Enemy> enemies = new ArrayList<>();
@@ -46,9 +46,9 @@ public class SnowLevelScene extends Scene {
         Enemy enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
-        spawnpoints.add(new Spawnpoint (-32, 220, 1));
+        spawnpoints.add(new Spawnpoint (-32, 120, 1));
         spawnpoints.add(new Spawnpoint (SaxionApp.getWidth()+32, 555, -1));
-        spawnpoints.add(new Spawnpoint (SaxionApp.getWidth()+32, 220, -1));
+        spawnpoints.add(new Spawnpoint (SaxionApp.getWidth()+32, 120, -1));
     }
 
 
