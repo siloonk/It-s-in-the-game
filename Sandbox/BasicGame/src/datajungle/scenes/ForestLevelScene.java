@@ -3,6 +3,7 @@ package datajungle.scenes;
 import datajungle.Settings;
 import datajungle.components.*;
 import datajungle.systems.Collider;
+import datajungle.systems.CollisionManager;
 import nl.saxion.app.SaxionApp;
 
 import javax.sound.sampled.*;
@@ -45,8 +46,6 @@ public class ForestLevelScene extends Scene {
         ropeCollider = new Collider(251, 467, 32, 406, LADDER);
         ladderCollider = new Collider(985, 467, 45, 406, LADDER);
 
-
-
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
         playSound("background.wav", true);
         enemies.clear();
@@ -83,7 +82,7 @@ public class ForestLevelScene extends Scene {
 
     @Override
     public void close() {
-        super.close();
+        CollisionManager.clearColliders(SOLID);
         backgroundSound.stop();
         backgroundSound.close();
     }

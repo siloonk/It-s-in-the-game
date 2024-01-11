@@ -60,7 +60,7 @@ public class SnowLevelScene extends Scene {
         toprighttwo = new Collider(944, 150, 336, 134, SOLID); // middeslte
         toprightthree = new Collider(894, 150, 440, 86, SOLID); // bovenste
 
-        player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
+        player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2 - 100);
         pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 75);
         Enemy enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);

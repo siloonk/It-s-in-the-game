@@ -1,6 +1,7 @@
 package datajungle.components;
 
 import datajungle.scenes.Scene;
+import datajungle.scenes.SnowLevelScene;
 import datajungle.systems.Collider;
 import datajungle.Settings;
 import datajungle.systems.Animation;
@@ -26,7 +27,7 @@ public class SpiderEnemy extends Enemy {
     long attackTimer = 900;
     long lastAttack;
 
-    int attack = 0;
+    int attack = 5;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
@@ -81,9 +82,10 @@ public class SpiderEnemy extends Enemy {
             pc.damage(attack);
             lastAttack = System.currentTimeMillis();
         }
-
-        if ((x == 203 - w || x == 302 - w || x == 401 - w || x == 549 - w || x == 734 || x == 883 || x == 982 || x == 1081) && y > 200) {
-            y-=64;
+        if (scene instanceof SnowLevelScene) {
+            if ((x == 203 - w || x == 302 - w || x == 401 - w || x == 549 - w || x == 734 || x == 883 || x == 982 || x == 1081) && y > 200) {
+                y-=64;
+            }
         }
 
         if (x == pc.pcCollider.getX() - w) {
@@ -95,6 +97,7 @@ public class SpiderEnemy extends Enemy {
             currentAnimation = enemyDamageLeft;
         }
         // Check if the enemy is on the ground
+        if (CollisionManager.getColliders(SOLID) == null) return;
         isGrounded = collider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
 
         if (!isGrounded || yVelocity < 0) {

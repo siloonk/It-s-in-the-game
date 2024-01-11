@@ -27,7 +27,7 @@ public class Player {
     Collider groundCheckCollider = new Collider(x + 20, y + 66, 10, 30, UTIL);
 
     boolean canMove;
-    int speed = 2;
+    int speed = 3;
     long attackCooldown = 500; // Cooldown is in milliseconds
     long dashCooldown = 700; // Cooldown is in milliseconds
     long poisonDamageDelay = 1000;
@@ -78,12 +78,14 @@ public class Player {
 
     Spritesheet playerMoveSheet;
     Spritesheet playerAttackSheet;
+    Spritesheet heartsSheet;
 
     public Player(String characterSheet, String characterAttackSheet, int x, int y) {
         this.x = x;
         this.y = y;
         playerMoveSheet = new Spritesheet(characterSheet, 222, 196, 48, 96, 0);
         playerAttackSheet = new Spritesheet(characterAttackSheet, 480, 186, 48, 93, 0);
+        heartsSheet = new Spritesheet("./assets/images/sheets/hearts.png", 48, 32, 16, 16);
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
         animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerMoveSheet.getImage(2), playerMoveSheet.getImage(0), playerMoveSheet.getImage(3));
@@ -133,6 +135,7 @@ public class Player {
     }
 
     private void move() {
+        if (CollisionManager.getColliders(SOLID) == null) return;
         boolean[] keysPressed = BasicGame.keysPressed;
         boolean mouseButtonPressed = BasicGame.leftMouseButtonPressed;
 
@@ -296,6 +299,19 @@ public class Player {
         SaxionApp.add(img);
     }
 
+    private void drawHearts() {
+        int x = 100;
+        int y = 550;
+        for (int i = 0; i < 5; i++) {
+            if (i < health) {
+                Image img = heartsSheet.getImage(0).createSubImage(heartsSheet.getImage(0).getFilename(), "hearts" + i, 0, 0, 16, 16);
+                img.setX(this.x - 30 + (20 * i));
+                img.setY(this.y - 20);
+                SaxionApp.add(img);
+            }
+        }
+    }
+
     private void checkDamageModifiers() {
         // Poison check
         if (isPoisoned) {
@@ -347,5 +363,6 @@ public class Player {
         draw();
         checkDamageModifiers();
         move();
+        drawHearts();
     }
 }

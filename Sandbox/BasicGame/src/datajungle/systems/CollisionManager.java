@@ -22,4 +22,8 @@ public class CollisionManager {
     public static void clearColliders() {
         colliders = new HashMap<>();
     }
+
+    public static void clearColliders(int action) {
+        colliders.put(action, new ArrayList<>());
+    }
 }
