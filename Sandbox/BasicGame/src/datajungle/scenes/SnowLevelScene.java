@@ -39,7 +39,7 @@ public class SnowLevelScene extends Scene {
 
 
     Player player;
-    PC pc;
+    public static PC pc;
 
     public SnowLevelScene() {
         super("snow_level_scene", false);
@@ -47,6 +47,7 @@ public class SnowLevelScene extends Scene {
 
     @Override
     public void init() {
+        enemies = new ArrayList<>();
         // Colliders
         mainGroundCollider = new Collider(0, 582, 1380, 138, SOLID);// onderste
         secondGroundCollider = new Collider(203, 535, 878, 49, SOLID); // 1 boven onderste
@@ -61,7 +62,7 @@ public class SnowLevelScene extends Scene {
         toprightthree = new Collider(894, 150, 440, 86, SOLID); // bovenste
 
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2 - 100);
-        pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 1000000);
+        pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 100);
         Enemy enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
@@ -83,12 +84,9 @@ public class SnowLevelScene extends Scene {
 
     @Override
     public void update(boolean[] keysPressed) {
+        System.out.println(getEnemies().size());
         SaxionApp.drawImage("./assets/images/snowy_game_background.png", 0, 0);
         pc.update();
-        for (Collider collider : CollisionManager.getColliders(SOLID)) {
-            collider.draw();
-        }
-
         for (Enemy enemy : enemies) {
             enemy.update();
         }

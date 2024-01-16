@@ -67,8 +67,8 @@ public class BasicGame implements GameLoop {
         currentScene.close();
         CollisionManager.clearColliders();
         scene.init();
-        scene.setRunning(true);
         currentScene = scene;
+        currentScene.setRunning(true);
     }
 
 

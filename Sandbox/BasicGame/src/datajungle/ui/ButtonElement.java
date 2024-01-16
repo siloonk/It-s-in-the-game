@@ -64,11 +64,23 @@ public class ButtonElement extends UIElement {
 
     }
 
+    public ButtonElement(int x, int y, int width, int height, String text, String unfocussedImage, String focussedImage, Method function, Color color) {
+        super(x, y);
+
+        this.unfocussedImage = new Image(unfocussedImage, x, y, width, height);
+        this.focussedImage = new Image(focussedImage, x, y, width, height);
+        this.text = text;
+        this.function = function;
+        selectedImage = this.unfocussedImage;
+        this.unfocussedColor = color;
+
+    }
+
 
     private void switchImage(Image image) {
         this.selectedImage = image;
         this.selectedImage.setX(x);
-        this.selectedImage.setY(y);
+        this.selectedImage.setY(y - image.getHeight()/2);
     }
 
     private boolean isFocussed() {

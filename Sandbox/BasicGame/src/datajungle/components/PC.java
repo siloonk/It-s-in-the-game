@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class PC {
 
+
     //Collider collider;
     Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 63, 64, 2);
     Collider pcCollider;
@@ -43,7 +44,7 @@ public class PC {
     public void damage(int damage) {
         this.health -= damage;
         if (this.health <= 0) {
-            BasicGame.changeScene(new GameOverScene());
+            BasicGame.changeScene(new GameOverScene(BasicGame.currentScene));
         }
     }
 

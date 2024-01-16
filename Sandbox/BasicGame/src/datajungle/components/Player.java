@@ -361,7 +361,7 @@ public class Player {
 
     public void damage(int damage) {
         this.health -= damage;
-        if (this.health < 0) BasicGame.changeScene(new GameOverScene());
+        if (this.health < 0) BasicGame.changeScene(new GameOverScene(BasicGame.currentScene));
     }
 
     public void update() {
