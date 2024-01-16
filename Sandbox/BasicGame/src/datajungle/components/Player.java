@@ -158,7 +158,6 @@ public class Player {
                 Collider collidingCollider = collider.getCollidingCollider(CollisionManager.getColliders(SOLID), direction * -1);
                 int dir = 1;
                 if (collidingCollider.getX() > this.x) dir = -1;
-                System.out.println(dir);
                 this.x += this.speed * dir;
             }
 
