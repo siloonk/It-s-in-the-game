@@ -73,6 +73,21 @@ public class Collider {
         return false;
     }
 
+    public Collider getCollidingCollider(ArrayList<Collider> colliders, int direction) {
+        for (Collider collider : colliders) {
+            if (collider == this) continue;
+            boolean isColliding;
+            if (this.x < collider.x) {
+                direction *= -1;
+                isColliding = this.x + direction < collider.x + collider.width && this.x + this.width > collider.x + direction && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+            } else {
+                isColliding = this.x + direction < collider.x + collider.width && this.x + this.width > collider.x + direction && this.y + 10 < collider.y + collider.height && this.y + this.height > collider.y + 10;
+            }
+            if (isColliding) return collider;
+        }
+        return null;
+    }
+
     public float distance(Collider other) {
         return (float) (Math.max(this.x, other.x) - Math.min(this.x, other.x));
     }

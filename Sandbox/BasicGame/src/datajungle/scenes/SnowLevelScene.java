@@ -4,10 +4,10 @@ import datajungle.Settings;
 import datajungle.components.*;
 import datajungle.systems.Collider;
 import datajungle.systems.CollisionManager;
+import datajungle.Settings.*;
 import nl.saxion.app.SaxionApp;
 
 import javax.sound.sampled.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class SnowLevelScene extends Scene {
         toprightthree = new Collider(894, 150, 440, 86, SOLID); // bovenste
 
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2 - 100);
-        pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 75);
+        pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 1000000);
         Enemy enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
@@ -85,6 +85,9 @@ public class SnowLevelScene extends Scene {
     public void update(boolean[] keysPressed) {
         SaxionApp.drawImage("./assets/images/snowy_game_background.png", 0, 0);
         pc.update();
+        for (Collider collider : CollisionManager.getColliders(SOLID)) {
+            collider.draw();
+        }
 
         for (Enemy enemy : enemies) {
             enemy.update();
