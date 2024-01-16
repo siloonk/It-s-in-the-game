@@ -36,7 +36,8 @@ public class Player {
     int jumpForce = -11;
     int dashForce = 20;
     int yVelocity = 0;
-    int health = 10;
+    public int health;
+    int maxHealth = 10;
 
     int poisonCount = 0;
     int bleedCount = 0;
@@ -83,9 +84,10 @@ public class Player {
     public Player(String characterSheet, String characterAttackSheet, int x, int y) {
         this.x = x;
         this.y = y;
+        this.health = maxHealth;
         playerMoveSheet = new Spritesheet(characterSheet, 222, 196, 48, 96, 0);
         playerAttackSheet = new Spritesheet(characterAttackSheet, 480, 186, 48, 93, 0);
-        heartsSheet = new Spritesheet("./assets/images/sheets/hearts.png", 48, 32, 16, 16);
+        heartsSheet = new Spritesheet("./assets/images/sheets/hearts.png", 48, 32, 16, 16, 0);
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
         animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerMoveSheet.getImage(2), playerMoveSheet.getImage(0), playerMoveSheet.getImage(3));
@@ -307,14 +309,53 @@ public class Player {
     private void drawHearts() {
         int x = 100;
         int y = 550;
-        for (int i = 0; i < 5; i++) {
-            if (i < health) {
-                Image img = heartsSheet.getImage(0).createSubImage(heartsSheet.getImage(0).getFilename(), "hearts" + i, 0, 0, 16, 16);
-                img.setX(this.x - 30 + (20 * i));
+        int fullHearts = health / 2;
+        boolean hasHalfHeart = health % 2 != 0;
+        int startIndex = 0;
+        if (isPoisoned) startIndex = 3;
+        int heart = 0;
+        if (!isPoisoned) {
+            for (int i = 0; heart < fullHearts; heart++) {
+                Image img = heartsSheet.getImage(0).createSubImage(heartsSheet.getImage(0).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
+
+                img.setX(this.x - 30 + (20 * heart));
+                img.setY(this.y - 20);
+                SaxionApp.add(img);
+            }
+            if (hasHalfHeart) {
+                Image img = heartsSheet.getImage( 1).createSubImage(heartsSheet.getImage(1).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
+                img.setX(this.x - 30 + (20 * heart));
+                img.setY(this.y - 20);
+                SaxionApp.add(img);
+            }
+            for (int i = 0; heart < this.maxHealth / 2; heart++) {
+                Image img = heartsSheet.getImage(2).createSubImage(heartsSheet.getImage(2).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
+                img.setX(this.x - 30 + (20 * heart));
+                img.setY(this.y - 20);
+                SaxionApp.add(img);
+            }
+        } else {
+            for (int i = 0; heart < fullHearts; heart++) {
+                Image img = heartsSheet.getImage(3).createSubImage(heartsSheet.getImage(3).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
+                System.out.println(img.getFilename());
+                img.setX(this.x - 30 + (20 * heart));
+                img.setY(this.y - 20);
+                SaxionApp.add(img);
+            }
+            if (hasHalfHeart) {
+                Image img = heartsSheet.getImage(4).createSubImage(heartsSheet.getImage(4).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
+                img.setX(this.x - 30 + (20 * heart));
+                img.setY(this.y - 20);
+                SaxionApp.add(img);
+            }
+            for (int i = 0; heart < this.maxHealth / 2; heart++) {
+                Image img = heartsSheet.getImage(5).createSubImage(heartsSheet.getImage(5).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
+                img.setX(this.x - 30 + (20 * heart));
                 img.setY(this.y - 20);
                 SaxionApp.add(img);
             }
         }
+
     }
 
     private void checkDamageModifiers() {
@@ -343,18 +384,22 @@ public class Player {
     }
 
     public void applyPoison() {
+        if (isPoisoned) return;
         isPoisoned = true;
         poisonCount = 0;
         lastPoisoned = System.currentTimeMillis();
+        System.out.println("Poisoned!");
     }
 
     public void applyBleeding() {
+        if (isBleeding) return;
         isBleeding = true;
         bleedCount = 0;
         lastBled = System.currentTimeMillis();
     }
 
     public void applySlowness() {
+        if (isSlowed) return;
         isSlowed = true;
         slowStart = System.currentTimeMillis();
     }

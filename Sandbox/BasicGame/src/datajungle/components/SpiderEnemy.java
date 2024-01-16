@@ -27,6 +27,9 @@ public class SpiderEnemy extends Enemy {
     long attackTimer = 900;
     long lastAttack;
 
+    long playerAttackCooldown = 1000;
+    long lastPlayerAttack;
+
     int attack = 5;
 
     Animation enemyWalkRight;
@@ -85,6 +88,23 @@ public class SpiderEnemy extends Enemy {
         if (scene instanceof SnowLevelScene) {
             if ((x == 203 - w || x == 302 - w || x == 401 - w || x == 549 - w || x == 734 || x == 883 || x == 982 || x == 1081) && y > 200) {
                 y-=64;
+            }
+        }
+
+
+        // Check of enemy bij player is
+        if (scene.player != null && collider.isColliding(scene.player.collider, 0, 0) && this.health > 0) {
+            // Check of enemy player mag damagen
+            if (lastPlayerAttack + playerAttackCooldown < System.currentTimeMillis()) {
+                if (direction == 1) currentAnimation = enemyDamageRight;
+                if (direction == -1) currentAnimation = enemyDamageLeft;
+                scene.player.damage(1);
+
+                // 30% chance to inflict bleeding
+                int random = SaxionApp.getRandomValueBetween(0, 100);
+                if (random < 30) scene.player.applyPoison();
+
+                lastPlayerAttack = System.currentTimeMillis();
             }
         }
 
