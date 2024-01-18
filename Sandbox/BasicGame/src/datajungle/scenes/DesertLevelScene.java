@@ -1,9 +1,7 @@
 package datajungle.scenes;
 
 import datajungle.Settings;
-import datajungle.components.Enemy;
-import datajungle.components.PC;
-import datajungle.components.Player;
+import datajungle.components.*;
 import datajungle.systems.Collider;
 import nl.saxion.app.SaxionApp;
 
@@ -15,12 +13,17 @@ import java.util.List;
 
 public class DesertLevelScene extends Scene{
 
-    List<Enemy> enemies;
+    int time = 10;
+
     Collider groundCollider;
 
     Player player;
     PC pc;
     Clip backgroundSound;
+
+    private static ArrayList<Enemy> enemies = new ArrayList<>();
+
+    private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
     public DesertLevelScene() {
         super("desert_level_scene", false);
@@ -33,13 +36,30 @@ public class DesertLevelScene extends Scene{
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, 480);
         pc = new PC(SaxionApp.getWidth() / 2, 469, SnowLevelScene.class, 30, 100);
         playSound("Desert_level.wav", true);
+        spawnpoints.add(new Spawnpoint(0, 100, 1));
+        spawnpoints.add(new Spawnpoint(SaxionApp.getWidth()-80, 100, -1));
     }
 
     @Override
     public void update(boolean[] keysPressed) {
         SaxionApp.drawImage("./assets/images/desert_background.png", 0, 0);
-        pc.update();
 
+        for (Enemy enemy : enemies) {
+            enemy.update();
+        }
+
+        if (time == 0) {
+            // Spawn a new enemy and add it to the list
+            int whereComeFrom = SaxionApp.getRandomValueBetween(0,spawnpoints.size());
+            Spawnpoint point = spawnpoints.get(whereComeFrom);
+            Enemy enemy = new VultureEnemy(point.x, point.y, point.direction, pc, this);
+            enemies.add(enemy);
+            time = SaxionApp.getRandomValueBetween(100,250);
+        } else {
+            time--;
+        }
+
+        pc.update();
         player.update();
     }
 
