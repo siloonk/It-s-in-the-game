@@ -69,7 +69,7 @@ public class SnowLevelScene extends Scene {
         spawnpoints.add(new Spawnpoint (-32, 120, 1));
         spawnpoints.add(new Spawnpoint (SaxionApp.getWidth()+32, 555, -1));
         spawnpoints.add(new Spawnpoint (SaxionApp.getWidth()+32, 120, -1));
-        playSound("background.wav", true);
+        playSound("Sneeuw_level.wav", true);
     }
 
     @Override

@@ -7,6 +7,9 @@ import datajungle.components.Player;
 import datajungle.systems.Collider;
 import nl.saxion.app.SaxionApp;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class DesertLevelScene extends Scene{
 
     Player player;
     PC pc;
+    Clip backgroundSound;
 
     public DesertLevelScene() {
         super("desert_level_scene", false);
@@ -28,6 +32,7 @@ public class DesertLevelScene extends Scene{
         groundCollider = new Collider(0, 588, 1300, 132, Settings.SOLID);
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, 500);
         pc = new PC(SaxionApp.getWidth() / 2, 469, SnowLevelScene.class, 150, 100);
+        playSound("Desert_level.wav", true);
     }
 
     @Override
@@ -46,5 +51,19 @@ public class DesertLevelScene extends Scene{
     @Override
     public List<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public void playSound(String soundFile, boolean loop){
+        try {
+            File f = new File("./assets/sounds/" + soundFile);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            backgroundSound = clip;
+            if (loop) backgroundSound.loop(-1);
+            else backgroundSound.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
