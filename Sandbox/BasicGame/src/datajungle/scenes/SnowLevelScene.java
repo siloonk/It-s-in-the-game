@@ -62,7 +62,7 @@ public class SnowLevelScene extends Scene {
         toprightthree = new Collider(894, 150, 440, 86, SOLID); // bovenste
 
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2 - 100);
-        pc = new PC(SaxionApp.getWidth() / 2, 274, SnowLevelScene.class, 150, 100);
+        pc = new PC(SaxionApp.getWidth() / 2, 274, DesertLevelScene.class, 200, 100);
         Enemy enemy = new SpiderEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 555, 1));
@@ -102,6 +102,9 @@ public class SnowLevelScene extends Scene {
         }
 
         player.update();
+        for (Collider c: CollisionManager.getColliders(SOLID)) {
+            c.draw();
+        }
     }
 
     public void playSound(String soundFile, boolean loop){

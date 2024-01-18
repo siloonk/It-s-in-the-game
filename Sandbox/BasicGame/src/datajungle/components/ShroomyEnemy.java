@@ -1,7 +1,6 @@
 package datajungle.components;
 
 import datajungle.scenes.Scene;
-import datajungle.scenes.SnowLevelScene;
 import datajungle.systems.Collider;
 import datajungle.Settings;
 import datajungle.systems.Animation;
@@ -15,9 +14,9 @@ import java.awt.*;
 import static datajungle.Settings.DAMAGE;
 import static datajungle.Settings.SOLID;
 
-public class SpiderEnemy extends Enemy {
-    int w = 64;
-    int h = 32;
+public class ShroomyEnemy extends Enemy {
+    int w = 100;
+    int h = 64;
 
     int health = 3; // enemy health
 
@@ -30,7 +29,7 @@ public class SpiderEnemy extends Enemy {
     long playerAttackCooldown = 1000;
     long lastPlayerAttack;
 
-    int attack = 6;
+    int attack = 0;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
@@ -39,7 +38,8 @@ public class SpiderEnemy extends Enemy {
 
     Animation currentAnimation; // makes an animation for all possible animations of the spider
 
-    Spritesheet enemyMoveSheet = new Spritesheet("./assets/images/sheets/spider.png", 448, 64, 64, 32, 0);
+    Spritesheet enemyMoveSheet = new Spritesheet("./assets/images/sheets/shroomy_walk.png", 300, 128, 100, 64, 0);
+    Spritesheet enemyAttackSheet = new Spritesheet("./assets/images/sheets/shroomy_attack.png", 300, 128, 100, 64, 0);
 
 
     int speed = 1;
@@ -48,7 +48,7 @@ public class SpiderEnemy extends Enemy {
     PC pc;
     Scene scene;
 
-    public SpiderEnemy(int x, int y, int direction, PC pc, Scene scene) {
+    public ShroomyEnemy(int x, int y, int direction, PC pc, Scene scene) {
         super(x, y, direction);
         this.pc = pc;
         this.collider = new Collider(x, y, w, h, DAMAGE);
@@ -57,22 +57,22 @@ public class SpiderEnemy extends Enemy {
 
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(200);
-        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(11), enemyMoveSheet.getImage(12), enemyMoveSheet.getImage(11), enemyMoveSheet.getImage(13));
-        enemyWalkRight = animBuilder.build();
-
-        animBuilder = new Animation.Builder();
-        animBuilder.setAnimationSwitchDelay(200);
         animBuilder.setAnimationSprites(enemyMoveSheet.getImage(0), enemyMoveSheet.getImage(1), enemyMoveSheet.getImage(0), enemyMoveSheet.getImage(2));
         enemyWalkLeft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(200);
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(3), enemyMoveSheet.getImage(4), enemyMoveSheet.getImage(3), enemyMoveSheet.getImage(5));
+        enemyWalkRight = animBuilder.build();
+
+        animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
-        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(5), enemyMoveSheet.getImage(3), enemyMoveSheet.getImage(4));
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(0), enemyAttackSheet.getImage(0), enemyAttackSheet.getImage(1), enemyAttackSheet.getImage(2));
         enemyDamageLeft = animBuilder.build();
 
         animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
-        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(8), enemyMoveSheet.getImage(10), enemyMoveSheet.getImage(9));
+        animBuilder.setAnimationSprites(enemyMoveSheet.getImage(3), enemyAttackSheet.getImage(3), enemyAttackSheet.getImage(4), enemyAttackSheet.getImage(5));
         enemyDamageRight = animBuilder.build(); // makes all the animations for all directions
 
         if (direction == 1) {currentAnimation = enemyWalkRight;}
@@ -85,11 +85,7 @@ public class SpiderEnemy extends Enemy {
             pc.damage(attack);
             lastAttack = System.currentTimeMillis();
         }
-        if (scene instanceof SnowLevelScene) {
-            if ((x == 203 - w || x == 302 - w || x == 401 - w || x == 549 - w || x == 734 || x == 883 || x == 982 || x == 1081) && y > 200) {
-                y-=64;
-            }
-        }
+
 
 
         // Check of enemy bij player is

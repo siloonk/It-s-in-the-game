@@ -27,9 +27,9 @@ public class Player {
     Collider groundCheckCollider = new Collider(x + 20, y + 66, 10, 30, UTIL);
 
     boolean canMove;
-    int speed = 3;
-    long attackCooldown = 500; // Cooldown is in milliseconds
-    long dashCooldown = 700; // Cooldown is in milliseconds
+    int speed = 2;
+    long attackCooldown = 0; // Cooldown is in milliseconds
+    long dashCooldown = 0; // Cooldown is in milliseconds
     long poisonDamageDelay = 1000;
     long bleedDamageDelay = 1000;
     int damage = 1;
@@ -155,7 +155,7 @@ public class Player {
         boolean canMove = !collider.isColliding(CollisionManager.getColliders(SOLID), direction);
         if (!canMove && !isOnLadder) {
             if (!collider.isColliding(CollisionManager.getColliders(SOLID), direction * -1))
-                this.x += this.speed * (direction * -1);
+                this.x = this.x; //this.speed * (direction * -1);
             else if (collider.isColliding(CollisionManager.getColliders(SOLID), direction * -5) && isGrounded)
                 canMove = true;
             else {
