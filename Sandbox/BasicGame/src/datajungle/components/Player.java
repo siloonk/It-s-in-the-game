@@ -28,8 +28,8 @@ public class Player {
 
     boolean canMove;
     int speed = 2;
-    long attackCooldown = 0; // Cooldown is in milliseconds
-    long dashCooldown = 0; // Cooldown is in milliseconds
+    long attackCooldown = 500; // Cooldown is in milliseconds
+    long dashCooldown = 700; // Cooldown is in milliseconds
     long poisonDamageDelay = 1000;
     long bleedDamageDelay = 1000;
     int damage = 1;
