@@ -102,9 +102,6 @@ public class SnowLevelScene extends Scene {
         }
 
         player.update();
-        for (Collider c: CollisionManager.getColliders(SOLID)) {
-            c.draw();
-        }
     }
 
     public void playSound(String soundFile, boolean loop){

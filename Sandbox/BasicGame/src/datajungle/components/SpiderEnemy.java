@@ -30,7 +30,7 @@ public class SpiderEnemy extends Enemy {
     long playerAttackCooldown = 1000;
     long lastPlayerAttack;
 
-    int attack = 6;
+    int attack = 5;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;

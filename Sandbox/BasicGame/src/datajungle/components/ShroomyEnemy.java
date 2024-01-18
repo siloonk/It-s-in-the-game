@@ -29,7 +29,7 @@ public class ShroomyEnemy extends Enemy {
     long playerAttackCooldown = 1000;
     long lastPlayerAttack;
 
-    int attack = 0;
+    int attack = 3;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
