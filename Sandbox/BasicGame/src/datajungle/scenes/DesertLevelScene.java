@@ -30,7 +30,6 @@ public class DesertLevelScene extends Scene{
         pc = new PC(SaxionApp.getWidth() / 2, 469, SnowLevelScene.class, 150, 100);
     }
 
-
     @Override
     public void update(boolean[] keysPressed) {
         SaxionApp.drawImage("./assets/images/desert_background.png", 0, 0);

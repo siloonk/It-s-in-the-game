@@ -80,6 +80,7 @@ public class Player {
     Spritesheet playerMoveSheet;
     Spritesheet playerAttackSheet;
     Spritesheet heartsSheet;
+    Spritesheet poisonHeartSheet;
 
     public Player(String characterSheet, String characterAttackSheet, int x, int y) {
         this.x = x;
@@ -87,7 +88,8 @@ public class Player {
         this.health = maxHealth;
         playerMoveSheet = new Spritesheet(characterSheet, 222, 196, 48, 96, 0);
         playerAttackSheet = new Spritesheet(characterAttackSheet, 480, 186, 48, 93, 0);
-        heartsSheet = new Spritesheet("./assets/images/sheets/hearts.png", 48, 32, 16, 16, 0);
+        heartsSheet = new Spritesheet("./assets/images/sheets/hearts.png", 48, 16, 16, 16, 0);
+        poisonHeartSheet = new Spritesheet("./assets/images/sheets/poisonhearts.png", 48, 16, 16, 16, 0);
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(300);
         animBuilder.setAnimationSprites(playerMoveSheet.getImage(0), playerMoveSheet.getImage(2), playerMoveSheet.getImage(0), playerMoveSheet.getImage(3));
@@ -309,53 +311,48 @@ public class Player {
     private void drawHearts() {
         int x = 100;
         int y = 550;
+        //img.setX(this.x - 30 + (20 * heart));
+        //img.setY(this.y - 20);
         int fullHearts = health / 2;
-        boolean hasHalfHeart = health % 2 != 0;
-        int startIndex = 0;
-        if (isPoisoned) startIndex = 3;
-        int heart = 0;
-        if (!isPoisoned) {
-            for (int i = 0; heart < fullHearts; heart++) {
-                Image img = heartsSheet.getImage(0).createSubImage(heartsSheet.getImage(0).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
+        boolean hasHalfHeart = health % 2 == 1;
 
-                img.setX(this.x - 30 + (20 * heart));
-                img.setY(this.y - 20);
+        for (int i = 0; i < maxHealth / 2; i++) {
+            if (i < fullHearts && !isPoisoned) {
+                Image img = heartsSheet.getImage(0).createSubImage(heartsSheet.getImage(0).getFilename(), "hearts"+i+"noPoision", 0, 0, 16, 16);
+                img.setX(this.x - 25 + (i * 20));
+                img.setY(this.y - 25);
+                SaxionApp.add(img);
+            } else if (!isPoisoned && hasHalfHeart) {
+                Image img = heartsSheet.getImage(1).createSubImage(heartsSheet.getImage(1).getFilename(), "hearts"+i+"noPoision", 0, 0, 16, 16);
+                img.setX(this.x - 25 + (i * 20));
+                img.setY(this.y - 25);
+                SaxionApp.add(img);
+                hasHalfHeart = false;
+            } else if (!isPoisoned) {
+                Image img = heartsSheet.getImage(2).createSubImage(heartsSheet.getImage(2).getFilename(), "hearts"+i+"noPoision", 0, 0, 16, 16);
+                img.setX(this.x - 25 + (i * 20));
+                img.setY(this.y - 25);
                 SaxionApp.add(img);
             }
-            if (hasHalfHeart) {
-                Image img = heartsSheet.getImage( 1).createSubImage(heartsSheet.getImage(1).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
-                img.setX(this.x - 30 + (20 * heart));
-                img.setY(this.y - 20);
+
+            if (i < fullHearts && isPoisoned) {
+                Image img = poisonHeartSheet.getImage(0).createSubImage(poisonHeartSheet.getImage(0).getFilename(), "hearts"+i+"Poison", 0, 0, 16, 16);
+                img.setX(this.x - 25 + (i * 20));
+                img.setY(this.y - 25);
                 SaxionApp.add(img);
-            }
-            for (int i = 0; heart < this.maxHealth / 2; heart++) {
-                Image img = heartsSheet.getImage(2).createSubImage(heartsSheet.getImage(2).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
-                img.setX(this.x - 30 + (20 * heart));
-                img.setY(this.y - 20);
+            } else if (isPoisoned && hasHalfHeart) {
+                Image img = poisonHeartSheet.getImage(1).createSubImage(poisonHeartSheet.getImage(1).getFilename(), "hearts"+i+"Poison", 0, 0, 16, 16);
+                img.setX(this.x - 25 + (i * 20));
+                img.setY(this.y - 25);
                 SaxionApp.add(img);
-            }
-        } else {
-            for (int i = 0; heart < fullHearts; heart++) {
-                Image img = heartsSheet.getImage(3).createSubImage(heartsSheet.getImage(3).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
-                System.out.println(img.getFilename());
-                img.setX(this.x - 30 + (20 * heart));
-                img.setY(this.y - 20);
-                SaxionApp.add(img);
-            }
-            if (hasHalfHeart) {
-                Image img = heartsSheet.getImage(4).createSubImage(heartsSheet.getImage(4).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
-                img.setX(this.x - 30 + (20 * heart));
-                img.setY(this.y - 20);
-                SaxionApp.add(img);
-            }
-            for (int i = 0; heart < this.maxHealth / 2; heart++) {
-                Image img = heartsSheet.getImage(5).createSubImage(heartsSheet.getImage(5).getFilename(), "hearts" + heart + "IsPoisoned:" + isPoisoned, 0, 0, 16, 16);
-                img.setX(this.x - 30 + (20 * heart));
-                img.setY(this.y - 20);
+                hasHalfHeart = false;
+            } else if (isPoisoned) {
+                Image img = poisonHeartSheet.getImage(2).createSubImage(poisonHeartSheet.getImage(2).getFilename(), "hearts"+i+"noPoison", 0, 0, 16, 16);
+                img.setX(this.x - 25 + (i * 20));
+                img.setY(this.y - 25);
                 SaxionApp.add(img);
             }
         }
-
     }
 
     private void checkDamageModifiers() {
