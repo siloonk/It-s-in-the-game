@@ -26,6 +26,7 @@ public class SpiderEnemy extends Enemy {
 
     long attackTimer = 900;
     long lastAttack;
+    int jumpForce = -11;
 
     long playerAttackCooldown = 1000;
     long lastPlayerAttack;
@@ -87,7 +88,7 @@ public class SpiderEnemy extends Enemy {
         }
         if (scene instanceof SnowLevelScene) {
             if ((x == 203 - w || x == 302 - w || x == 401 - w || x == 549 - w || x == 734 || x == 883 || x == 982 || x == 1081) && y > 200) {
-                y-=64;
+                yVelocity = jumpForce;
             }
         }
 
