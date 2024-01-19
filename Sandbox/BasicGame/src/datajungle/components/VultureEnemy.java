@@ -21,6 +21,9 @@ public class VultureEnemy extends Enemy {
     int w = 80;
     int h = 64;
 
+    long lastAttack;
+    long attackTimer = 800;
+
 
     PC pc;
     Scene scene;
@@ -30,6 +33,7 @@ public class VultureEnemy extends Enemy {
     int maxHealth = 4;
     int speed = 1;
     int health;
+    int attack = 6;
 
     long flyTime = 0;
 
@@ -94,6 +98,11 @@ public class VultureEnemy extends Enemy {
         }
 
         this.x += this.speed * direction;
+
+        if (lastAttack + attackTimer < System.currentTimeMillis() && (x == pc.pcCollider.getX() - w || x == pc.pcCollider.getX() + pc.pcCollider.getWidth())) {
+            pc.damage(attack);
+            lastAttack = System.currentTimeMillis();
+        }
 
         if (x == pc.pcCollider.getX() - w) {
             this.x -= this.speed;
