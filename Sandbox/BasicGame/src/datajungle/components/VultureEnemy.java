@@ -117,7 +117,6 @@ public class VultureEnemy extends Enemy {
         SaxionApp.drawRectangle(x, y-8, w, 8);
         SaxionApp.setFill(Color.GREEN);
         SaxionApp.drawRectangle(x, y-8, (int) ((float) health / maxHealth * w), 8);
-        System.out.println(x);
     }
 
     @Override

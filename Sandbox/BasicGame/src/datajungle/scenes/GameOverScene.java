@@ -21,7 +21,6 @@ public class GameOverScene extends Scene {
     GUI gui = new GUI();
     @Override
     public void init() {
-        System.out.println(scene.getName());
         ImageElement element = new ImageElement("./assets/images/forest_gameover.png", 0, 0);
         if (scene instanceof SnowLevelScene) element = new ImageElement("./assets/images/snow_gameover.png", 0, 0);
         else if (scene instanceof DesertLevelScene) element = new ImageElement("./assets/images/desert_gameover.png", 0, 0);

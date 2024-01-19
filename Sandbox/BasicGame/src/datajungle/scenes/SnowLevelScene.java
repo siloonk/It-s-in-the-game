@@ -84,7 +84,6 @@ public class SnowLevelScene extends Scene {
 
     @Override
     public void update(boolean[] keysPressed) {
-        System.out.println(getEnemies().size());
         SaxionApp.drawImage("./assets/images/snowy_game_background.png", 0, 0);
         pc.update();
         for (Enemy enemy : enemies) {

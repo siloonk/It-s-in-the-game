@@ -385,7 +385,6 @@ public class Player {
         isPoisoned = true;
         poisonCount = 0;
         lastPoisoned = System.currentTimeMillis();
-        System.out.println("Poisoned!");
     }
 
     public void applyBleeding() {
