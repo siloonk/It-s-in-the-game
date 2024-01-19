@@ -27,8 +27,8 @@ public class VultureEnemy extends Enemy {
     boolean isGrounded = false;
     int direction;
 
-    int maxHealth = 5;
-    int speed = 2;
+    int maxHealth = 4;
+    int speed = 1;
     int health;
 
     long flyTime = 0;

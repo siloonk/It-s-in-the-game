@@ -18,9 +18,9 @@ public class ShroomyEnemy extends Enemy {
     int w = 100;
     int h = 64;
 
-    int health = 3; // enemy health
+    int health = 2; // enemy health
 
-    int maxHealth = 3; // max health
+    int maxHealth = 2; // max health
     int yVelocity; // y velocity is needed for the above enemies to drop down
 
     long attackTimer = 900;
@@ -29,7 +29,7 @@ public class ShroomyEnemy extends Enemy {
     long playerAttackCooldown = 1000;
     long lastPlayerAttack;
 
-    int attack = 3;
+    int attack = 4;
 
     Animation enemyWalkRight;
     Animation enemyWalkLeft;
