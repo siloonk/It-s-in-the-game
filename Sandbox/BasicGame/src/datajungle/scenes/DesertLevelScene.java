@@ -34,7 +34,7 @@ public class DesertLevelScene extends Scene{
         enemies = new ArrayList<>();
         groundCollider = new Collider(0, 588, 1300, 132, Settings.SOLID);
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, 480);
-        pc = new PC(SaxionApp.getWidth() / 2, 469, GameCompletedScene.class, 5, 100);
+        pc = new PC(SaxionApp.getWidth() / 2, 469, GameCompletedScene.class, 30, 100);
         playSound("Desert_level.wav", true);
         spawnpoints.add(new Spawnpoint(0, 100, 1));
         spawnpoints.add(new Spawnpoint(SaxionApp.getWidth()-80, 100, -1));

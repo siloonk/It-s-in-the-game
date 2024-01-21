@@ -141,10 +141,18 @@ public class ShroomyEnemy extends Enemy {
         img.setY(y);
         SaxionApp.add(img);
 
-        SaxionApp.setFill(Color.DARK_GRAY); // draws the healthbar of the enemy
-        SaxionApp.drawRectangle(x, y-8, w, 8);
-        SaxionApp.setFill(Color.GREEN);
-        SaxionApp.drawRectangle(x, y-8, (int) ((float) health / maxHealth * w), 8);
+        if (direction == 1) {
+            SaxionApp.setFill(Color.DARK_GRAY); // draws the healthbar of the enemy
+            SaxionApp.drawRectangle(x + 4, y - 8, w / 2, 8);
+            SaxionApp.setFill(Color.GREEN);
+            SaxionApp.drawRectangle(x + 4, y - 8, (int) ((float) health / maxHealth * w / 2), 8);
+        }
+        else {
+            SaxionApp.setFill(Color.DARK_GRAY); // draws the healthbar of the enemy
+            SaxionApp.drawRectangle(x + 46, y - 8, w / 2, 8);
+            SaxionApp.setFill(Color.GREEN);
+            SaxionApp.drawRectangle(x + 46, y - 8, (int) ((float) health / maxHealth * w / 2), 8);
+        }
     }
 
     @Override
