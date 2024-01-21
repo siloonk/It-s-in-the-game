@@ -30,6 +30,7 @@ public class BasicGame implements GameLoop {
         // Zet de huidige scene naar een instance van BaseScene
         currentScene = new MainMenuScene();
         // Initialiseer de scene
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         currentScene.init();
     }
 
