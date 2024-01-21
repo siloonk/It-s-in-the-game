@@ -13,25 +13,16 @@ import java.awt.*;
 public class GameCompletedScene extends Scene {
 
     Scene scene;
-    public GameCompletedScene(Scene scene) {
+    public GameCompletedScene() {
         super("game_completed_scene", false);
-        this.scene = scene;
     }
 
     GUI gui = new GUI();
     @Override
     public void init() {
-        ImageElement element = new ImageElement("./assets/images/forest_gameover.png", 0, 0);
-        if (scene instanceof SnowLevelScene) element = new ImageElement("./assets/images/snow_gameover.png", 0, 0);
-        else if (scene instanceof DesertLevelScene) element = new ImageElement("./assets/images/desert_gameover.png", 0, 0);
+        ImageElement element = new ImageElement("./assets/images/end_screen.png", 0, 0);
         gui.addElement(element);
-        gui.addElement(new ImageElement("./assets/images/gameover_text.png", SaxionApp.getWidth()/2-257, 200));
-        try {
-            gui.addElement(new ButtonElement(580, 350, "", "./assets/images/retry_unfocussed.png", "./assets/images/retry_focussed.png", getClass().getMethod("retryButtonClicked")));
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
-    }
+}
 
 
 

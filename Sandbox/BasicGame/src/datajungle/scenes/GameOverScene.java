@@ -36,6 +36,7 @@ public class GameOverScene extends Scene {
 
 
     public static void retryButtonClicked() {
+        System.out.println("YOU HAVE CLICKED THE BUTTON OML!!");
         BasicGame.changeScene(new ForestLevelScene());
     }
 
