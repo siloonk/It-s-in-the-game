@@ -47,10 +47,10 @@ public class ForestLevelScene extends Scene {
         ladderCollider = new Collider(985, 467, 45, 406, LADDER);
 
         player = new Player(Settings.selectedCharacterSheet, Settings.selectedAttackSheet, SaxionApp.getWidth()/2, SaxionApp.getHeight()/2);
-        playSound("background.wav", true);
+        playSound("background-compressed.wav", true);
         enemies.clear();
         spawnpoints.clear();
-        pc = new PC(SaxionApp.getWidth() / 2, 467, DesertLevelScene.class, 1, 100);
+        pc = new PC(SaxionApp.getWidth() / 2, 467, DesertLevelScene.class, 100, 100);
         enemy = new ShroomyEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 523, 1));
