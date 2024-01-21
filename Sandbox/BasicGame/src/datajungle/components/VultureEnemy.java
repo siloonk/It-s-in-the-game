@@ -85,6 +85,7 @@ public class VultureEnemy extends Enemy {
     public void move() {
 
         if (flyTime < System.currentTimeMillis()) {
+            if (CollisionManager.getColliders(SOLID) == null) return;
             isGrounded = groundCollider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
 
             //if (!isGrounded) this.y += SaxionApp.getRandomValueBetween(1, 2);
