@@ -39,7 +39,7 @@ public class Spritesheet {
 
         for (y = 0; y < totalHeight; y += spriteHeight) {
             for (x = 0; x < totalWidth; x += spriteWidth) {
-                sprites.add(spritesheet.createSubImage(path, x + path, Math.max(x - whiteSpace + xOffset, 0), y, spriteWidth, spriteHeight));
+                sprites.add(spritesheet.createSubImage(path, x + path, Math.max(x - whiteSpace, 0), y, spriteWidth, spriteHeight));
             }
         }
 

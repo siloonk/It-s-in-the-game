@@ -42,11 +42,14 @@ public class VultureEnemy extends Enemy {
     Animation enemyWalkLeft;
     Animation enemyDamageLeft;
     Animation enemyDamageRight;
+    Animation enemyFlyRight;
+    Animation enemyFlyLeft;
 
     Animation currentAnimation; // makes an animation for all possible animations of the spider
 
     Spritesheet vultureWalkSpritesheet = new Spritesheet("./assets/images/sheets/vulture_walk.png", 240, 128, 80, 64);
     Spritesheet vultureAttackSpritesheet = new Spritesheet("./assets/images/sheets/vulture_attack.png", 320, 128, 80, 64);
+    Spritesheet vultureFlySpritesheet = new Spritesheet("./assets/images/sheets/vulture_fly.png", 192, 160, 96, 80, 1);
 
 
     public VultureEnemy(int x, int y, int direction, PC pc, Scene scene) {
@@ -56,7 +59,7 @@ public class VultureEnemy extends Enemy {
         this.scene = scene;
         super.collider = collider;
         this.health = maxHealth;
-        this.flyTime = System.currentTimeMillis() + SaxionApp.getRandomValueBetween(0, 2000);
+        this.flyTime = System.currentTimeMillis() + SaxionApp.getRandomValueBetween(3000, 5000);
 
         Animation.Builder animBuilder = new Animation.Builder();
         animBuilder.setAnimationSwitchDelay(200);
@@ -78,13 +81,26 @@ public class VultureEnemy extends Enemy {
         animBuilder.setAnimationSprites(vultureAttackSpritesheet.getImage(4), vultureAttackSpritesheet.getImage(5), vultureAttackSpritesheet.getImage(6), vultureAttackSpritesheet.getImage(7));
         enemyDamageLeft = animBuilder.build(); // makes all the animations for all directions
 
-        if (direction == 1) {currentAnimation = enemyWalkRight;}
-        if (direction == -1) {currentAnimation = enemyWalkLeft;}
+        animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(300);
+        animBuilder.setAnimationSprites(vultureFlySpritesheet.getImage(0), vultureFlySpritesheet.getImage(1));
+        enemyFlyRight = animBuilder.build();
+
+        animBuilder = new Animation.Builder();
+        animBuilder.setAnimationSwitchDelay(300);
+        animBuilder.setAnimationSprites(vultureFlySpritesheet.getImage(2), vultureFlySpritesheet.getImage(3));
+        enemyFlyLeft = animBuilder.build();
+
+        if (direction == 1) {currentAnimation = enemyFlyRight;}
+        if (direction == -1) {currentAnimation = enemyFlyLeft;}
     }
 
     public void move() {
+        this.x += this.speed * direction;
 
         if (flyTime < System.currentTimeMillis()) {
+            if (direction == 1) currentAnimation = enemyWalkRight;
+            if (direction == -1) currentAnimation = enemyWalkLeft;
             if (CollisionManager.getColliders(SOLID) == null) return;
             isGrounded = groundCollider.isColliding(CollisionManager.getColliders(SOLID), 0, yVelocity * -1);
 
@@ -97,8 +113,6 @@ public class VultureEnemy extends Enemy {
                 yVelocity = 0;
             }
         }
-
-        this.x += this.speed * direction;
 
         if (lastAttack + attackTimer < System.currentTimeMillis() && (x == pc.pcCollider.getX() - w || x == pc.pcCollider.getX() + pc.pcCollider.getWidth())) {
             pc.damage(attack);
@@ -113,11 +127,11 @@ public class VultureEnemy extends Enemy {
             this.x += this.speed;
             currentAnimation = enemyDamageLeft;
         }
+
     }
 
     public void draw() {
-        if (isGrounded || currentAnimation.currentFrame == null)
-            currentAnimation.update();
+        currentAnimation.update();
         Image img = currentAnimation.currentFrame;
         img.setX(x);
         img.setY(y);
