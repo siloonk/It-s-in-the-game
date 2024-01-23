@@ -168,7 +168,6 @@ public class Player {
         }
 
 
-
         // Boolean for the walking animation
         boolean hasMoved = false;
         int currentSpeed = this.speed;
@@ -178,7 +177,8 @@ public class Player {
             if (canMove) {
                 if (this.x + collider.getWidth() + this.speed < SaxionApp.getWidth())
                     this.x += this.speed;
-                if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationRight;
+                if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight))
+                    currentAnimation = walkAnimationRight;
                 hasMoved = true;
             }
             direction = 1;
@@ -188,7 +188,8 @@ public class Player {
             if (canMove) {
                 if (this.x - this.speed > 0)
                     this.x -= this.speed;
-                if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight)) currentAnimation = walkAnimationLeft;
+                if (currentAnimation.isDone() || !(currentAnimation == attackLeft || currentAnimation == attackRight))
+                    currentAnimation = walkAnimationLeft;
                 hasMoved = true;
             }
             direction = -1;
@@ -309,75 +310,9 @@ public class Player {
     }
 
     private void drawHearts() {
-        int x = 100;
-        int y = 550;
-        //img.setX(this.x - 30 + (20 * heart));
-        //img.setY(this.y - 20);
-        int fullHearts = health / 2;
-        boolean hasHalfHeart = health % 2 == 1;
-
-        for (int i = 0; i < maxHealth / 2; i++) {
-            if (i < fullHearts && !isPoisoned) {
-                Image img = heartsSheet.getImage(0).createSubImage(heartsSheet.getImage(0).getFilename(), "hearts"+i+"noPoision", 0, 0, 16, 16);
-                img.setX(this.x - 25 + (i * 20));
-                img.setY(this.y - 25);
-                SaxionApp.add(img);
-            } else if (!isPoisoned && hasHalfHeart) {
-                Image img = heartsSheet.getImage(1).createSubImage(heartsSheet.getImage(1).getFilename(), "hearts"+i+"noPoision", 0, 0, 16, 16);
-                img.setX(this.x - 25 + (i * 20));
-                img.setY(this.y - 25);
-                SaxionApp.add(img);
-                hasHalfHeart = false;
-            } else if (!isPoisoned) {
-                Image img = heartsSheet.getImage(2).createSubImage(heartsSheet.getImage(2).getFilename(), "hearts"+i+"noPoision", 0, 0, 16, 16);
-                img.setX(this.x - 25 + (i * 20));
-                img.setY(this.y - 25);
-                SaxionApp.add(img);
-            }
-
-            if (i < fullHearts && isPoisoned) {
-                Image img = poisonHeartSheet.getImage(0).createSubImage(poisonHeartSheet.getImage(0).getFilename(), "hearts"+i+"Poison", 0, 0, 16, 16);
-                img.setX(this.x - 25 + (i * 20));
-                img.setY(this.y - 25);
-                SaxionApp.add(img);
-            } else if (isPoisoned && hasHalfHeart) {
-                Image img = poisonHeartSheet.getImage(1).createSubImage(poisonHeartSheet.getImage(1).getFilename(), "hearts"+i+"Poison", 0, 0, 16, 16);
-                img.setX(this.x - 25 + (i * 20));
-                img.setY(this.y - 25);
-                SaxionApp.add(img);
-                hasHalfHeart = false;
-            } else if (isPoisoned) {
-                Image img = poisonHeartSheet.getImage(2).createSubImage(poisonHeartSheet.getImage(2).getFilename(), "hearts"+i+"noPoison", 0, 0, 16, 16);
-                img.setX(this.x - 25 + (i * 20));
-                img.setY(this.y - 25);
-                SaxionApp.add(img);
-            }
-        }
     }
 
     private void checkDamageModifiers() {
-        // Poison check
-        if (isPoisoned) {
-            if (lastPoisoned + poisonDamageDelay < System.currentTimeMillis() && poisonCount < 5) {
-                if (health > 1) {
-                    health--; // start animatie ofzo
-                }
-                lastPoisoned = System.currentTimeMillis();
-            } else if (poisonCount >= 5) {
-                isPoisoned = false;
-                poisonCount = 0;
-            }
-        }
-
-        if (isBleeding) {
-            if (lastBled + bleedDamageDelay < System.currentTimeMillis() && bleedCount < 5) {
-                health--; // start animatie ofzo
-                lastBled = System.currentTimeMillis();
-            } else if (bleedCount >= 5) {
-                isBleeding = false;
-                bleedCount = 0;
-            }
-        }
     }
 
     public void applyPoison() {

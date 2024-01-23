@@ -98,8 +98,10 @@ public class PC {
         SaxionApp.drawRectangle(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
         SaxionApp.setFill(Color.GREEN);
         SaxionApp.drawRectangle(healthBarX, healthBarY, (int)((float)health/maxHealth * healthBarWidth), healthBarHeight);
-        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.setTextDrawingColor(Color.BLACK);
         SaxionApp.drawText("PC Health", healthBarX + healthBarWidth / 2 - 68, healthBarY - 35, 30);
+        SaxionApp.drawText("Defend the PC!", SaxionApp.getWidth()/2-65, 100, 20);
+
     }
 
 

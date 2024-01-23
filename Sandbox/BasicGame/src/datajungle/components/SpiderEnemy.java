@@ -92,23 +92,6 @@ public class SpiderEnemy extends Enemy {
             }
         }
 
-
-        // Check of enemy bij player is
-        if (scene.player != null && collider.isColliding(scene.player.collider, 0, 0) && this.health > 0) {
-            // Check of enemy player mag damagen
-            if (lastPlayerAttack + playerAttackCooldown < System.currentTimeMillis()) {
-                if (direction == 1) currentAnimation = enemyDamageRight;
-                if (direction == -1) currentAnimation = enemyDamageLeft;
-                scene.player.damage(1);
-
-                // 30% chance to inflict bleeding
-                int random = SaxionApp.getRandomValueBetween(0, 100);
-                if (random < 30) scene.player.applyPoison();
-
-                lastPlayerAttack = System.currentTimeMillis();
-            }
-        }
-
         if (x == pc.pcCollider.getX() - w) {
             this.x -= this.speed;
             currentAnimation = enemyDamageRight;
