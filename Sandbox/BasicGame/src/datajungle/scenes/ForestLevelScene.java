@@ -50,7 +50,7 @@ public class ForestLevelScene extends Scene {
         playSound("background-compressed.wav", true);
         enemies.clear();
         spawnpoints.clear();
-        pc = new PC(SaxionApp.getWidth() / 2, 467, SnowLevelScene.class, 30, 100);
+        pc = new PC(SaxionApp.getWidth() / 2, 467, SnowLevelScene.class, 45, 100);
         enemy = new ShroomyEnemy(-100,0,-1, pc, this);
         enemies.add(enemy);
         spawnpoints.add(new Spawnpoint (-32, 523, 1));
