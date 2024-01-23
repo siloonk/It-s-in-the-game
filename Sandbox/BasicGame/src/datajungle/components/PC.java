@@ -17,7 +17,7 @@ public class PC {
 
 
     //Collider collider;
-    Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 63, 64, 2);
+    Spritesheet sheet = new Spritesheet("./assets/images/sheets/objects.png", 192, 64, 64, 64, 2);
     Collider pcCollider;
 
     int dataTransfered;
