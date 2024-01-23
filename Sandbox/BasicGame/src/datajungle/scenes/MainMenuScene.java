@@ -99,7 +99,7 @@ public class MainMenuScene extends Scene {
 
     @Override
     public void update(boolean[] keysPressed) {
-        Image img = new Image("./assets/images/menu_backgrounds/forest_level.png", 0, 0);
+        Image img = new Image("./assets/images/forest_game_background.png", 0, 0);
         img.setColor(new Color(0,0,0,0.0f));
 
         SaxionApp.add(img);
