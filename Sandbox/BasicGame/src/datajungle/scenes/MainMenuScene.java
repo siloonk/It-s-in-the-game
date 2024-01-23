@@ -51,14 +51,13 @@ public class MainMenuScene extends Scene {
                 .setHeight(50)
                 .build();
 
-        ButtonElement exitButton = new ButtonElement(SaxionApp.getWidth() / 2 - 50, 480).builder()
-                .setText("Exit")
-                .setFocussedImage("./assets/images/blank_button.png")
-                .setUnfocussedImage("./assets/images/blank_button.png")
-                .setExecutor(exitButtonClicked)
-                .setWidth(120)
-                .setHeight(50)
-                .build();
+//        ButtonElement exitButton = new ButtonElement(SaxionApp.getWidth() / 2 - 50, 480).builder()
+//                .setText("")
+//                .setFocussedImage("./assets/images/exit_knop.png")
+//                .setUnfocussedImage("./assets/images/exit_knop2.png")
+//                .setExecutor(exitButtonClicked)
+//                .build();
+        ButtonElement exitButton = new ButtonElement(SaxionApp.getWidth()/2-50, 500, "", "./assets/images/exit_knop.png", "./assets/images/exit_knop2.png", exitButtonClicked);
 
         ButtonElement rolfSelectButton = new ButtonElement(SaxionApp.getWidth() / 2 - 200, 250, "", rolfSheet.getImage(0), rolfSheet.getImage(4), rolfSelectButtonClicked);
         ButtonElement rubenSelectButton = new ButtonElement(SaxionApp.getWidth() / 2, 250, "", rubenSheet.getImage(0), rubenSheet.getImage(4), rubenSelectButtonClicked);
