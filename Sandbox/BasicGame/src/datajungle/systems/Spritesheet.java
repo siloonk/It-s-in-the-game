@@ -2,8 +2,7 @@ package datajungle.systems;
 
 import nl.saxion.app.canvas.drawable.Image;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+
 import java.util.ArrayList;
 
 public class Spritesheet {

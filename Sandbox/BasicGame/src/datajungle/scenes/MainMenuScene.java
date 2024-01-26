@@ -42,14 +42,6 @@ public class MainMenuScene extends Scene {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        ButtonElement playButton = new ButtonElement(SaxionApp.getWidth() / 2 - 55, 390).builder()
-                .setText("Play")
-                .setFocussedImage("./assets/images/blank_button.png")
-                .setUnfocussedImage("./assets/images/blank_button.png")
-                .setExecutor(playButtonClicked)
-                .setWidth(120)
-                .setHeight(50)
-                .build();
 
 //        ButtonElement exitButton = new ButtonElement(SaxionApp.getWidth() / 2 - 50, 480).builder()
 //                .setText("")
@@ -78,6 +70,7 @@ public class MainMenuScene extends Scene {
     }
 
     public static void rubenSelectButtonClicked() {
+        System.out.println("test");
         Settings.selectedAttackSheet = "./assets/images/sheets/player_attack_ruben.png";
         Settings.selectedCharacterSheet = "./assets/images/sheets/characters_ruben.png";
         playButtonClicked();

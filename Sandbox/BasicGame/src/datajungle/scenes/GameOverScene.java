@@ -27,7 +27,7 @@ public class GameOverScene extends Scene {
         gui.addElement(element);
         gui.addElement(new ImageElement("./assets/images/gameover_text.png", SaxionApp.getWidth()/2-257, 200));
         try {
-            gui.addElement(new ButtonElement(580, 350, "", "./assets/images/retry_unfocussed.png", "./assets/images/retry_focussed.png", getClass().getMethod("retryButtonClicked")));
+            gui.addElement(new ButtonElement(580, 450, "", "./assets/images/retry_unfocussed.png", "./assets/images/retry_focussed.png", getClass().getMethod("retryButtonClicked")));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -36,8 +36,7 @@ public class GameOverScene extends Scene {
 
 
     public static void retryButtonClicked() {
-        System.out.println("YOU HAVE CLICKED THE BUTTON OML!!");
-        BasicGame.changeScene(new ForestLevelScene());
+        BasicGame.changeScene(new MainMenuScene());
     }
 
     @Override
