@@ -28,7 +28,7 @@ public class GameCompletedScene extends Scene {
             throw new RuntimeException(e);
         }
         ImageElement element = new ImageElement("./assets/images/end_screen.png", 0, 0);
-        ButtonElement buttonElement = new ButtonElement(SaxionApp.getWidth()/2-115, 500, "", "./assets/images/mainMenuButtonUnfocussed.png", "./assets/images/mainMenuButtonFocussed.png", mainMenuButtonMethod);
+        ButtonElement buttonElement = new ButtonElement(SaxionApp.getWidth()/2-115, 640, "", "./assets/images/mainMenuButtonUnfocussed.png", "./assets/images/mainMenuButtonFocussed.png", mainMenuButtonMethod);
         gui.addElement(element);
         gui.addElement(buttonElement);
     }
